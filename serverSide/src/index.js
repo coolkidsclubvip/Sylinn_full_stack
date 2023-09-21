@@ -1,14 +1,20 @@
 const express = require("express");
 const routes = require("./routes/routes");
+require("dotenv").config();
+const config = require("./config/config");
 const morgan = require("morgan");
 const app = express();
 const ApiError = require("./utils/ApiError");
-const apiErrorHandler = require("./utils/ApiErrorHandler");
+const ApiErrorHandler = require("./middleware/ApiErrorHandler");
 
-//express middleware
+// // dev debug console logs
+// const debugStartup = require('debug')('app:startup')
+
+// express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
+
 
 // route handlers
 app.use("/api", routes());
@@ -16,11 +22,12 @@ app.use("/api", routes());
 // Error handlers:
 app.use((req, res, next) => {
   next(ApiError.notFound()); // "send us to the next middleware"
-//   next(err)
+  //   next(err)
 });
-app.use(apiErrorHandler());
+app.use(ApiErrorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port:${PORT}`);
+
+app.listen(config.port, () => {
+  console.log(`Server is running on port:${config.port}`);
 });
+  
