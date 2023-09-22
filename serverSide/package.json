@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node src/index",
     "server": "nodemon src/index",
-    "debug":"DEBUG=app* & nodemon src/index"
+    "debug": "DEBUG=app* & nodemon src/index",
+    "prod": "node src/index"
   },
   "author": "lei's web dev",
   "license": "MIT",
@@ -15,6 +16,7 @@
     "debug": "^4.3.4",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "firebase-admin": "^11.10.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

@@ -1,20 +1,25 @@
+// import external libraries
 const express = require("express");
-const routes = require("./routes/routes");
-require("dotenv").config();
-const config = require("./config/config");
 const morgan = require("morgan");
-const app = express();
+require("dotenv").config();
+
+//  import internal libraries
+const config = require("./config/config");
+const routes = require("./routes/routes");
+const { dbPing } = require("./config/db");
 const ApiError = require("./utils/ApiError");
 const ApiErrorHandler = require("./middleware/ApiErrorHandler");
 
 // // dev debug console logs
-// const debugStartup = require('debug')('app:startup')
+const debugStartup = require("debug")("app:startup");
 
+//initialize application using express
+const app = express();
 // express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+debugStartup("Parsing middleware enabled on all routes");
 app.use(morgan("dev"));
-
 
 // route handlers
 app.use("/api", routes());
@@ -26,8 +31,9 @@ app.use((req, res, next) => {
 });
 app.use(ApiErrorHandler);
 
-
-app.listen(config.port, () => {
-  console.log(`Server is running on port:${config.port}`);
+// Ping DB & Set Port
+dbPing.then(() => {
+  app.listen(config.port, () =>
+    console.log(`Server is running on port: ${config.port}`)
+  );
 });
-  
