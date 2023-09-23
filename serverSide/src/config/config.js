@@ -9,4 +9,7 @@ module.exports = {
   },
 
   //auth env
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET,
+  },
 };
