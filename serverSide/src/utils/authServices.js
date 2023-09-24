@@ -1,6 +1,6 @@
 const { db } = require("../config/db");
 const config = require("../config/config");
-
+const debugAuth = require("debug")("app:authservices");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
@@ -33,7 +33,7 @@ module.exports = {
   },
 
   async userDetailsToJSON(id) {
-    // remove the password from the user details to be returned
+    // remove the password from the user details to be returned,and add id into the user object
     const user = await usersRef.doc(id).get();
 
     const userJson = _.omit(
@@ -43,6 +43,7 @@ module.exports = {
       },
       "password"
     );
+    debugAuth(userJson);
     return userJson;
   },
 
@@ -57,8 +58,8 @@ module.exports = {
   },
 
   async comparePassword(user, password) {
-    const hashPassword = user[0].password;
-    const passwordMatch = await bcrypt.compare(password, hashPassword);
+    const passwordMatch = await bcrypt.compare(password, user.password); // the order of the 2x parameters is important!!!!! plain password at front and hashed at back!!!!
+
     return passwordMatch;
   },
 };

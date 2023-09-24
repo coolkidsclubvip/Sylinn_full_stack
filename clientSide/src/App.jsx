@@ -1,23 +1,24 @@
-import { BrowserRouter as Router,Routes,Route } from "react-router-dom"
+import {Routes,Route } from "react-router-dom"
 import Home from "./pages/Home"
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-
+import Layout from "./components/layout/Layout"
+import ProductPage from "./product/ProductsPage"
+import NotFound from "./pages/NotFound"
 
 
 function App() {
 
 
   return (
-    <div className="app">
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-        {/* <Footer /> */}
-      </Router>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/products" element={<ProductPage />} />
+        {/* <Route path="/about" element={<About />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} /> */}
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 

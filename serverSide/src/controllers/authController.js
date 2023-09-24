@@ -41,7 +41,7 @@ module.exports = {
   },
 
   // Auth register: new user sign up ----POST /api/auth/register
-  async registerUser(req, res, next) {
+  async register(req, res, next) {
     try {
       const { username, email, password, isAdmin } = req.body;
 
@@ -75,7 +75,7 @@ module.exports = {
         isAdmin: isAdmin,
       });
 
-      console.log(`Success - User: ${username} registered!`);
+      console.log(`Success - User: ${username} is registered successfully!`);
 
       // convert the user details to a json object
       const userJson = await userDetailsToJSON(response.id);
@@ -93,43 +93,54 @@ module.exports = {
     }
   },
 
-  //   async login(req, res, next) {
-  //     try {
-  //       const { email, password } = req.body;
-  //       const userMatch = await findUser(email);
-  //       if (userMatch.length === 0) {
-  //         return next(ApiError.badRequest("the email does not exist"));
-  //         // Authenticate with the password check
-  //       }
-  //       const passwordMatch = await comparePassword(userMatch[0], password);
-  //       if (!passwordMatch) {
-  //         return next(
-  //           ApiError.badRequest("the credentials do not match our record")
-  //         );
-  //       }
-  //       console.log(
-  //         `sucess- User:${userMatch[0].name} is logged in successfully`
-  //       );
-  //       res.send("you are authenticated!!!!!!");
-  //       res.send("login route hit");
-  //     } catch (err) {
-  //       return next(ApiError.internal("We are unable to log you in", err));
-  //     }
-  //   },
+  async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      // to match user in DB with entered email
+      const userMatch = await findUser(email);
+      console.log("userMatch", userMatch);
+      if (userMatch.length === 0) {
+        return next(ApiError.badRequest("the email does not exist"));
+      }
+      // Authenticate with the password check
+      const passwordMatch = await comparePassword(userMatch[0], password);
+      if (!passwordMatch) {
+        return next(
+          ApiError.badRequest("the credentials do not match our record")
+        );
+      }
+      
+      console.log(
+        `sucess- User: ${userMatch[0].username} is logged in successfully`
+      );
 
-  //   async deleteUser(req, res,next) {
-  //     try{
-  //       const { email } = req.body;
-  //       const userMatch = await findUser(email)
-  //       console.log("user match is",userMatch);
-  //        if (userMatch.length === 0) {
-  //         return next(ApiError.badRequest("the email does not exist"))  }
-  //         const response = await usersRef.doc(userMatch[0].id).delete();
+        const userJson = await userDetailsToJSON(userMatch[0].id)
+           res.send({
+             token: jwtSignUser(userJson),
+             user: userJson,
+           });
 
-  //         res.send(`${email} is deleted successfully!`);
-  //        }
-  //     catch (err){
-  //       return next(ApiError.internal(`${req.body.username} can not be deleted`, err))
-  //     }
-  //   }
+   
+    } catch (err) {
+      return next(ApiError.internalError("We are unable to log you in", err));
+    }
+  },
+
+  async deleteUser(req, res, next) {
+    try {
+      const { email } = req.body;
+      const userMatch = await findUser(email);
+      console.log("user match is", userMatch);
+      if (userMatch.length === 0) {
+        return next(ApiError.badRequest("the email does not exist"));
+      }
+      const response = await usersRef.doc(userMatch[0].id).delete();
+
+      res.send(`${email} is deleted successfully!`);
+    } catch (err) {
+      return next(
+        ApiError.internalError(`${req.body.username} can not be deleted`, err)
+      );
+    }
+  },
 };
