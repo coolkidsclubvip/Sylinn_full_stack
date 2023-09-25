@@ -1,8 +1,13 @@
 import React from 'react'
+import {Spinner} from "react-bootstrap"
 
 function Loader() {
   return (
-    <div>Loader</div>
+    <div>
+
+    <Spinner/>
+
+    </div>
   )
 }
 

@@ -1,44 +1,83 @@
-import React from 'react'
+import * as styles from "./Footer.css";
+import { Container, Row, Col, Nav } from "react-bootstrap";
+import Logo_sylinn_text from "../../assets/images/Logo-sylinn-text-height30px.png";
+import fb_icon from "../../assets/images/fb_icon.png";
+import youtube_icon from "../../assets/images/youtube_icon.png";
+import instagram_icon from "../../assets/images/instagram_icon.png";
+import pinterest_logo_icon from "../../assets/images/pinterest logo_icon.png";
 
 function Footer() {
   return (
     <>
-     <div>Footer</div>
+      <div className={styles.footer}>
+        <Container fluid>
+          <Row>
+            <Col md={4} className={styles.footerNavText}>
+              <Nav.Link href="">
+                <span className={styles.footerNavTextHover}>Warranty</span>
+              </Nav.Link>{" "}
+              |{" "}
+              <Nav.Link href="">
+                <span className={styles.footerNavTextHover}>Privacy</span>
+              </Nav.Link>{" "}
+              |{" "}
+              <Nav.Link href="">
+                {" "}
+                <span className={styles.footerNavTextHover}>Disclaimer</span>
+              </Nav.Link>
+            </Col>
+            <Col md={4}>
+              <div className={styles.footerSyLogo}>
+                <img src={Logo_sylinn_text} height="30px" alt="" />
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className={styles.smLogos}>
+                <a href="">
+                  <img
+                    src={fb_icon}
+                    height="30px"
+                    alt="facebook"
+                    className={styles.smLogosHover}
+                  />
+                </a>
 
-{/* <div class="footer">
-
-<div class="content-box">
-
-<div id="hrBtm"></div>
-  <table class="f-table" >
-
-  <tr>
-    <td class="normaltext" style="font-weight:bold;"><a href="">Warranty </a>| <a href="">Privacy</a> | <a href="">Disclaimer</a></td>
-     <td  ></td> 
-    <td><img src="images/Logo-sylinn-text-height30px.png" height="25px" alt=""/></td>
-    <td ></td>
-   <td class="socialmediaTD"><a href=""><img src="images/fb_icon.png" height="30px" alt=""/></a>&nbsp;&nbsp;<a href=""><img src="images/youtube_icon.png" height="30px" alt=""/>&nbsp;&nbsp;</a><a href=""><img src="images/instagram_icon.png" height="30px" alt=""/>&nbsp;&nbsp;</a><a href=""><img src="images/pinterest%20logo_icon.png" height="30px" alt=""/></a></td>
-  </tr>
-   
-
-  <tr> <td colspan="5"> <p class="normaltext" style="font-weight:bold;">Copyright © <span id="copyright_year"></span> Sylinn Australia</p></td></tr>
-</table>  
- 
-</div>
-	  
- 
- </div>
-
-
-
-
-
-
- */}
-
-
+                <a href="">
+                  <img
+                    src={youtube_icon}
+                    height="30px"
+                    alt="youtube"
+                    className={styles.smLogosHover}
+                  />
+                </a>
+                <a href="">
+                  <img
+                    src={instagram_icon}
+                    height="30px"
+                    alt="instagram"
+                    className={styles.smLogosHover}
+                  />
+                </a>
+                <a href="">
+                  <img
+                    src={pinterest_logo_icon}
+                    height="30px"
+                    alt="pinterest"
+                    className={styles.smLogosHover}
+                  />
+                </a>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <div className={styles.copyrightText}>
+              <span>Copyright © 2023 Sylinn Australia</span>
+            </div>
+          </Row>
+        </Container>
+      </div>
     </>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
