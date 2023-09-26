@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const footer = style({
   width: "70vw",
@@ -6,7 +7,9 @@ export const footer = style({
   margin: "0 auto",
   paddingTop: 0,
   bottom: 0,
-  fontSize: "large",
+  fontFamily:vars.fonts.brand,
+  fontSize: vars.fontSizes["1x"],
+  fontWeight: vars.fontWeights["bold"],
   overflow: "visible",
   borderTop: "1px solid rgba(0, 0, 0, 0.15)",
 });
@@ -24,11 +27,8 @@ export const smLogosHover = style({
 });
 
 export const footerNavText = style({
-  fontFamily: "Futura Bk",
-  fontSize: "16px",
-  fontWeight: "bold",
   textDecoration: "none",
-  color: "rgba(0, 0, 0, 0.9)",
+  color: vars.colors.black,
   margin: "0 0 0.5rem",
   display: "flex",
   flexDirection: "row",
@@ -49,8 +49,8 @@ export const footerSyLogo = style({
 export const copyrightText = style({
   display: "flex",
   flex: 1,
-  fontSize: "1rem",
-  fontWeight: "500",
+  fontSize: vars.fontSizes["1x"],
+  fontWeight: vars.fontWeights["normal"],
   justifyContent: "center",
   paddingTop: "2rem",
 });
