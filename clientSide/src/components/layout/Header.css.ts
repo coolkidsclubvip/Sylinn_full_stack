@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
 export const header = style({
@@ -13,7 +13,6 @@ export const header = style({
   borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
   // backgroundColor: "green",
   zIndex: 99,
-
   color: vars.colors.black,
 });
 
@@ -23,22 +22,26 @@ export const navText = style({
   fontSize: vars.fontSizes["2x"],
   ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
 });
-
-
+globalStyle(`${header} a`, {
+  textDecoration: "none",
+  color: vars.colors.black,
+});
+globalStyle(`${header} a:hover`, {
+  textDecoration: "none",
+  color: vars.colors.brand,
+});
 
 /////////// search bar style//////////////
 export const headerWrapper = style({
   position: "relative",
- 
 });
 export const searchContainer = style({
   position: "absolute",
   width: "200px",
   display: "block",
-  
+
   // backgroundColor: "red",
-  margin:"1rem 12rem",
- 
+  margin: "1rem 12rem",
 });
 
 export const searchInput = style({
@@ -99,7 +102,6 @@ export const navbtn = style({
   display: "block",
   textAlign: "center",
   float: "left",
-
 });
 
 export const dropdownContent = style({
@@ -115,16 +117,13 @@ export const dropdownContent = style({
   fontSize: vars.fontSizes["1x"],
   fontWeight: vars.fontWeights.bold,
   transition: "all 1s ease-out",
- 
 });
-
 
 export const dropdownContentLink = style({
   display: "inline-block",
   width: "100%",
   paddingLeft: "4px",
   ":hover": {
- 
     backgroundColor: vars.colors.grey,
     transition: "all 0.5s ease-in-out",
   },

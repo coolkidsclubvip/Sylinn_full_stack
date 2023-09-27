@@ -50,8 +50,12 @@ console.log(titleStyle);
   return (
     <Container>
       <div className={styles.NAWraper}>
-        <p ><span className={titleStyle}>New Arrival</span> <br/>
-       <span className={textStyle}>New European desgin that is fresh off the boat</span> </p>
+        <p>
+          <span className={titleStyle}>New Arrival</span> <br />
+          <span className={textStyle}>
+            New European desgin that is fresh off the boat
+          </span>{" "}
+        </p>
         <div className={`row ${styles.NAList}`}>
           {products.map((product, index) => (
             <div className="col-md-4 col-sm-6" key={index}>
@@ -64,7 +68,7 @@ console.log(titleStyle);
                   />
                 </Link>
                 <div className={styles.NAItemText}>
-                  <h4>{product.name}</h4>
+                  <span className={styles.name}>{product.name}</span><br />
                   <span className={styles.code}>{product.code}</span>
                   <p className={styles.description}>{product.description}</p>
 

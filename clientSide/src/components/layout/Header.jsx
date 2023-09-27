@@ -1,4 +1,5 @@
 import  { useState } from "react";
+import { Link } from "react-router-dom";
 import * as styles from "./Header.css";
 import { Container, Row, Col, Navbar, Nav, Form } from "react-bootstrap";
 import Logo_sylinn_png from "../../assets/images/Logo-sylinn-png.png";
@@ -16,7 +17,9 @@ function Header() {
             </Navbar.Brand>
           </Col>
           <Col sm={6} className="d-flex justify-content-end align-items-center">
-            Login | Sign Up | Cart
+            <Link to={"/login"}>Login&nbsp;</Link> |{" "}
+            <Link to={"/register"}>&nbsp;Sign Up&nbsp;</Link>|
+            <Link>&nbsp;Cart</Link>
           </Col>
         </Row>
         {/* Nav bar bottom layer */}
@@ -29,7 +32,6 @@ function Header() {
                   <div className={styles.dropdown}>
                     <Nav.Link
                       onMouseOver={() => setIsHovered(true)}
-                    
                       path="/clientSide/src/pages/products.jsx"
                     >
                       <span className={styles.navText}>

@@ -44,11 +44,15 @@ export const NAItemImage = style({
   ":hover":{opacity: 0.8},
 });
 
-
+export const name= style({
+  fontSize: vars.fontSizes["3x"],
+  fontWeight: vars.fontWeights.bold,
+  
+});
 export const code=style({
      fontSize:vars.fontSizes["1x"],
-     fontWeight:vars.fontWeights.light,
-     opacity:0.8
+     fontWeight:vars.fontWeights.normal,
+     opacity:0.7
 })
 export const description = style({
   fontSize: vars.fontSizes["1x"],
@@ -73,83 +77,3 @@ export const button = style({
   ":hover":{backgroundColor: vars.colors.brandDark}
 });
 
-// export const titleStyle = style({
-//   color: vars.colors.black,
-//   display: "inline-block",
-//   marginTop: "10rem",
-//   fontSize: vars.fontSizes["4x"],
-//   fontWeight: vars.fontWeights.bold,
-
-// });
-
-// export const divideLineStyles = style({
-//   width: "100%",
-//   border: "0.5px solid rgba(29, 29, 29, 0.123)",
-//   margin: "10px",
-// });
-
-// .newArrival {
-//   width: 1200px;
-//   height: auto;
-//   margin-top: 50px;
-// }
-
-// .m-title {
-//   width: 500px;
-//   height: 80px;
-//   line-height: 80px;
-//   background-image: url(../images/blue-euclidean-blue-ribbon-background-blue-angle.png);
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   text-align: center;
-//   font-weight: 900;
-//   color: rgba(0, 0, 0, 0.9);
-//   margin: 10px auto;
-// }
-
-// .m-list {
-//   width: 100%;
-//   display: block;
-//   float: left;
-// }
-
-// .m-list a {
-//   width: 22%;
-//   height: 310px;
-//   overflow: hidden;
-//   float: left;
-//   /* border-radius: 10px; */
-//   display: block;
-//   box-shadow: 1px 2px 4px 2px rgba(75, 73, 73, 0.3);
-//   margin: 20px 15px;
-// }
-// .m-list a p {
-//   height: 65px;
-//   font-size: 16px;
-//   text-align: center;
-//   /* line-height: 40px; */
-//   padding: 16px;
-//   font-weight: 600;
-// }
-
-// .m-list img {
-//   opacity: 100%;
-//   width: 100%;
-//   height: 235px;
-// }
-
-// .m-list a:hover {
-//   background: #1c82c7;
-//   color: #fff;
-//   opacity: 90%;
-// }
-
-// .m-list a img {
-//   overflow: hidden;
-// }
-
-// .divideLine {
-//   width: 100%;
-//   border: 0.5px solid rgba(29, 29, 29, 0.123);
-//   margin: 10px;
-// }
