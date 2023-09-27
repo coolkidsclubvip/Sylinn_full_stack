@@ -1,4 +1,4 @@
-import { createGlobalTheme } from "@vanilla-extract/css";
+import { createGlobalTheme,style } from "@vanilla-extract/css";
 import twColors from "tailwindcss/colors";
 
 export const root = createGlobalTheme(":root", {
@@ -10,7 +10,7 @@ export const root = createGlobalTheme(":root", {
     // Semantic tokens
     white: twColors.slate[50],
     black: twColors.slate[950],
-    brand: "#2D8CCC",
+    brand: "#1c82c7",
     gold: "#BF9D5A",
     grey: twColors.gray[300],
     brandLight: twColors.sky[300],
@@ -41,6 +41,7 @@ export const root = createGlobalTheme(":root", {
     "2x": "20px",
     "3x": "24px",
     "4x": "32px",
+    "6x": "48px",
   },
   fontWeights: {
     light: "300",
@@ -48,6 +49,28 @@ export const root = createGlobalTheme(":root", {
     bold: "600",
     bolder: "700",
   },
+
+
 });
 
+
 export const vars = { ...root };
+
+
+////////// Global styles////////////////////////
+export const titleStyle = style({
+  fontFamily: vars.fonts.brand,
+  color: vars.colors.black,
+  display: "inline-block",
+  marginTop: "10rem",
+  fontSize: vars.fontSizes["4x"],
+  fontWeight: vars.fontWeights.bold,
+});
+
+export const textStyle = style({
+  color: vars.colors.black,
+  fontFamily:vars.fonts.body,
+  display: "inline-block",
+  fontSize: vars.fontSizes["1x"],
+  fontWeight: vars.fontWeights.normal,
+});

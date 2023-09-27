@@ -109,10 +109,13 @@ export const dropdownContent = style({
   minWidth: "150px",
   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.5)",
   zIndex: 99,
-  marginTop: "0px",
-  marginLeft: "10px",
+  marginTop: "1.5rem",
+  marginLeft: "0px",
   lineHeight: "45px",
-  color: vars.colors.black,
+  fontSize: vars.fontSizes["1x"],
+  fontWeight: vars.fontWeights.bold,
+  transition: "all 1s ease-out",
+ 
 });
 
 
@@ -133,22 +136,3 @@ export const dropdownTextHover = style({
     transition: "all 0.5s ease-in-out",
   },
 });
-
-// export const headerNavText = style({
-//   textDecoration: "none",
-//   color: vars.colors.black,
-
-//   fontSize: vars.fontSizes["2x"],
-//   display: "flex",
-//   flexDirection: "row",
-//   justifyContent: "space-evenly",
-//   ":hover": { opacity: 0.7, transition: "opacity 0.7s ease-in-out" },
-// });
-
-// export const dropdownButton = style({ fontSize: vars.fontSizes["2x"],
-// color:"black" });
-// export const dropdownText = style({
-//   fontSize: vars.fontSizes["1x"],
-//   color: vars.colors.black,
-//   ":hover": { backgroundColor: "green", transition: "color 0.7s ease-in-out" },
-// });

@@ -109,18 +109,16 @@ module.exports = {
           ApiError.badRequest("the credentials do not match our record")
         );
       }
-      
+
       console.log(
         `sucess- User: ${userMatch[0].username} is logged in successfully`
       );
 
-        const userJson = await userDetailsToJSON(userMatch[0].id)
-           res.send({
-             token: jwtSignUser(userJson),
-             user: userJson,
-           });
-
-   
+      const userJson = await userDetailsToJSON(userMatch[0].id);
+      res.send({
+        token: jwtSignUser(userJson),
+        user: userJson,
+      });
     } catch (err) {
       return next(ApiError.internalError("We are unable to log you in", err));
     }

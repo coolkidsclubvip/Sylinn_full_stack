@@ -29,7 +29,7 @@ function Header() {
                   <div className={styles.dropdown}>
                     <Nav.Link
                       onMouseOver={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
+                    
                       path="/clientSide/src/pages/products.jsx"
                     >
                       <span className={styles.navText}>
@@ -71,16 +71,14 @@ function Header() {
                           className={styles.dropdownContentLink}
                           href="shower_grate.html"
                         >
-                          <div className={styles.dropdownTextHover}>
-                            Shower Grate
-                          </div>
+                          <div className={styles.dropdownTextHover}> Sink </div>
                         </Nav.Link>
                         <Nav.Link
                           className={styles.dropdownContentLink}
                           href="shower_screen.html"
                         >
                           <div className={styles.dropdownTextHover}>
-                            Shower Fitting
+                            Shower Grate
                           </div>
                         </Nav.Link>
                       </div>
