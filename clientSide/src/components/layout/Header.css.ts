@@ -19,7 +19,6 @@ export const header = style({
 
 export const navText = style({
   position: "absolute",
-  // marginBottom:"1rem",
   color: vars.colors.black,
   fontSize: vars.fontSizes["2x"],
   ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },

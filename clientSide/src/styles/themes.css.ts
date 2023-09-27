@@ -40,6 +40,7 @@ export const root = createGlobalTheme(":root", {
     "1x": "16px",
     "2x": "20px",
     "3x": "24px",
+    "4x": "32px",
   },
   fontWeights: {
     light: "300",
