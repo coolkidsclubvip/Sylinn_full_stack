@@ -1,27 +1,55 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
-export const header = style({
-  position: "relative",
-  width: "70vw",
-  height: "15vh",
-  margin: "0 auto",
-  paddingTop: "0",
-  fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights["bold"],
-  overflow: "visible",
-  borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
-  // backgroundColor: "green",
-  zIndex: 99,
-  color: vars.colors.black,
+export const headerWrapper = style({
+  position: "fixed",
+  width: "100vw",
+  height: "13vh",
+  backgroundColor: "white",
+  zIndex: 98,
+margin:"0 auto"
+
 });
 
-export const navText = style({
+export const header = style({
   position: "absolute",
+  width: "70vw",
+  height: "15vh",
+  top: "0",
+  left: 0,
+  right: 0,
+  margin: "0 auto",
+  paddingTop: "0",
+  // fontSize: vars.fontSizes["1x"],
+  // fontWeight: vars.fontWeights["bold"],
+  overflow: "visible",
+  borderBottom: `1px solid ${vars.colors.brand}`,
+  zIndex: 99,
   color: vars.colors.black,
-  fontSize: vars.fontSizes["2x"],
-  ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
+  backgroundColor: "white",
+  transition: "all 1s ease-in-out",
 });
+
+export const smallHeader = style({
+  position: "fixed",
+  width: "70vw",
+  height: "12vh",
+  top: 0,
+  left: 0,
+  right: 0,
+  margin: "-8px auto",
+  // fontSize: vars.fontSizes["1x"],
+  // fontWeight: vars.fontWeights["bold"],
+  overflow: "visible",
+  // borderBottom: `1px solid ${vars.colors.brand}`,
+
+  zIndex: 99,
+  color: vars.colors.black,
+  backgroundColor: "white",
+  transform: "scale(0.9)",
+  transition: "all 1s ease-in-out",
+});
+
 globalStyle(`${header} a`, {
   textDecoration: "none",
   color: vars.colors.black,
@@ -30,11 +58,34 @@ globalStyle(`${header} a:hover`, {
   textDecoration: "none",
   color: vars.colors.brand,
 });
+globalStyle(`${smallHeader} a`, {
+  textDecoration: "none",
+  color: vars.colors.black,
+});
+globalStyle(`${smallHeader} a:hover`, {
+  textDecoration: "none",
+  color: vars.colors.brand,
+});
+export const navText = style({
+  position: "absolute",
+  color: vars.colors.black,
+  // fontSize: vars.fontSizes["2x"],
+  ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
+});
+
+// export const headerBG= style({
+//   position:"absolute",
+//   width: "100vw",
+//   height: "13vh",
+//   margin:"-8px",
+//   backgroundColor: vars.colors.white,
+//   zIndex:98,
+// })
 
 /////////// search bar style//////////////
-export const headerWrapper = style({
-  position: "relative",
-});
+// export const headerWrapper = style({
+//   position: "relative",
+// });
 export const searchContainer = style({
   position: "absolute",
   width: "200px",
@@ -50,13 +101,13 @@ export const searchInput = style({
   height: "2rem",
   padding: "0 10px",
   fontSize: "1rem",
-  border: "1px solid #D0CFCE",
+  border: `1px solid ${vars.colors.brand}`,
   outline: "none",
   selectors: {
     "&:focus": {
       border: "1px solid #008ABF",
       transition: "0.35s ease",
-      color: vars.colors.brandDark,
+      // color: vars.colors.gold,
     },
     "&::-webkit-input-placeholder": {
       transition: "opacity 0.45s ease",
@@ -131,7 +182,6 @@ export const dropdownContentLink = style({
 
 export const dropdownTextHover = style({
   ":hover": {
-    color: vars.colors.gold,
     transition: "all 0.5s ease-in-out",
   },
 });

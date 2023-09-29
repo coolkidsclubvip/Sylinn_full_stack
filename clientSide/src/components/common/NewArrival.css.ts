@@ -1,7 +1,8 @@
 import { style} from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
+import * as fonts from "../../styles/fonts/fonts.css.ts";
 
-export const NAWraper = style({
+export const NAWrapper = style({
   width: "70vw",
   height: "auto",
   display:"flex",
@@ -44,11 +45,7 @@ export const NAItemImage = style({
   ":hover":{opacity: 0.8},
 });
 
-export const name= style({
-  fontSize: vars.fontSizes["3x"],
-  fontWeight: vars.fontWeights.bold,
-  
-});
+
 export const code=style({
      fontSize:vars.fontSizes["1x"],
      fontWeight:vars.fontWeights.normal,

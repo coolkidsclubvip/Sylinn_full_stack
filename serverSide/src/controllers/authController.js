@@ -84,7 +84,7 @@ module.exports = {
 
       res.send({
         token: jwtSignUser(userJson),
-        user: userJson,
+        // user: userJson,
       });
     } catch (err) {
       return next(
@@ -117,7 +117,7 @@ module.exports = {
       const userJson = await userDetailsToJSON(userMatch[0].id);
       res.send({
         token: jwtSignUser(userJson),
-        user: userJson,
+        // user: userJson,
       });
     } catch (err) {
       return next(ApiError.internalError("We are unable to log you in", err));

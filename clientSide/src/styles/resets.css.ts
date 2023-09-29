@@ -1,4 +1,5 @@
 import { globalStyle } from "@vanilla-extract/css";
+import { vars } from "./themes.css";
 
 // Box-sizing rules
 globalStyle("*, *::before, *::after", {
@@ -20,6 +21,7 @@ globalStyle("body", {
   minHeight: "90vh",
   textRendering: "optimizeSpeed",
   lineHeight: 1.5,
+  fontFamily: vars.fonts.body,
   // ...
 });
 

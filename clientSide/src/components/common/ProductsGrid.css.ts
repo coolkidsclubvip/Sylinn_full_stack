@@ -4,6 +4,7 @@ import { vars } from "../../styles/themes.css";
 export const gridWrapper = style({
   width: "80vw",
   margin: "0 auto",
+  marginTop: "20vh",
   height: "auto",
   overflow: "hidden",
   transition: "all 1s ease",

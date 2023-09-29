@@ -2,6 +2,8 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
 export const footer = style({
+  display:"flex",
+  flex: 1,
   width: "70vw",
   height: "10vh",
   margin: "0 auto",

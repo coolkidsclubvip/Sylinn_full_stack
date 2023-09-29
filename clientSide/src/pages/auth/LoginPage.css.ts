@@ -1,7 +1,7 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
-export const signupWrapper = style({
+export const LoginWrapper = style({
   width: "70vw",
   marginTop: "15vh",
   display: "flex",
@@ -32,5 +32,5 @@ export const cardSmallText = style({
   fontSize: vars.fontSizes["1x"],
   fontWeight: vars.fontWeights.normal,
   fontStyle: "italic",
-color: vars.colors.black,
+  color: vars.colors.black,
 });

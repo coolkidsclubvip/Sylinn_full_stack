@@ -71,7 +71,7 @@ function Footer() {
           </Row>
           <Row>
             <div className={styles.copyrightText}>
-              <span>Copyright © 2023 Sylinn Australia</span>
+              <span>© 2023 Sylinn Australia</span>
             </div>
           </Row>
         </Container>

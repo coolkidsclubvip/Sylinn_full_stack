@@ -7,7 +7,7 @@ import NewArrival from '../components/common/NewArrival';
 function Home() {
   return (
     <div className={styles.homeContainer}>
-      <HomepageCarousel />
+      {/* <HomepageCarousel /> */}
       <ProductsGrid />
       <NewArrival/>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+
 import * as styles from "./ProductsGrid.css";
 import { Container} from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 function ProductsGrid() {
   return (
     <>
-      <Container fluid>
-        {/* <!-- Photo Grid --> */}
-        <div className={styles.gridWrapper}>
+      <div className={styles.gridWrapper}>
+        <Container fluid>
+          {/* <!-- Photo Grid --> */}
+
           <div className={styles.row}>
             <div className={styles.column}>
               <Link to="/htr" style={{ textDecoration: "none" }}>
@@ -49,8 +50,8 @@ function ProductsGrid() {
               </Link>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </>
   );
 }

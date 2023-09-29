@@ -1,11 +1,12 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../../styles/themes.css";
 
 export const app = style({
-  fontFamily: "Futura Bk,sans-serif",
+  fontFamily:vars.fonts.body,
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
-  backgroundColor: "ffff",
+  backgroundColor: vars.colors.white,
 });
 
 export const appContent = style({

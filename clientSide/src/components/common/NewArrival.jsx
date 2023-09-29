@@ -1,8 +1,9 @@
-
 import * as styles from "./NewArrival.css";
-import { titleStyle, textStyle } from "../../styles/themes.css";
+import {  textStyle } from "../../styles/themes.css";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import * as fonts from "../../styles/fonts/fonts.css.ts"
+
 
 function NewArrival() {
   // mocked products list from DB
@@ -44,14 +45,12 @@ function NewArrival() {
       imageUrl: "/images/bath_pics/D-8376-1.png",
     },
   ];
-console.log(titleStyle);
-
 
   return (
     <Container>
-      <div className={styles.NAWraper}>
+      <div className={styles.NAWrapper}>
         <p>
-          <span className={titleStyle}>New Arrival</span> <br />
+          <span className={fonts.futuraTitle}>New Arrival</span> <br />
           <span className={textStyle}>
             New European desgin that is fresh off the boat
           </span>{" "}
@@ -68,7 +67,8 @@ console.log(titleStyle);
                   />
                 </Link>
                 <div className={styles.NAItemText}>
-                  <span className={styles.name}>{product.name}</span><br />
+                  <span className={fonts.futuraGridCardTitles}>{product.name}</span>
+                  <br />
                   <span className={styles.code}>{product.code}</span>
                   <p className={styles.description}>{product.description}</p>
 
