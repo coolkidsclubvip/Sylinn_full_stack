@@ -2,12 +2,12 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import axios from "axios";
+import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
 import LoadingButton from "../../components/common/LoadingButton";
 // LOCAL MODULES
 import * as styles from "./SignupPage.css";
-import { useAuth } from "../../contexts/AuthContext";
+import useAuth from "../../hooks/useAuth";
 import SyButton from "../../components/common/SyButton";
 
 function SignupPage() {
@@ -21,7 +21,7 @@ function SignupPage() {
     username: "",
     email: "",
     password: "",
-    isAdmin: "false",
+    isAdmin: "false", // no more new sign up user can be admin.Admin must be manually entered.
   });
   const [loading, setLoading] = useState(false);
 
@@ -41,26 +41,24 @@ function SignupPage() {
 
     // Validate if passwords match
     if (password !== passwordConfirmRef.current.value) {
-      toast.error("Passwords do not match");
+      toast.warn("Passwords do not match");
       setLoading(false);
       return;
     }
 
     // Make an API call to register the user
     try {
-      const response = await axios.post("/api/auth/register", user);
+      const response = await authService.register(user);
       // TO ADJUST LATER WITH CONTEXT API
       loginSaveUser(response.data);
-      toast.success(
-        `User ${response.data.username} is successfully registered`
-      );
+      toast.success(`User ${user.username} is successfully registered`);
       navigate("/dashboard");
       setTimeout(() => {
         setLoading(false);
       }, 1000);
     } catch (err) {
       console.log(err?.response);
-      toast.error(err.response.data);
+      // toast.error(err.response.data);
       setTimeout(() => {
         setLoading(false);
       }, 1000);

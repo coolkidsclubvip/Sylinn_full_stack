@@ -9,7 +9,7 @@ globalFontFace(futura, {
 
 export const futuraTitle = style({
   fontFamily: futura,
-  fontSize:vars.fontSizes["5x"],
+  fontSize:vars.fontSizes["4x"],
   fontWeight:vars.fontWeights.bolder
 });
 
@@ -27,3 +27,9 @@ export const futuraGridCardTitles = style({
   fontSize: vars.fontSizes["3x"],
   fontWeight: vars.fontWeights.bold,
 });
+
+export const normalText = style({
+  fontFamily: vars.fonts.body,
+  fontWeight:vars.fontWeights.normal,
+  fontSize: vars.fontSizes["1x"]
+})

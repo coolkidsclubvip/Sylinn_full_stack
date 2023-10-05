@@ -2,11 +2,15 @@ import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
 export const LoginWrapper = style({
-  width: "70vw",
+  width: "100vw",
   marginTop: "15vh",
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
+  backgroundImage:"url(./images/loginBG.png)",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
 });
 
 export const userNav = style({

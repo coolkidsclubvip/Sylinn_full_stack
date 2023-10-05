@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import axios from "axios";
+import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
 import LoadingButton from "../../components/common/LoadingButton";
-import { useAuth } from "../../contexts/AuthContext";
+import useAuth  from "../../hooks/useAuth";
 
 // LOCAL MODULES
 import * as styles from "./LoginPage.css";
@@ -38,7 +38,7 @@ function LoginPage() {
 
     // Make an API call to register the user
     try {
-      const response = await axios.post("/api/auth/login", user);
+      const response = await authService.login( user);
       // TO ADJUST LATER WITH CONTEXT API
       console.log("response.data is:", response.data);
       toast.success("Login successful");
@@ -49,7 +49,7 @@ function LoginPage() {
       }, 1000);
     } catch (err) {
       console.log(err?.response);
-      toast.error(err.response.data);
+      // toast.error(err.response.data);
       setTimeout(() => {
         setLoading(false);
       }, 1000);

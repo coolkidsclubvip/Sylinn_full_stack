@@ -2,8 +2,8 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
 export const homeContainer = style({
-  width: "100vw",
-  minHeight: "85vh",
+  width: "70vw",
+  minHeight: "auto",
   margin: "1rem auto",
 
 });

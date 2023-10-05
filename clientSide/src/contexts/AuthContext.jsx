@@ -1,15 +1,13 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import { setHeaderToken } from "../services/api";
 
-// 封装了useContext这个钩子，给全局使用。
 const AuthContext = createContext();
-export function useAuth() {
-  return useContext(AuthContext);
-}
 
+//******/ about how to DEFINE the Auth context********
 export function AuthProvider({ children }) {
-  // to create a global context accessible from anywhere in the application
+  // to create a global context accessible from anywhere in the application, **APP.js will be the child**
 
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -22,21 +20,26 @@ export function AuthProvider({ children }) {
 
   //1. register n login
   const loginSaveUser = async (data) => {
-    const{token}=data;
+    const { token } = data;
     const payload = jwtDecode(token);
     localStorage.setItem("userToken", JSON.stringify(data));
     setUser(payload);
+    setHeaderToken()
   };
 
   //2. retrieve user from local storage
   const getCurrentUser = () => {
     try {
       const token = localStorage.getItem("userToken");
-     const savedUser = jwtDecode(token);
+      const savedUser = jwtDecode(token);
+
       return savedUser;
     } catch (err) {
-      console.log(err.message);
-      return null;
+      if (err.message === "Invalid token specified") {
+        return null;
+      } else {
+        console.log(err.message);
+      }
     }
   };
 
@@ -45,10 +48,13 @@ export function AuthProvider({ children }) {
   const logout = () => {
     localStorage.removeItem("userToken");
     setUser(null);
+    setHeaderToken();
     navigate("/login");
   };
-
+// 给全局一个state of user, 和3个相关的方法
   const value = { user, getCurrentUser, loginSaveUser, logout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
+
+export default AuthContext;

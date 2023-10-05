@@ -1,25 +1,21 @@
-import { style} from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
-import * as fonts from "../../styles/fonts/fonts.css.ts";
+import * as fonts from "../../styles/fonts/fonts.css";
 
 export const NAWrapper = style({
   width: "70vw",
   height: "auto",
-  display:"flex",
-  flexDirection:"row",
- 
+  display: "flex",
+  flexDirection: "row",
   flexWrap: "wrap",
-
-  marginTop: "10rem",
+  margin: "15vh auto",
 });
 
 export const NAList = style({
   width: "100%",
-
 });
 
 export const NAItem = style({
- 
   height: "400px",
   overflow: "hidden",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.5)",
@@ -30,9 +26,9 @@ export const NAItemText = style({
   height: "65px",
   fontSize: "16px",
   position: "relative",
-//   textAlign: "center",
+  //   textAlign: "center",
   padding: "1rem 10%",
-//   paddingLeft: "1rem",
+  //   paddingLeft: "1rem",
   fontWeight: "600",
 });
 
@@ -41,22 +37,23 @@ export const NAItemImage = style({
   width: "100%",
   height: "230px",
   padding: 0,
-  transition:"all 0.5s ease",
-  ":hover":{opacity: 0.8},
+  transition: "all 0.5s ease",
+  ":hover": { opacity: 0.8 },
 });
 
-
-export const code=style({
-     fontSize:vars.fontSizes["1x"],
-     fontWeight:vars.fontWeights.normal,
-     opacity:0.7
-})
-export const description = style({
+export const code = style({
   fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights.normal
+  fontWeight: vars.fontWeights.normal,
+  opacity: 0.7,
+});
+export const description = style({
+  fontFamily: vars.fonts.body,
+  fontSize: vars.fontSizes["1x"],
+  fontWeight: vars.fontWeights.normal,
 });
 
 export const button = style({
+  fontFamily: vars.fonts.brand,
   fontSize: vars.fontSizes["1x"],
   fontWeight: vars.fontWeights.normal,
   border: "none",
@@ -64,13 +61,12 @@ export const button = style({
   display: "inline-block",
   padding: "4px",
   color: "white",
-  backgroundColor:vars.colors.brand,
+  backgroundColor: vars.colors.brand,
   textAlign: "center",
   cursor: "pointer",
-    width: "80%",
+  width: "80%",
   position: "absolute",
- marginTop: 0,
+  marginTop: 0,
   left: "10%",
-  ":hover":{backgroundColor: vars.colors.brandDark}
+  ":hover": { backgroundColor: vars.colors.brandDark },
 });
-

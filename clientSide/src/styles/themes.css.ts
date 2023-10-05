@@ -4,7 +4,7 @@ import twColors from "tailwindcss/colors";
 
 export const root = createGlobalTheme(":root", {
   fonts: {
-    brand:"Arial, apple-system, sans-serif",
+    brand: "Futura Bk,Arial, apple-system, sans-serif",
     body: "Roboto, apple-system, sans-serif",
   },
   colors: {

@@ -1,22 +1,21 @@
-const express = require('express');
-const router= express.Router();
+const express = require("express");
+const router = express.Router();
 //import sub routes
-const authRoutes = require('./authRoutes');
+const authRoutes = require("./authRoutes");
+const productRoutes = require('./productRoutes'); //引入新建立的产品routes
 
-module.exports = ()=>{
+module.exports = () => {
   // Home:
-     router.get("/", (req, res, next) => {
-       res.send("welcome to Sylinn API index");
-     });
+  router.get("/", (req, res, next) => {
+    res.send("welcome to Sylinn API index");
+  });
 
-     // sub-routes:
-     router.use('/auth',authRoutes());
+  // sub-routes:
+  router.use("/auth", authRoutes());
+  // product route:
+
+  router.use("/products", productRoutes());
 
 
-
- 
-
-
-     return router
-}
-
+  return router;
+};

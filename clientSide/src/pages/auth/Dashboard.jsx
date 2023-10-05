@@ -1,11 +1,10 @@
-import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import * as styles from "./Dashboard.css"
-import { useAuth } from "../../contexts/AuthContext";
+import * as styles from "./Dashboard.css";
+import  useAuth from "../../hooks/useAuth";
 import SyCard from "../../components/common/SyCard";
 
 function Dashboard() {
-     const {user, logout} = useAuth()
+  const { user, logout } = useAuth();
 
   return (
     <Container>
@@ -32,8 +31,10 @@ function Dashboard() {
             </div>
 
             {/* Admin exclusive stuff is here: */}
-            
-            {user.isAdmin==="true" && <div>$$only Amin can see this line</div>}
+
+            {user.isAdmin === "true" && (
+              <div>$$only Amin can see this line</div>
+            )}
           </SyCard>
         )}
       </div>

@@ -2,8 +2,8 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
 export const gridWrapper = style({
-  width: "80vw",
-  margin: "0 auto",
+  width: "70vw",
+
   marginTop: "20vh",
   height: "auto",
   overflow: "hidden",
@@ -12,15 +12,15 @@ export const gridWrapper = style({
 
 export const row = style({
   display: "flex",
-  flexWrap: "wrap",
-  padding: "0 4px",
+  // flexWrap: "wrap",
+  // padding: "0 4px",
   justifyContent: "center",
 });
 
 // Create four equal columns that sit next to each other
 export const column = style({
   flex: "1",
-  maxWidth: "30%",
+  maxWidth: "35%",
   padding: "0 4px",
   "@media screen and (max-width: 800px)": {
     flex: "50%",
@@ -77,7 +77,7 @@ export const div3 = style({
   marginTop: "2%",
   display: "flex",
   flexDirection: "row",
-  alignItems: "center",
+  alignItems: "flex-end",
   justifyContent: "center",
   transition: "all 1s ease",
   ":hover": {

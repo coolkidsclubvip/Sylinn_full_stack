@@ -5,7 +5,7 @@ import * as fonts from "../../styles/fonts/fonts.css";
 import { Container, Row, Col, Navbar, Nav, Form } from "react-bootstrap";
 import Logo_sylinn_png from "../../assets/images/Logo-sylinn-png.png";
 import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
-import { useAuth } from "../../contexts/AuthContext";
+import  useAuth  from "../../hooks/useAuth";
 
 function Header() {
   const [isHovered, setIsHovered] = useState(false);
@@ -41,7 +41,7 @@ function Header() {
           {/* Nav bar upper layer */}
           <Row>
             <Col sm={6}>
-              <Navbar.Brand href="#home">
+              <Navbar.Brand >
                 <Link to={"/"}>
                   {" "}
                   <img
@@ -85,7 +85,7 @@ function Header() {
                       <div className={styles.dropdown}>
                         <Nav.Link
                           onMouseOver={() => setIsHovered(true)}
-                          // onMouseLeave={() => setIsHovered(false)}
+                          onMouseLeave={() => setIsHovered(false)}
                           path="/clientSide/src/pages/products.jsx"
                         >
                           <span className={fonts.futuraNav}>
@@ -174,12 +174,13 @@ function Header() {
                           className={styles.searchInput}
                           placeholder="test"
                         />
-                        <a href="#">
+                     
                           <img
                             className={styles.searchIcon}
                             src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
+                            href="#"
                           />
-                        </a>
+                      
                       </Form>
                     </div>
                   </Navbar.Collapse>

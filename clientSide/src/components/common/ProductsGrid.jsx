@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 function ProductsGrid() {
   return (
     <>
-      <div className={styles.gridWrapper}>
-        <Container fluid>
+      {" "}
+      <Container >
+        <div className={styles.gridWrapper}>
           {/* <!-- Photo Grid --> */}
 
           <div className={styles.row}>
@@ -50,8 +51,8 @@ function ProductsGrid() {
               </Link>
             </div>
           </div>
-        </Container>
-      </div>
+        </div>{" "}
+      </Container>
     </>
   );
 }
