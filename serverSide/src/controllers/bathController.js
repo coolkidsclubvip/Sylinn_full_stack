@@ -31,15 +31,16 @@ module.exports = {
 
           docs.push({
             id: doc.id,
-
-            name: data.name,
-            rrp: data.rrp,
-            onSale: data.onSale,
-            stock: data.stock,
-            url: data.url,
-            url2: data.url2,
+            ...data // a simpler way than below
+            // name: data.name,
+            // rrp: data.rrp,
+            // onSale: data.onSale,
+            // stock: data.stock,
+            // url: data.url,
+            // url2: data.url2,
           });
         });
+        console.log("docs are:",docs);
         res.send(docs);
       }
       // [500 ERROR] Checks for Errors in our Query - issue with route or DB query

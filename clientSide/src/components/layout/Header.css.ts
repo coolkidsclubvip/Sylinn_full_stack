@@ -1,52 +1,54 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
-export const headerWrapper = style({
-  position: "fixed",
-  width: "100vw",
-  height: "13vh",
-  backgroundColor: "white",
-  zIndex: 98,
-margin:"0 auto"
+// export const headerWrapper = style({
+//   position: "fixed",
+//   display:"flex",
+//   width: "100vw",
+//   height: "13vh",
+//   backgroundColor: "white",
+//   zIndex: 97,
+// margin:"0 auto"
 
-});
+// });
 
 export const header = style({
-  position: "absolute",
-  width: "70vw",
-  height: "15vh",
-  top: "0",
+  position: "fixed",
+  width: "100%",
+  height: "12vh",
+  top: 0,
   left: 0,
   right: 0,
   margin: "0 auto",
   paddingTop: "0",
   // fontSize: vars.fontSizes["1x"],
   // fontWeight: vars.fontWeights["bold"],
-  overflow: "visible",
+  overflow: "hidden",
   borderBottom: `1px solid ${vars.colors.brand}`,
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
-  transition: "all 1s ease-in-out",
+  transition: "all 0.8s ease-in-out",
 });
 
 export const smallHeader = style({
   position: "fixed",
-  width: "70vw",
-  height: "12vh",
+  width: "100vw",
+  height: "10vh",
   top: 0,
   left: 0,
   right: 0,
-  margin: "-8px auto",
+  // margin: "-8px auto",
   // fontSize: vars.fontSizes["1x"],
   // fontWeight: vars.fontWeights["bold"],
-  overflow: "visible",
+  overflow: "hidden",
   // borderBottom: `1px solid ${vars.colors.brand}`,
 
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
-  transform: "scale(0.9)",
+  // transform: "scale(0.9)",
+  boxShadow: "2px 2px 8px  rgba(0, 0, 0, 0.5)",
   transition: "all 1s ease-in-out",
 });
 
@@ -90,48 +92,8 @@ export const searchContainer = style({
   position: "absolute",
   width: "200px",
   display: "block",
-
   // backgroundColor: "red",
   margin: "1rem 12rem",
-});
-
-export const searchInput = style({
-  margin: "0 auto",
-  width: "100%",
-  height: "2rem",
-  padding: "0 10px",
-  fontSize: "1rem",
-  border: `1px solid ${vars.colors.brand}`,
-  outline: "none",
-  selectors: {
-    "&:focus": {
-      border: "1px solid #008ABF",
-      transition: "0.35s ease",
-      // color: vars.colors.gold,
-    },
-    "&::-webkit-input-placeholder": {
-      transition: "opacity 0.45s ease",
-      opacity: 0,
-    },
-    "&::-moz-placeholder": {
-      transition: "opacity 0.45s ease",
-      opacity: 0,
-    },
-    "&:-ms-input-placeholder": {
-      transition: "opacity 0.45s ease",
-      opacity: 0,
-    },
-  },
-});
-
-export const searchIcon = style({
-  position: "relative",
-  float: "right",
-  marginTop: "0",
-  width: "70px",
-  height: "70px",
-  top: "-50px",
-  right: "-22px",
 });
 
 ////////////////////////////////
@@ -146,13 +108,6 @@ export const dropdownbtn = style({
   display: "block",
   float: "left",
   marginLeft: 0,
-});
-
-export const navbtn = style({
-  width: "200px",
-  display: "block",
-  textAlign: "center",
-  float: "left",
 });
 
 export const dropdownContent = style({

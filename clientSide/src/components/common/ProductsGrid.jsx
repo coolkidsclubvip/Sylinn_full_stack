@@ -1,13 +1,12 @@
-
 import * as styles from "./ProductsGrid.css";
-import { Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function ProductsGrid() {
   return (
     <>
       {" "}
-      <Container >
+      <Container>
         <div className={styles.gridWrapper}>
           {/* <!-- Photo Grid --> */}
 
@@ -27,7 +26,7 @@ function ProductsGrid() {
                   <span>ACCESSORY</span>
                 </div>
               </Link>
-              <Link to="/htr" style={{ textDecoration: "none" }}>
+              <Link to="/products/bath" style={{ textDecoration: "none" }}>
                 <div className={`${styles.div3} ${styles.gridText}`}>
                   <span>BATH TUB</span>
                 </div>

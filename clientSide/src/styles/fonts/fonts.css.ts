@@ -17,7 +17,7 @@ export const futuraNav = style({
   fontFamily: futura,
   fontSize: vars.fontSizes["3x"],
   fontWeight: vars.fontWeights.bold,
-  position: "absolute",
+
   color: vars.colors.black,
   ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
 });

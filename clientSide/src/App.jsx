@@ -10,6 +10,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import Dashboard from "./pages/auth/Dashboard";
 import PrivateRoutes from "./components/layout/PrivateRoutes";
 import BathPage from "./product/BathPage";
+import FelicityPage from "./product/FelicityPage";
 
 function App() {
   return (
@@ -17,9 +18,13 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
 
-        <Route path="/products" element={<ProductsPage />}>
-          <Route path="/products/bath" element={<BathPage />} />
-        </Route>
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/bath" element={<BathPage />} />
+
+        {/* Bath variants */}
+        <Route path="/products/bath/felicity" element={<FelicityPage />} />
+
+        {/* Bath variants  */}
 
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<SignupPage />} />

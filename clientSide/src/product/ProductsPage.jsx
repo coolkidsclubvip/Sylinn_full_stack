@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Container from "react-bootstrap/Container";
-import FelicityPage from "./FelicityPage"
+import BathPage from './BathPage';
+
 // import productService from '../../services/productService';
 // import ProductsList from "../../components/features/products/ProductsList"
 // import TuLoader from '../../components/common/TuLoader';
@@ -67,16 +68,21 @@ function ProductsPage() {
   // }
 
   return (
-    <Container className="text-center mt-4">
-      <h1>Timbertop United Kits &amp; Apparel</h1>
-      <p>Get the official 2023/24 Timbertop United Kits, inspired by the iconic TU anniversary crest - celebrating its 20th anniversary</p>
+    <Container className="text-center mt-5 py-5">
+      <h1>All products category</h1>
+      <p>this is a product category page</p>
+      <button>category 1</button>
+      <button>category 1</button>
+      <button>category 1</button>
 
+      {/* test */}
 
-{/* test */} <FelicityPage/>
       {/* Products Menu */}
+
+      <BathPage />
       {/* {<ProductsList products={data} />} */}
     </Container>
-  )
+  );
 }
 
 export default ProductsPage
