@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "../../styles/themes.css";
-import * as fonts from "../../styles/fonts/fonts.css";
+import { vars } from "../global/themes.css";
+import * as fonts from "../fonts/fonts.css";
 
 export const button = style({
   fontFamily: vars.fonts.brand,

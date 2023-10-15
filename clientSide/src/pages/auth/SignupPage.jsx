@@ -6,7 +6,7 @@ import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
 import LoadingButton from "../../components/common/LoadingButton";
 // LOCAL MODULES
-import * as styles from "./SignupPage.css";
+import * as styles from "../../styles/SignupPage.css";
 import useAuth from "../../hooks/useAuth";
 import SyButton from "../../components/common/SyButton";
 

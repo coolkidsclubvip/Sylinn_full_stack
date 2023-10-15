@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Navbar, Nav, Form } from "react-bootstrap";
-import * as styles from "./OffCanvas.css";
+import * as styles from "../../styles/components/OffCanvas.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import SearchBar from "../common/SearchBar";
 

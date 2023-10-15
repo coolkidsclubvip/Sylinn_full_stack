@@ -1,4 +1,4 @@
-import * as styles from "./ProductsGrid.css";
+import * as styles from "../../styles/components/ProductsGrid.css";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 

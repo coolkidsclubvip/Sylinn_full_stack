@@ -1,5 +1,5 @@
 import { style, globalStyle } from "@vanilla-extract/css";
-import { vars } from "../../styles/themes.css";
+import { vars } from "./global/themes.css"
 
 export const signupWrapper = style({
   width: "100vw",

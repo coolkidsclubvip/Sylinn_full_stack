@@ -1,5 +1,5 @@
 import { style, globalStyle } from "@vanilla-extract/css";
-import { vars } from "../../styles/themes.css";
+import { vars } from "../../styles/global/themes.css";
 
 // export const headerWrapper = style({
 //   position: "fixed",

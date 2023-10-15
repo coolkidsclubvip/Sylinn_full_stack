@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
-import * as styles from "./Dashboard.css";
-import  useAuth from "../../hooks/useAuth";
+import * as styles from "../../styles/components/Dashboard.css";
+import useAuth from "../../hooks/useAuth";
 import SyCard from "../../components/common/SyCard";
 
 function Dashboard() {

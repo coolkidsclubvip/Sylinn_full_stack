@@ -1,5 +1,6 @@
-import * as styles from "./NewArrival.css";
-import {  textStyle } from "../../styles/themes.css";
+import * as styles from "../../styles/NewArrival.css";
+
+
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css.ts"
@@ -51,7 +52,7 @@ function NewArrival() {
       <div className={styles.NAWrapper}>
         <p>
           <span className={fonts.futuraTitle}>New Arrival</span> <br />
-          <span className={textStyle}>
+          <span className={fonts.normalText}>
             New European desgin that is fresh off the boat
           </span>{" "}
         </p>

@@ -1,4 +1,4 @@
-import * as styles from "./Banner2.css";
+import * as styles from "../../styles/components/Banner2.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import { Container, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";

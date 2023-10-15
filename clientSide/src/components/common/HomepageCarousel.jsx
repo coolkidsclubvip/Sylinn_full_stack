@@ -3,7 +3,7 @@ import s001 from "../../assets/images/s001.jpg";
 import s002 from "../../assets/images/s002.jpg";
 import s003 from "../../assets/images/s003.jpg";
 import s004 from "../../assets/images/s004.jpg";
-import * as styles from "./HomepageCarousel.css";
+import * as styles from "../../styles/components/HomepageCarousel.css";
 
 function HomepageCarousel() {
   return (

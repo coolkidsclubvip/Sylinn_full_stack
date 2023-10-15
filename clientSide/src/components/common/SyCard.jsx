@@ -1,5 +1,5 @@
-import * as styles from "./SyCard.css";
-import {Container} from "react-bootstrap";
+import * as styles from "../../styles/components/SyCard.css";
+import { Container } from "react-bootstrap";
 import { futuraTitle } from "../../styles/fonts/fonts.css";
 
 function SyCard({ title, authform, children }) {

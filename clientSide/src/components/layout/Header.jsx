@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import * as styles from "./Header.css";
+import * as styles from "../../styles/components/Header.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import {
   Container,

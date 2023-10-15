@@ -1,5 +1,5 @@
 import { globalFontFace, style } from "@vanilla-extract/css";
-import { vars } from "../../styles/themes.css";
+import { vars } from "../global/themes.css";
 
 const futura = "Futura Bk";
 

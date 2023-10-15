@@ -58,10 +58,10 @@ export const vars = { ...root };
 ////////// Global styles////////////////////////
 
 
-export const textStyle = style({
-  color: vars.colors.black,
-  fontFamily: vars.fonts.body,
-  display: "inline-block",
-  fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights.normal,
-});
+// export const textStyle = style({
+//   color: vars.colors.black,
+//   fontFamily: vars.fonts.body,
+//   display: "inline-block",
+//   fontSize: vars.fontSizes["1x"],
+//   fontWeight: vars.fontWeights.normal,
+// });

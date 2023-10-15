@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "../../styles/themes.css";
-import * as fonts from "../../styles/fonts/fonts.css";
+import { vars } from "../styles/global/themes.css";
+import * as fonts from "../styles/fonts/fonts.css";
 
 export const NAWrapper = style({
   width: "70vw",

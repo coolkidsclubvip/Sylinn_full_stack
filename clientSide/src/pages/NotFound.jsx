@@ -1,5 +1,5 @@
 
-import * as styles from "./NotFound.css";
+import * as styles from "../styles/NotFound.css";
 import { futuraTitle } from "../styles/fonts/fonts.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";

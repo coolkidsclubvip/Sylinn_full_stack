@@ -9,7 +9,7 @@ import useAuth  from "../../hooks/useAuth";
 
 
 // LOCAL MODULES
-import * as styles from "./LoginPage.css";
+import * as styles from "../../styles/LoginPage.css.ts";
 import SyButton from "../../components/common/SyButton";
 
 function LoginPage() {
