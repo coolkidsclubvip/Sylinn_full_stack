@@ -1,4 +1,5 @@
 import Form from "react-bootstrap/Form";
+import * as styles from "../../styles/components/ProductOptions.css"
 
 function ProductOptions({ data, setSelectedOption }) {
   const handleSelectChange = (e) => {
@@ -7,7 +8,7 @@ function ProductOptions({ data, setSelectedOption }) {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h4>Options</h4>
       <Form.Select
         aria-label="Default select example"

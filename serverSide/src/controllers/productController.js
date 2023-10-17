@@ -47,6 +47,70 @@ module.exports = {
     }
   },
 
+  //*** */ A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
+  async getProduct(req, res, next) {
+    try {
+      console.log("req.originalUrl is:", req.originalUrl);
+
+      // 使用split方法分割URL路径
+      const urlParts = req.originalUrl.split("/");
+      // 根据位置获取category和collection
+      const category = urlParts[3];
+      const collection = urlParts[4];
+
+      console.log("category: ", category, "collection:", collection);
+      if (!category || !collection) {
+        return next(
+          ApiError.badRequest("Category and collection are required")
+        );
+      }
+
+      // Store the collection reference in variable
+      const productRef = db.collection("products");
+      // Fetch ALL Currencies and store response in "snapshot"
+      const snapshot = await productRef
+        .doc(category)
+        .collection(collection)
+        .get();
+
+      // [400 ERROR] Check for User Asking for Non-Existent Documents
+      if (snapshot.empty) {
+        return next(
+          ApiError.badRequest("The items you were looking for do not exist")
+        );
+
+        // SUCCESS: Push object properties to array and send to client
+      } else {
+        let docs = [];
+        let titleInfo = null;
+
+        snapshot.forEach((doc) => {
+          // Get data from felicity
+          const data = doc.data();
+          if (doc.id === "titleInfo") {
+            titleInfo = {
+              id: doc.id,
+              ...data,
+            };
+          } else {
+            docs.push({
+              id: doc.id,
+              ...data,
+            });
+          }
+        });
+
+        // Send docs and titleInfo to the client
+        res.send({ docs: docs, titleInfo: titleInfo });
+      }
+      // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
+    } catch (err) {
+      return next(
+        ApiError.internalError("The items selected could not be found", err)
+      );
+    }
+  },
+
   // [1B] GET onSale Products
 
   // [2] POST Product

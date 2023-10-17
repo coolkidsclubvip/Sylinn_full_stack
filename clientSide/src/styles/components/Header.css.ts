@@ -28,7 +28,7 @@ export const header = style({
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
-  transition: "all 0.8s ease-in-out",
+  transition: "all 0.5s ease-in-out",
 });
 
 export const smallHeader = style({

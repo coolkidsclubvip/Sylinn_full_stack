@@ -21,9 +21,11 @@ function post(data) {
 
 // get all products under /bath/felicity
 
-function getFelicity() {
-  return api.get("/products/bath/felicity");
-}
+// function getFelicity() {
+  function getProduct(category, collection) {
+    console.log("category in productService:",category," collection:",collection); //sucessfully
+    return api.get(`/products/${category}/${collection}`);
+  }
 
 // 1.set content header to multipart form data
 const formConfig = {
@@ -55,7 +57,8 @@ function prepareFormData() {
 const productService = {
   getAll,
   post,
-  getFelicity,
+  // getFelicity,
+  getProduct,
 };
 
 export default productService;

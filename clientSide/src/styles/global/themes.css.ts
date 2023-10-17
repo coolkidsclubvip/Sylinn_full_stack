@@ -9,11 +9,11 @@ export const root = createGlobalTheme(":root", {
   },
   colors: {
     // Semantic tokens
-    white: twColors.slate[50],
+    white: "white",
     black: twColors.slate[950],
     brand: "#1c82c7",
     gold: "#BF9D5A",
-    grey: twColors.gray[300],
+    grey: "#EFEFEF",
     brandLight: twColors.sky[500],
     brandDark: twColors.sky[700],
 
@@ -51,18 +51,9 @@ export const root = createGlobalTheme(":root", {
     bold: "600",
     bolder: "700",
   },
-
 });
 
 export const vars = { ...root };
 
-////////// Global styles////////////////////////
 
 
-// export const textStyle = style({
-//   color: vars.colors.black,
-//   fontFamily: vars.fonts.body,
-//   display: "inline-block",
-//   fontSize: vars.fontSizes["1x"],
-//   fontWeight: vars.fontWeights.normal,
-// });

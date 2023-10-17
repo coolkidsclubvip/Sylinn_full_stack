@@ -7,7 +7,7 @@ export const container = style({
   marginTop: "15vh",
   minHeight: "68vh",
   textAlign: "center",
-  backgroundColor: "greenyellow",
+  // backgroundColor: "greenyellow",
 });
 
 export const modalContainer = style({
@@ -29,6 +29,7 @@ export const descriptionContainer = style({
   position: "relative",
   width: "100%",
   height: "50vh",
-  paddingTop: "10vh",
-  backgroundColor: "lightblue",
+ margin:"5vh auto",
+  // backgroundColor: vars.colors.grey,
+  
 });

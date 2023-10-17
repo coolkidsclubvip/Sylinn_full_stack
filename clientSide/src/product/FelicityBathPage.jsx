@@ -9,6 +9,7 @@ import ProductTabs from "../components/common/ProductTabs";
 
 function FelicityBathPage() {
   const [data, setData] = useState([]);
+  const [titleInfo, setTitleInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selectedOption, setSelectedOption] = useState(""); //setSelectedOption from ProductOptions component
@@ -18,10 +19,13 @@ function FelicityBathPage() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await productService.getFelicity();
+          //  const category = "bath";
+          //  const collection = "felicity";
+        const response = await productService.getProduct("bath", "felicity");
         const responseData = response.data;
-
-        setData(responseData);
+        console.log("responseData: " ,responseData);
+        setData(responseData.docs);
+        setTitleInfo(responseData.titleInfo)
         setLoading(false);
       } catch (err) {
         console.log(err?.response);
@@ -66,18 +70,9 @@ function FelicityBathPage() {
       </Container>
     );
   }
-  {
-    /*
-      {data.map((data) => (
-        <div key={data.id}>
-          <p>{data.name}</p>
-          <p>{data.rrp}</p>
-          <p>{data.onSale}</p>
-          <p>{data.stock}</p>
-          <img src={data.url} alt={data.name} />
-        </div>
-      ))} */
-  }
+
+  console.log("data is: ", data);
+  console.log("titleInfo is: ", titleInfo);
   console.log("stock is:", stock);
   return (
     <Container>
@@ -97,8 +92,8 @@ function FelicityBathPage() {
             <div className={styles.infoContainer}>
               {/* Product title starts */}
               <div className="productTitle">
-                <h1>{data[0].title}</h1>
-                <span className="pdtcode">Product Code: {data[0].code}</span>
+                <h1>{titleInfo.title}</h1>
+                <span className="pdtcode">Product Code: {titleInfo.code}</span>
                 <br />
                 <br />
                 <br />
@@ -113,7 +108,7 @@ function FelicityBathPage() {
                 {/* stock availability, 3 cases */}
                 <div id="stocknote">
                   {/* if stock is undefined, no show anything, otherwise show availability accordingly */}
-                  { stock >= 10 ? (
+                  {stock >= 10 ? (
                     <span className="instock">In Stock</span>
                   ) : stock < 10 && stock > 1 ? (
                     <span className="lowstock">Low Stock</span>
@@ -122,10 +117,14 @@ function FelicityBathPage() {
                   ) : (
                     ""
                   )}
+
+                  <ProductOptions
+                    setSelectedOption={setSelectedOption}
+                    data={data}
+                  />
                 </div>
               </div>
             </div>
-            <ProductOptions setSelectedOption={setSelectedOption} data={data} />
           </Col>
         </Row>
         {/* 2nd row */}
@@ -133,7 +132,7 @@ function FelicityBathPage() {
         <Row>
           <Col>
             <div className={styles.descriptionContainer}>
-              <ProductTabs />
+              <ProductTabs titleInfo={titleInfo} />
             </div>{" "}
           </Col>
         </Row>

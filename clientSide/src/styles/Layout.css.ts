@@ -12,4 +12,6 @@ export const app = style({
 export const appContent = style({
   flex: 1,
   minHeight: "78vh",
-});
+ width:"100%",
+
+})
