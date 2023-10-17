@@ -1,5 +1,5 @@
 import { style, globalStyle } from "@vanilla-extract/css";
-import { vars } from "./global/themes.css"
+import { vars } from "../styles/global/themes.css"
 
 export const signupWrapper = style({
   width: "100vw",
@@ -11,6 +11,7 @@ export const signupWrapper = style({
   backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
+
 });
 
 export const userNav = style({

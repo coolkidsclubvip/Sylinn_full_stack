@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "./global/themes.css";
 
 export const app = style({
-  fontFamily:vars.fonts.body,
+  fontFamily: vars.fonts.body,
   display: "flex",
   flexDirection: "column",
   minHeight: "100vh",
@@ -10,6 +10,6 @@ export const app = style({
 });
 
 export const appContent = style({
-  margin: "1rem 0",
   flex: 1,
+  minHeight: "78vh",
 });

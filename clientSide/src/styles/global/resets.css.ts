@@ -18,10 +18,11 @@ globalStyle("html:focus-within", {
 
 // Set core body defaults
 globalStyle("body", {
-  minHeight: "90vh",
+  minHeight: "78vh",
   textRendering: "optimizeSpeed",
   lineHeight: 1.5,
   fontFamily: vars.fonts.body,
+  overflowX: "hidden",
   // ...
 });
 

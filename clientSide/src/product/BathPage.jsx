@@ -1,14 +1,18 @@
-import React from 'react'
+import {Container,Row,Col} from "react-bootstrap"
 import {Link} from "react-router-dom"
-import FelicityPage from './FelicityPage'
+import * as styles from "../styles/BathPage.css"
 
 function BathPage() {
   return (
-    <div className="mt-5">
-      <h1>BathPage</h1>
-      <Link to={"/products/bath/felicity"}> Felicity</Link>
-      {/* <FelicityPage/> */}
-    </div>
+    
+      <Container>
+        <div className={styles.container}> 
+        <h1>BathPage</h1>
+        <Link to={"/products/bath/felicity"}> Felicity</Link>
+      
+        </div>
+      </Container>
+    
   );
 }
 

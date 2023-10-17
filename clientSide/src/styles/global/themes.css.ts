@@ -51,6 +51,7 @@ export const root = createGlobalTheme(":root", {
     bold: "600",
     bolder: "700",
   },
+
 });
 
 export const vars = { ...root };

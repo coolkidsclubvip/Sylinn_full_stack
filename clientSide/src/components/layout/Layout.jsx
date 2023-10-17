@@ -8,9 +8,8 @@ import Footer from "./Footer";
 import OffCanvas from "./OffCanvas";
 
 const Layout = () => {
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
 
-  const [showOffcanvas,setShowOffcanvas]= useState(false);
-  
   return (
     <div className={styles.app}>
       <ToastContainer
@@ -34,7 +33,12 @@ const Layout = () => {
         setShowOffcanvas={setShowOffcanvas}
       />
 
-      <div className={styles.appContent} onClick={()=>{setShowOffcanvas(false)}}>
+      <div
+        className={styles.appContent}
+        onClick={() => {
+          setShowOffcanvas(false);
+        }}
+      >
         <Outlet />
       </div>
       <Footer />

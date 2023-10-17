@@ -16,6 +16,14 @@ module.exports = {
         .collection("felicity")
         .get();
 
+      // get TITLE and Title URL from upper level
+      const titleSnapshot = await productRef.doc("bath").get();
+    
+      const titleData = titleSnapshot.data();
+      const title = titleData.title;
+      const titleUrl = titleData.titleUrl;
+      const code= titleData.code;
+
       // [400 ERROR] Check for User Asking for Non-Existent Documents
       if (snapshot.empty) {
         return next(
@@ -31,16 +39,19 @@ module.exports = {
 
           docs.push({
             id: doc.id,
-            ...data // a simpler way than below
+            ...data, // a simpler way than below
             // name: data.name,
             // rrp: data.rrp,
             // onSale: data.onSale,
             // stock: data.stock,
             // url: data.url,
             // url2: data.url2,
+            title: title, // Add title from titleSnapshot
+            titleUrl: titleUrl, // Add titleUrl from titleSnapshot
+            code:code, // Add code from code
           });
         });
-        console.log("docs are:",docs);
+  
         res.send(docs);
       }
       // [500 ERROR] Checks for Errors in our Query - issue with route or DB query

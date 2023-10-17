@@ -10,7 +10,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import Dashboard from "./pages/auth/Dashboard";
 import PrivateRoutes from "./components/layout/PrivateRoutes";
 import BathPage from "./product/BathPage";
-import FelicityPage from "./product/FelicityPage";
+import FelicityBathPage from "./product/FelicityBathPage";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route path="/products/bath" element={<BathPage />} />
 
         {/* Bath variants */}
-        <Route path="/products/bath/felicity" element={<FelicityPage />} />
+        <Route path="/products/bath/felicity" element={<FelicityBathPage />} />
 
         {/* Bath variants  */}
 

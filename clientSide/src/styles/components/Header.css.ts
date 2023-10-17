@@ -34,7 +34,7 @@ export const header = style({
 export const smallHeader = style({
   position: "fixed",
   width: "100vw",
-  height: "10vh",
+  height: "8vh",
   top: 0,
   left: 0,
   right: 0,
