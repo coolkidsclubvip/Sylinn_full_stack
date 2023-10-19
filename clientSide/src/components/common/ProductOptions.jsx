@@ -14,6 +14,9 @@ function ProductOptions({ data, setSelectedOption }) {
         aria-label="Default select example"
         onChange={handleSelectChange}
       >
+        <option>
+          <span className=" ">--Available Options--</span>
+        </option>
         {data.map((item) => (
           <option value={item.id} key={item.id}>
             {item.name}

@@ -1,4 +1,4 @@
-import { useContext,useDebugValue } from "react";
+import { useContext} from "react";
 import AuthContext from "../contexts/AuthContext";
 
 // about how to ACCESs the Auth context

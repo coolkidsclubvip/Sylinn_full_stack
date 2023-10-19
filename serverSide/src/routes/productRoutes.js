@@ -6,7 +6,7 @@ const router = express.Router();
 // Import modules
 const ProductController = require("../controllers/productController");
 
-const bathRoutes = require("./bathRoutes");
+// const bathRoutes = require("./bathRoutes");
 
 // Setup routes within export function
 module.exports = () => {
@@ -14,13 +14,18 @@ module.exports = () => {
   router.get("/", ProductController.getAllProducts);
 
   // Get bath felicity
-  router.use("/bath", bathRoutes());
+  // router.use("/bath", bathRoutes());
+  router.get("/:category/:collection", ProductController.getProduct);
+
+  // Get ALL Collections under a certain category
+   router.get("/:category", ProductController.getCollections);
 
   // GET onSALE Products
 
   // POST Product
 
   // GET BY ID Product
+  // router.get("/:id", ProductController.getProductById);
 
   // UPDATE BY ID Product
 

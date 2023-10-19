@@ -25,7 +25,7 @@ export const modalContent = style({
   display: "block",
   width: "150%",
   maxWidth: "1000px",
-  backgroundColor:"red"
+  // backgroundColor:"red"
 });
 
 export const caption = style({

@@ -28,7 +28,7 @@ export const header = style({
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
-  transition: "all 0.5s ease-in-out",
+  transition: "all 0.5s ease",
 });
 
 export const smallHeader = style({
@@ -49,7 +49,7 @@ export const smallHeader = style({
   backgroundColor: "white",
   // transform: "scale(0.9)",
   boxShadow: "2px 2px 8px  rgba(0, 0, 0, 0.5)",
-  transition: "all 1s ease-in-out",
+  transition: "all 0.7s ease",
 });
 
 globalStyle(`${header} a`, {

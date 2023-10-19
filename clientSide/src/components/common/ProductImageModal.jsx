@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import * as styles from "../../styles/components/ProductImageSwitch.css";
 import { Link } from "react-router-dom";
 
-function ProductImageSwitch({ data }) {
+function ProductImageSwitch({ titleInfo }) {
+
+  console.log("titleInfo", titleInfo);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [bigImageUrl, setBigImageUrl] = useState(data[0].url); // Initialize with the first image URL
+  const [bigImageUrl, setBigImageUrl] = useState(titleInfo.urls[0]); // Initialize with the first image URL
   const [slides, setSlides] = useState([]);
 
   const modalRef = useRef(null);
@@ -62,7 +64,7 @@ function ProductImageSwitch({ data }) {
 
   function showSlides(n) {
     if (slides && n >= 1 && n <= slides.length) {
-      modalImgRef.current.src = data[n - 1].url;
+      modalImgRef.current.src = titleInfo.urls[n - 1];
 
       slides.forEach((slide) => {
         slide.classList.remove(styles.active1);
@@ -70,7 +72,7 @@ function ProductImageSwitch({ data }) {
 
       slides[n - 1].classList.add(styles.active1);
 
-      bigImgRef.current.setAttribute("src", data[n - 1].url);
+      bigImgRef.current.setAttribute("src", titleInfo.urls[n - 1]);
     }
   }
 
@@ -78,9 +80,10 @@ function ProductImageSwitch({ data }) {
     setBigImageUrl(url);
   }; // Update the big image URL
 
+
   return (
     <div id="productImageSwitch">
-      {data[0] && (
+      {titleInfo && (
         <div className={styles.bigImgContainer}>
           <img
             src={bigImageUrl}
@@ -90,7 +93,7 @@ function ProductImageSwitch({ data }) {
           />
         </div>
       )}
-      <div id="myModal" className={styles.modal} ref={modalRef} >
+      <div id="myModal" className={styles.modal} ref={modalRef}>
         <span
           id="closeBtn "
           className={`${styles.close} ${styles.closeHover}`}
@@ -114,20 +117,20 @@ function ProductImageSwitch({ data }) {
         </span>
       </div>
       <ul className={styles.ul} ref={slidesRef}>
-        {data.map((item, index) => (
+        {titleInfo.urls.map((url, index) => (
           <li
-            key={item.id}
+            key={url.index}
             className={`${styles.li}${
               index === slideIndex - 1 ? " " + styles.active : ""
             }`}
           >
             <Link to="">
               <img
-                src={item.url}
+                src={url}
                 className={styles.smallImg}
-                alt={item.name}
+                alt={url}
                 onMouseEnter={() => {
-                  handleOnMouseEnter(item.url);
+                  handleOnMouseEnter(url);
                 }}
               />
             </Link>

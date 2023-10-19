@@ -47,18 +47,82 @@ module.exports = {
     }
   },
 
+  // Get all collections under a given category
+  async getCollections(req, res, next) {
+    try {
+      //req.params is:
+      const category = req.params.category;
+     
+      if (!category) {
+        return next(ApiError.badRequest("Invalid Category"));
+      }
+
+    const productRef = db.collection("products").doc(category);
+    const snapshot = await productRef.listCollections();
+
+    const titleInfoDocs = [];
+
+    for (const collection of snapshot) {
+      const titleInfoDoc = await collection.doc("titleInfo").get();
+      if (titleInfoDoc.exists) {
+        titleInfoDocs.push({
+          collectionId: collection.id,
+          titleInfo: titleInfoDoc.data()
+        });
+      }
+    }
+
+  
+
+
+
+
+
+
+      // const productRef = db.collection("products");
+      // const bathRef = await productRef.doc(category).collection().get();
+      // const snapshot = await bathRef.data().collections;
+      // console.log("bathRef is:",bathRef);
+      // console.log("snapshot   is:", snapshot);
+      // // [400 ERROR] Check for User Asking for Non-Existent Documents
+      // if (snapshot.empty) {
+      //   return next(
+      //     ApiError.badRequest("The items you were looking for do not exist")
+      //   );
+
+      //   // SUCCESS: Push object properties to array and send to client
+      // } else {
+      //   let docs = [];
+
+        // snapshot.forEach((doc) => {
+        //   // Get data from collections
+
+        //   docs.push({
+        //     collection: doc,
+        //   });
+        // });
+        // console.log("docs are:", docs);
+        // // Send docs and titleInfo to the client
+        res.send(titleInfoDocs);
+      
+      // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
+    } catch (err) {
+      return next(
+        ApiError.internalError("The items selected could not be found", err)
+      );
+    }
+  },
+  // End of getCollections
+
   //*** */ A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
   async getProduct(req, res, next) {
     try {
-      console.log("req.originalUrl is:", req.originalUrl);
+      console.log("req.params is:", req.params); //req.params is: { category: 'bath', collection: 'felicity' }
+      const category = req.params.category;
+      const collection = req.params.collection;
 
-      // 使用split方法分割URL路径
-      const urlParts = req.originalUrl.split("/");
-      // 根据位置获取category和collection
-      const category = urlParts[3];
-      const collection = urlParts[4];
+   
 
-      console.log("category: ", category, "collection:", collection);
       if (!category || !collection) {
         return next(
           ApiError.badRequest("Category and collection are required")
@@ -99,7 +163,7 @@ module.exports = {
             });
           }
         });
-
+     
         // Send docs and titleInfo to the client
         res.send({ docs: docs, titleInfo: titleInfo });
       }

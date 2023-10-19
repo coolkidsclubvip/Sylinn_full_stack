@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "../styles/global/themes.css";
-import * as fonts from "../styles/fonts/fonts.css";
+import { vars } from "../../styles/global/themes.css";
+import * as fonts from "../../styles/fonts/fonts.css";
 
 export const NAWrapper = style({
   width: "70vw",
@@ -23,20 +23,18 @@ export const NAItem = style({
 });
 
 export const NAItemText = style({
-  height: "65px",
-  fontSize: "16px",
+
+textAlign:"left",
   position: "relative",
-  textAlign: "left",
-  //   textAlign: "center",
-  padding: "2% 10%",
-  //   paddingLeft: "1rem",
-  fontWeight: "600",
+
+padding:"2% 10%"
 });
 
 export const NAItemImage = style({
   opacity: 1,
   width: "100%",
   height: "230px",
+  overflow: "hidden",
   padding: 0,
   transition: "all 0.5s ease",
   ":hover": { opacity: 0.8 },

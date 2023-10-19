@@ -2,9 +2,16 @@ import api from "../services/api";
 
 // MAIN AXIOS PRODUCT METHODS:
 // GET ALL - ProductMenu
-function getAll() {
-  return api.get("/api/products");
+function getAllCategories() {
+  return api.get("/products");
 }
+
+
+// GET ALL COLLETIONS UNDER A CATEGORY
+function getAllCollections(category) {
+  return api.get(`/products/${category}`)
+}
+
 // GET ALL ONSALE - ProductSale
 
 // POST - AddProduct
@@ -55,7 +62,8 @@ function prepareFormData() {
 
 // pack up all Product services
 const productService = {
-  getAll,
+  getAllCategories,
+  getAllCollections,
   post,
   // getFelicity,
   getProduct,
