@@ -1,11 +1,16 @@
 // Import modules
 const { db } = require("../config/db");
 const ApiError = require("../utils/ApiError");
+const {
+  storageBucketUpload,
+  getFileFromUrl,
+  deleteFileFromBucket,
+} = require("../utils/bucketServices");
 // const debugREAD = require("debug")("app:read");
 // const debugWRITE = require("debug")("app:write");
 
 module.exports = {
-  // [1A] GET ALL Products
+  ////// [1A]  GET ALL Products
   async getAllProducts(req, res, next) {
     try {
       // Store the collection reference in variable
@@ -47,64 +52,32 @@ module.exports = {
     }
   },
 
-  // Get all collections under a given category
+  ////// [1B]  Get all collections under a given category
   async getCollections(req, res, next) {
     try {
       //req.params is:
       const category = req.params.category;
-     
+
       if (!category) {
         return next(ApiError.badRequest("Invalid Category"));
       }
 
-    const productRef = db.collection("products").doc(category);
-    const snapshot = await productRef.listCollections();
+      const productRef = db.collection("products").doc(category);
+      const snapshot = await productRef.listCollections();
 
-    const titleInfoDocs = [];
+      const titleInfoDocs = [];
 
-    for (const collection of snapshot) {
-      const titleInfoDoc = await collection.doc("titleInfo").get();
-      if (titleInfoDoc.exists) {
-        titleInfoDocs.push({
-          collectionId: collection.id,
-          titleInfo: titleInfoDoc.data()
-        });
+      for (const collection of snapshot) {
+        const titleInfoDoc = await collection.doc("titleInfo").get();
+        if (titleInfoDoc.exists) {
+          titleInfoDocs.push({
+            collectionId: collection.id,
+            titleInfo: titleInfoDoc.data(),
+          });
+        }
       }
-    }
+      res.send(titleInfoDocs);
 
-  
-
-
-
-
-
-
-      // const productRef = db.collection("products");
-      // const bathRef = await productRef.doc(category).collection().get();
-      // const snapshot = await bathRef.data().collections;
-      // console.log("bathRef is:",bathRef);
-      // console.log("snapshot   is:", snapshot);
-      // // [400 ERROR] Check for User Asking for Non-Existent Documents
-      // if (snapshot.empty) {
-      //   return next(
-      //     ApiError.badRequest("The items you were looking for do not exist")
-      //   );
-
-      //   // SUCCESS: Push object properties to array and send to client
-      // } else {
-      //   let docs = [];
-
-        // snapshot.forEach((doc) => {
-        //   // Get data from collections
-
-        //   docs.push({
-        //     collection: doc,
-        //   });
-        // });
-        // console.log("docs are:", docs);
-        // // Send docs and titleInfo to the client
-        res.send(titleInfoDocs);
-      
       // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
     } catch (err) {
       return next(
@@ -112,16 +85,13 @@ module.exports = {
       );
     }
   },
-  // End of getCollections
 
-  //*** */ A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
+  ////// [1C]  A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
   async getProduct(req, res, next) {
     try {
       console.log("req.params is:", req.params); //req.params is: { category: 'bath', collection: 'felicity' }
       const category = req.params.category;
       const collection = req.params.collection;
-
-   
 
       if (!category || !collection) {
         return next(
@@ -163,7 +133,7 @@ module.exports = {
             });
           }
         });
-     
+
         // Send docs and titleInfo to the client
         res.send({ docs: docs, titleInfo: titleInfo });
       }
@@ -175,13 +145,146 @@ module.exports = {
     }
   },
 
-  // [1B] GET onSale Products
+  ////// [1D] GET onSale Products
 
   // [2] POST Product
+  async postProduct(req, res, next) {
+    console.log(
+      "req.body.products in productController is:",
+      req.body.products
+    ); //  products: '[object Object],[object Object]'
+    console.log(
+      "Array.isArray(req.body.products",
+      Array.isArray(req.body.products)
+    ); // False!!!!!!!!!!!
+    // save to cloud storage
+    let imageUrl = null;
+    let pdfUrl = null;
+    try {
+      console.log("res.locals.imageName is:", res.locals.imageName);
+      const imageName = res.locals.imageName; //是 Express.js 中的一个全局对象
+      const pdfName = res.locals.pdfName;
+      imageUrl = await storageBucketUpload(imageName);
+      pdfUrl = await storageBucketUpload(pdfName);
+    } catch (err) {
+      return next(
+        ApiError.internalError(
+          "An error occurred when uploading image to cloud storage",
+          err
+        )
+      );
+    }
+
+    // save to firestore
+    try {
+      const category = req.body.category;
+      const newCollection = req.body.newCollection;
+      const productRef = db.collection("products");
+      const collectionRef = productRef.doc(category).collection(newCollection);
+
+      // Handle titleInfo
+      const titleInfoData = {
+        code: req.body.code,
+        description: req.body.description,
+        urls: [imageUrl], //array of strings
+        onSale: req.body.onSale,
+        title: req.body.title,
+        downloadUrls: [pdfUrl], //array of strings
+      };
+
+      const titleInfoDoc = collectionRef.doc("titleInfo");
+      const response1 = await titleInfoDoc.set(titleInfoData);
+
+      console.log("typeof req.body.products", typeof req.body.products);
+      console.log("req.body.products is:", req.body.products);
+
+      // Handle multiple product variants:
+      if (req.body.products.length > 1) {
+        const products = req.body.products;
+        console.log("typeof req.body.products", typeof products);
+        const productsPromises = products.map(async (product) => {
+          const productDoc = collectionRef.doc(product.id);
+          await productDoc.set({
+            name: product.name,
+            rrp: Number(product.rrp),
+            stock: product.stock,
+          });
+        });
+
+        await Promise.all(productsPromises);
+
+        //Handle only 1 product without any variant
+      } else if (req.body.products.length == 1) {
+        // Handle single product, no other options:
+        console.log("!!!req.body.products[0].id is:", req.body.products[0].id);
+        await collectionRef.doc(req.body.products[0].id).set({
+          name: req.body.products[0].name,
+          rrp: Number(req.body.products[0].rrp),
+          stock: req.body.products[0].stock,
+        });
+      }
+
+      res.send(`${newCollection} has been Added successfully`);
+    } catch (err) {
+      return next(
+        ApiError.internalError("Your request could not be saved", err)
+      );
+    }
+  },
 
   // [3] GET Product BY ID
 
   // [4] PUT Product BY ID
 
   // [5] DELETE Product BY ID
+  async deleteProductById(req, res, next) {
+    try {
+      // 1.Check document existence with matching id
+      const productRef = db
+        .collection("products")
+        .doc(`${req.params.category}`)
+        .collection(`${req.params.id}`);
+      const snapshot = await productRef.get();
+      // 2. Queue the deletion of files
+      // 2.1 Delete the image files
+
+      snapshot.forEach((doc) => {
+        // Get data from felicity
+        const data = doc.data();
+        if (doc.id === "titleInfo") {
+          titleInfo = {
+            id: doc.id,
+            ...data,
+          };
+        }
+      });
+
+      console.log("titleInfo.urls: " + titleInfo.urls);
+
+      const deletePromises = titleInfo.urls.map(async (url) => {
+        const uploadedFile = getFileFromUrl(url); // Replace with your logic to get the file
+        return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
+      });
+
+      await Promise.all(deletePromises);
+      //2.2 delete the uploaded files(pdf etc.)
+
+      const deleteDownloadPromises = titleInfo.downloadUrls.map(
+        async (downloadUrl) => {
+          const uploadedFile = getFileFromUrl(downloadUrl); // Replace with your logic to get the file
+          return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
+        }
+      );
+
+      await Promise.all(deleteDownloadPromises);
+      // 3. Delete the document from Firestore
+      await productRef.delete({ exists: true }); //precondition: to delete the document only when it exists
+
+      res.send("Product and associated files deleted successfully");
+    } catch (err) {
+      return next(
+        ApiError.internalError("Your request can not be processed", err)
+      );
+    }
+  },
 };

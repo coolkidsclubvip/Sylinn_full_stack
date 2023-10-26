@@ -14,7 +14,7 @@ api.interceptors.response.use(null, (error) => {
     error.response.status >= 400 &&
     error.response.status &&
     error.response.status < 500;
-  console.log(expectedError);
+
 
   if (!expectedError) {
     // NOTE: We could also implement a logging system for errors here
@@ -33,9 +33,12 @@ api.interceptors.response.use(null, (error) => {
 //3. setting default configs (header token)
 
 export function setHeaderToken() {
-  const token = localStorage.getItem("userToken");
-  if (token) {
-    api.defaults.headers.common["Authorization"] = "Bearer" + token;
+  let token = localStorage.getItem("userToken");
+  const parsedToken = JSON.parse(token);
+  const accessToken = parsedToken.token;
+
+  if (accessToken) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
   } else delete api.defaults.headers.common["Authorization"];
 }
 

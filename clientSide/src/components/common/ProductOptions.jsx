@@ -9,12 +9,12 @@ function ProductOptions({ data, setSelectedOption }) {
 
   return (
     <div className={styles.container}>
-      <h4>Options</h4>
+     
       <Form.Select
         aria-label="Default select example"
         onChange={handleSelectChange}
       >
-        <option>
+        <option value={""}>
           <span className=" ">--Available Options--</span>
         </option>
         {data.map((item) => (

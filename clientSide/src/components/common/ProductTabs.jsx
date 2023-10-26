@@ -49,7 +49,7 @@ function ProductTabs({titleInfo}) {
       {selected === "downloads" && (
         <div className={styles.downloadsContent}>
           {/* Render the Downloads content here */}
-          <a href={`${titleInfo.downloadUrl}`} target="_blank" rel="noreferrer">
+          <a href={`${titleInfo.downloadUrls}`} target="_blank" rel="noreferrer">
             downloand pdf{" "}
           </a>
         </div>

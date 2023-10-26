@@ -1,9 +1,18 @@
-import React, { Children } from 'react'
 
-function SyButton({loadingState,Children}) {
+import { Button } from "react-bootstrap";
+
+function SyButton({loading,children}) {
   return (
-    <input className="btn btn-primary" type="submit" value="Submit"/>
-  )
+    <Button
+      className="btn btn-primary"
+      type="submit"
+      value="Submit"
+      disabled={loading ? 1 : 0}
+   >
+    {children}
+   </Button>
+   
+  );
 }
 
 export default SyButton

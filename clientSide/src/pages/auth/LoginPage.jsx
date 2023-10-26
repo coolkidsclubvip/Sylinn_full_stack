@@ -1,10 +1,10 @@
 import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { Form,Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
-import LoadingButton from "../../components/common/LoadingButton";
+
 import useAuth  from "../../hooks/useAuth";
 
 
@@ -41,7 +41,7 @@ function LoginPage() {
     try {
       const response = await authService.login( user);
       // TO ADJUST LATER WITH CONTEXT API
-      console.log("response.data is:", response.data);
+      // console.log("response.data is:", response.data);
       toast.success("Login successful");
       loginSaveUser(response.data);
       navigate("/dashboard");
@@ -88,12 +88,20 @@ function LoginPage() {
             </Form.Group>
 
             {/* SUBMIT BUTTON */}
-            {loading ? <LoadingButton /> : <SyButton />}
-            {/* <SyButton
-              variant="primary"
-              type="submit"
-              loadingState={loading}
-            ></SyButton> */}
+      
+            <SyButton loading={loading}>
+              {loading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                "Submit"
+              )}
+            </SyButton>
           </Form>
 
           {/* Form ends */}

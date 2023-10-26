@@ -1,10 +1,9 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form } from "react-bootstrap";
+import { Form,Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
-import LoadingButton from "../../components/common/LoadingButton";
 // LOCAL MODULES
 import * as styles from "../../styles/SignupPage.css";
 import useAuth from "../../hooks/useAuth";
@@ -117,7 +116,20 @@ function SignupPage() {
               />
             </Form.Group>
             {/* SUBMIT BUTTON */}
-            {loading ? <LoadingButton /> : <SyButton />}
+
+            <SyButton loading={loading}>
+              {loading ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                "Submit"
+              )}
+            </SyButton>
           </Form>
 
           {/* Form ends */}

@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import * as styles from "../../styles/components/ProductImageSwitch.css";
 import { Link } from "react-router-dom";
+import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 
 function ProductImageSwitch({ titleInfo }) {
 
   console.log("titleInfo", titleInfo);
+  const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
+
+
   const [slideIndex, setSlideIndex] = useState(0);
-  const [bigImageUrl, setBigImageUrl] = useState(titleInfo.urls[0]); // Initialize with the first image URL
+  const [bigImageUrl, setBigImageUrl] = useState(isBigImageUrl); // Initialize with the first image URL
   const [slides, setSlides] = useState([]);
 
   const modalRef = useRef(null);
@@ -117,7 +121,7 @@ function ProductImageSwitch({ titleInfo }) {
         </span>
       </div>
       <ul className={styles.ul} ref={slidesRef}>
-        {titleInfo.urls.map((url, index) => (
+        {titleInfo.urls?.map((url, index) => (
           <li
             key={url.index}
             className={`${styles.li}${

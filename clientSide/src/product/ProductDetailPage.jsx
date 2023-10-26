@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,Button } from "react-bootstrap";
 import * as styles from "../styles/ProductDetailPage.css";
 import productService from "../services/productService";
 import Loader from "../components/common/Loader";
@@ -7,6 +7,7 @@ import ProductImageModal from "../components/common/ProductImageModal";
 import ProductOptions from "../components/common/ProductOptions";
 import ProductTabs from "../components/common/ProductTabs";
 import { useParams } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 function ProductDetailPage() {
   const [data, setData] = useState([]);
@@ -18,8 +19,10 @@ function ProductDetailPage() {
   const [RRP, setRRP] = useState(""); // set RRP to selected option
   const [stock, setStock] = useState(""); // set stock to selected option
   let { category, collection } = useParams();
+  const {user}=useAuth();
 
-  console.log("category, collection are", category, collection);
+
+
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -121,16 +124,26 @@ function ProductDetailPage() {
                   ) : (
                     ""
                   )}
-
                   <ProductOptions
                     setSelectedOption={setSelectedOption}
                     data={data}
                   />
-                  <button>Add to wishlist</button>
+             <div className={styles.buttonsGroups}>    {!user||user.isAdmin==="false"? (<button>Add to wishlist</button>):
+                 (  <div> <Button onClick={""}>Edit</Button>
+                  <Button onClick={""}>Delete</Button> </div>
+                  )}
+                  </div>
                 </div>
               </div>
             </div>
           </Col>
+
+
+<Row> <Col sm={12} md={5}>
+  
+  
+  </Col></Row>
+
         </Row>
         {/* 2nd row */}
 

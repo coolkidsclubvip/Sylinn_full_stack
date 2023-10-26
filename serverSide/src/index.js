@@ -1,6 +1,7 @@
 // import external libraries
 const express = require("express");
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const helmet = require("helmet");
 require("dotenv").config();
@@ -11,22 +12,31 @@ const routes = require("./routes/routes");
 const { dbPing } = require("./config/db");
 const ApiError = require("./utils/ApiError");
 const ApiErrorHandler = require("./middleware/ApiErrorHandler");
-const corsOptions = require("./config/corsOptions")
+const corsOptions = require("./config/corsOptions");
 
 // // dev debug console logs
 const debugStartup = require("debug")("app:startup");
 
 //initialize application using express
 const app = express();
-// CORS & HTTP HEADER SETTER 
-app.use(helmet())
-app.use(cors({origin:'*'}) ) // default origin, available to any visitor
+// CORS & HTTP HEADER SETTER
+app.use(helmet());
+app.use(cors({ origin: "*" })); // default origin, available to any visitor
 // app.use(cors(corsOptions))
 
 // express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 debugStartup("Parsing middleware enabled on all routes");
+
+// File parsing middleware
+// app.use(fileUpload({ createParentPath: true })); // allow upload a file to the local server
+app.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
+
 app.use(morgan("dev"));
 
 // route handlers
@@ -45,4 +55,3 @@ dbPing.then(() => {
     console.log(`Server is running on port: ${config.port}`)
   );
 });
- 
