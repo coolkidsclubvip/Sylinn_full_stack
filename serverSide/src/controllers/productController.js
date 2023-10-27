@@ -9,6 +9,23 @@ const {
 // const debugREAD = require("debug")("app:read");
 // const debugWRITE = require("debug")("app:write");
 
+// Function to delete a collection from firestore
+async function deleteCollection(collectionPath) {
+  const collectionRef = db.collection(collectionPath);
+  const batch = db.batch();
+
+  // Get all documents in the collection
+  const querySnapshot = await collectionRef.get();
+
+  querySnapshot.forEach((doc) => {
+    const docRef = db.collection(collectionPath).doc(doc.id);
+    batch.delete(docRef);
+  });
+
+  // Commit the batch
+  await batch.commit();
+}
+
 module.exports = {
   ////// [1A]  GET ALL Products
   async getAllProducts(req, res, next) {
@@ -247,13 +264,13 @@ module.exports = {
       const snapshot = await productRef.get();
       // 2. Queue the deletion of files
       // 2.1 Delete the image files
-
+      let titleInfo = null;
       snapshot.forEach((doc) => {
-        // Get data from felicity
+        // Get data
         const data = doc.data();
         if (doc.id === "titleInfo") {
           titleInfo = {
-            id: doc.id,
+            id: "titleInfo",
             ...data,
           };
         }
@@ -263,6 +280,7 @@ module.exports = {
 
       const deletePromises = titleInfo.urls.map(async (url) => {
         const uploadedFile = getFileFromUrl(url); // Replace with your logic to get the file
+        console.log("uploadedFile for image: ", uploadedFile);
         return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
       });
 
@@ -272,14 +290,17 @@ module.exports = {
       const deleteDownloadPromises = titleInfo.downloadUrls.map(
         async (downloadUrl) => {
           const uploadedFile = getFileFromUrl(downloadUrl); // Replace with your logic to get the file
+          console.log("uploadedFile for pdf: ", uploadedFile);
           return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
         }
       );
 
       await Promise.all(deleteDownloadPromises);
       // 3. Delete the document from Firestore
-      await productRef.delete({ exists: true }); //precondition: to delete the document only when it exists
-
+      // await productRef.delete({ exists: true }); //precondition: to delete the document only when it exists
+      await deleteCollection(
+        `products/${req.params.category}/${req.params.id}`
+      );
       res.send("Product and associated files deleted successfully");
     } catch (err) {
       return next(

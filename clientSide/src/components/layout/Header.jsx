@@ -18,6 +18,7 @@ import useAuth from "../../hooks/useAuth";
 import { Turn as Hamburger } from "hamburger-react";
 import { TbHeart, TbLogout, TbUserSquare, TbLogin2 } from "react-icons/tb";
 import { LuUserPlus } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 function Header({ showOffcanvas, setShowOffcanvas }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -48,6 +49,10 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
   }, []);
 
   // console.log("scrollTop is:", scrollTop);
+  const handleClick = () => {
+    toast.success("Logged out successfully");
+    logout();
+  };
 
   return (
     <Container fluid>
@@ -103,12 +108,7 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
             {/* logout button */}
             {user && (
               <Link>
-                <TbLogout
-                  size={30}
-                  onClick={() => {
-                    logout();
-                  }}
-                />
+                <TbLogout size={30} onClick={handleClick} />
               </Link>
             )}
             &nbsp;

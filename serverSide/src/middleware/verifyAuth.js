@@ -6,7 +6,7 @@ const config = require("../config/config");
 const auth = (req, res, next) => {
   // Load bearer token from header
   let token = req.header("Authorization");
-  console.log("token in req.header is: " + token);
+
   // 401 error,no token is passed in
   if (!token) {
     return next(ApiError.denyAccess("No token provided"));

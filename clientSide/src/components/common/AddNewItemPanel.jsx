@@ -89,7 +89,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     try {
       const response = await productService.post(productData);
       console.log("response is:", response);
-      toast.success(`Success :${response}`);
+      toast.success(`${productData.title} has been created successfully`);
       // setLoading(false);
       fetchCollections();
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -125,7 +125,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
             You are adding a new product into category of <b>{`${category}`}</b>
           </span>
           <Form onSubmit={handleSubmit}>
-            {/* New Collection */}
+            {/* GROUP 1 New Collection */}
             <Form.Group className="mb-3 mt-3">
               <Form.Label>New Collection</Form.Label>
               <Form.Control
@@ -136,7 +136,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/* Product Code */}
+            {/*GROUP 2 Product Code */}
             <Form.Group className="mb-3">
               <Form.Label>Product Code</Form.Label>
               <Form.Control
@@ -147,7 +147,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/* Product Description */}
+            {/*GROUP 3 Product Description */}
             <Form.Group className="mb-3">
               <Form.Label>Product Description</Form.Label>
               <Form.Control
@@ -159,7 +159,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/* Product Title */}
+            {/* GROUP 4 Product Title */}
             <Form.Group className="mb-3">
               <Form.Label>Product Title</Form.Label>
               <Form.Control
@@ -170,7 +170,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/* GROUP 6 & 7: IMAGE UPLOAD & PDF FILE UPLOAD */}
+            {/* GROUP 5 & 6: IMAGE UPLOAD & PDF FILE UPLOAD */}
             <Row>
               <Col lg={6} md={6} sm={12}>
                 <Form.Group className="mb-3" controlId="image">
@@ -196,7 +196,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
               </Col>
             </Row>
 
-            {/* GROUP 8: onSale */}
+            {/* GROUP 7: onSale */}
             <Row>
               <Col lg={6} md={6} sm={12}>
                 {" "}
@@ -222,7 +222,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
               </Col>
             </Row>
 
-            {/********** *  GROUP 9: Product Details  *************/}
+            {/***********  GROUP 8: Product Details  *************/}
             {products.map((product, index) => (
               <div key={index}>
                 <hr style={{ color: "red" }} />

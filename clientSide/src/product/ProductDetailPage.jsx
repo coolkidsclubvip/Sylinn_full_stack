@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col,Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import * as styles from "../styles/ProductDetailPage.css";
 import productService from "../services/productService";
 import Loader from "../components/common/Loader";
 import ProductImageModal from "../components/common/ProductImageModal";
 import ProductOptions from "../components/common/ProductOptions";
 import ProductTabs from "../components/common/ProductTabs";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
+import SyButton from "../components/common/SyButton"
 
 function ProductDetailPage() {
   const [data, setData] = useState([]);
@@ -19,16 +21,15 @@ function ProductDetailPage() {
   const [RRP, setRRP] = useState(""); // set RRP to selected option
   const [stock, setStock] = useState(""); // set stock to selected option
   let { category, collection } = useParams();
-  const {user}=useAuth();
-
-
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         const response = await productService.getProduct(category, collection);
         const responseData = response.data;
-        console.log("responseData: ", responseData);
+
         setData(responseData.docs);
         setTitleInfo(responseData.titleInfo);
         setLoading(false);
@@ -77,10 +78,24 @@ function ProductDetailPage() {
     );
   }
 
-
-  // to be completed!!!!!!!!!!!!!!!!!!!!!
-  const handleClick = (selectedProduct) => {
-    // setAddToWishList(selectedProduct)
+  // Handle delete collection request
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    console.log("Delete clicked");
+    try {
+      setLoading(true);
+           console.log("category,collection", category, collection);
+      const res = await productService.del(category, collection);
+ 
+         // onSuccess - Redirect
+      setLoading(false);
+      toast.success(`Product ${titleInfo.title} has been deleted successfully`);
+      navigate(`/products/${category}`);
+    } catch (error) {
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      console.log(error);
+     
+    }
   };
 
   return (
@@ -128,22 +143,27 @@ function ProductDetailPage() {
                     setSelectedOption={setSelectedOption}
                     data={data}
                   />
-             <div className={styles.buttonsGroups}>    {!user||user.isAdmin==="false"? (<button>Add to wishlist</button>):
-                 (  <div> <Button onClick={""}>Edit</Button>
-                  <Button onClick={""}>Delete</Button> </div>
-                  )}
+                  <div className={styles.buttonsGroups}>
+                    {" "}
+                    {!user || user.isAdmin === "false" ? (
+                      <button>Add to wishlist</button>
+                    ) : (
+                      <div>
+                        {" "}
+                        <Button onClick={""}>Edit</Button>
+                        <SyButton loading={loading} onClick={handleDelete}>Delete</SyButton>{" "}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </Col>
 
-
-<Row> <Col sm={12} md={5}>
-  
-  
-  </Col></Row>
-
+          <Row>
+            {" "}
+            <Col sm={12} md={5}></Col>
+          </Row>
         </Row>
         {/* 2nd row */}
 

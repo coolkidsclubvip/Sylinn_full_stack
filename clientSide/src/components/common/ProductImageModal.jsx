@@ -5,7 +5,7 @@ import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 
 function ProductImageSwitch({ titleInfo }) {
 
-  console.log("titleInfo", titleInfo);
+ 
   const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
 
 

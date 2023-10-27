@@ -64,9 +64,10 @@ module.exports = {
   // Get File name from a download URL
   getFileFromUrl(downloadURL) {
     debugBucket(`DownloadURL from DB: ${downloadURL}`);
-
+console.log("downloadURL from DB:", downloadURL);
     // Slice off the base URL from downloadURL
-    const baseURL = `https://firebasestorage.googleapis.com/v0/b/${config.db.storageBucket}/o/`;
+    console.log("config.db.storageBucket", config.db.storageBucketUrl);
+    const baseURL = `https://firebasestorage.googleapis.com/v0/b/${config.db.storageBucketUrl}/o/`;
     let fileGlob = downloadURL.replace(baseURL, "");
 
     // Remove everything after the query string

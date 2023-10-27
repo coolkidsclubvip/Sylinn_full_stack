@@ -13,8 +13,8 @@ const Layout = () => {
   return (
     <div className={styles.app}>
       <ToastContainer
-        position="top-center"
-        autoClose={5000}
+        position="top-right"
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -23,6 +23,7 @@ const Layout = () => {
         draggable
         pauseOnHover
         theme="light"
+        
       />
       <OffCanvas
         showOffcanvas={showOffcanvas}

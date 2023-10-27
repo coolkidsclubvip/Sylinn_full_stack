@@ -23,6 +23,9 @@ function OffCanvas({ showOffcanvas, setShowOffcanvas }) {
           <div className="offcanvas-body d-flex flex-column mt-5 py-0 ">
             <SearchBar />
 
+            <Nav.Link className={styles.navbtn} href="/">
+              <span className={fonts.futuraNav}>Home&nbsp;&nbsp;</span>
+            </Nav.Link>
             <Nav.Link className={styles.navbtn} href="about.html">
               <span className={fonts.futuraNav}>About&nbsp;&nbsp;</span>
             </Nav.Link>

@@ -25,6 +25,10 @@ function post(data) {
 // PUT - EditProduct
 
 // DELETE - ProductDetail
+  function del(category, id) {
+    return api.delete(`/products/${category}/${id}`)
+  }
+
 
 // get all products under /bath/felicity
 
@@ -83,6 +87,7 @@ const productService = {
   post,
   // getFelicity,
   getProduct,
+  del
 };
 
 export default productService;
