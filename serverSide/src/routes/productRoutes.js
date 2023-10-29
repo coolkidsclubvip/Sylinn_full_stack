@@ -29,13 +29,14 @@ module.exports = () => {
   // POST Product
   router.post(
     "/",
-   [verifyAuth.auth,
-    verifyAuth.admin,
-    productPolicy.validateProduct,// this is Joi validation
-    filePolicy.filePayloadExists,
-    filePolicy.fileSizeLimiter,
-    filePolicy.fileExtensionLimiter([".png", ".jpg", ".jpeg", ".avif",".gif"]),
-    fileServerUpload], // use[] array brackets ensures process order
+   
+    // verifyAuth.auth,
+    // verifyAuth.admin,
+    // productPolicy.validateProduct,// this is Joi validation
+    // filePolicy.filePayloadExists,
+    // filePolicy.fileSizeLimiter,
+    // filePolicy.fileExtensionLimiter([".png", ".jpg", ".jpeg", ".avif",".gif"]),
+    fileServerUpload, // use[] array brackets ensures process order
     ProductController.postProduct
   );
 

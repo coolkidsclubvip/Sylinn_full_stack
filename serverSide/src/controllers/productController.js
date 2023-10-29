@@ -166,23 +166,23 @@ module.exports = {
 
   // [2] POST Product
   async postProduct(req, res, next) {
-    console.log(
-      "req.body.products in productController is:",
-      req.body.products
-    ); //  products: '[object Object],[object Object]'
-    console.log(
-      "Array.isArray(req.body.products",
-      Array.isArray(req.body.products)
-    ); // False!!!!!!!!!!!
+  
     // save to cloud storage
-    let imageUrl = null;
-    let pdfUrl = null;
+    let imageUrls = [];
+    let pdfUrls = [];
+    console.log("res.locals.imageNames is:", res.locals.imageNames);
+    console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
     try {
-      console.log("res.locals.imageName is:", res.locals.imageName);
-      const imageName = res.locals.imageName; //是 Express.js 中的一个全局对象
-      const pdfName = res.locals.pdfName;
-      imageUrl = await storageBucketUpload(imageName);
-      pdfUrl = await storageBucketUpload(pdfName);
+      
+      for (const imageName of res.locals.imageNames) {
+        const imageUrl = await storageBucketUpload(imageName);
+        imageUrls.push(imageUrl);
+      }
+
+      for (const pdfName of res.locals.pdfNames) {
+        const pdfUrl = await storageBucketUpload(pdfName);
+        pdfUrls.push(pdfUrl);
+      }
     } catch (err) {
       return next(
         ApiError.internalError(
@@ -203,22 +203,27 @@ module.exports = {
       const titleInfoData = {
         code: req.body.code,
         description: req.body.description,
-        urls: [imageUrl], //array of strings
+        urls: imageUrls, // Use the array of image URLs
         onSale: req.body.onSale,
         title: req.body.title,
-        downloadUrls: [pdfUrl], //array of strings
+        downloadUrls: pdfUrls, // Use the array of PDF URLs
       };
 
       const titleInfoDoc = collectionRef.doc("titleInfo");
       const response1 = await titleInfoDoc.set(titleInfoData);
 
-      console.log("typeof req.body.products", typeof req.body.products);
-      console.log("req.body.products is:", req.body.products);
-
       // Handle multiple product variants:
+      console.log("req.body is: " + req.body);
+      console.log(
+        "  req.body.products is:",
+        req.body.products,
+        Array.isArray(req.body.products)
+      );
       if (req.body.products.length > 1) {
-        const products = req.body.products;
-        console.log("typeof req.body.products", typeof products);
+        const products = JSON.parse(req.body.products);
+
+        console.log("products is:", products);
+        console.log(" products type is:", Array.isArray(products));
         const productsPromises = products.map(async (product) => {
           const productDoc = collectionRef.doc(product.id);
           await productDoc.set({
@@ -233,7 +238,10 @@ module.exports = {
         //Handle only 1 product without any variant
       } else if (req.body.products.length == 1) {
         // Handle single product, no other options:
-        console.log("!!!req.body.products[0].id is:", req.body.products[0].id);
+        console.log(
+          "req.body.products只有一个 type is:",
+          Array.isArray(req.body.products)
+        );
         await collectionRef.doc(req.body.products[0].id).set({
           name: req.body.products[0].name,
           rrp: Number(req.body.products[0].rrp),
@@ -242,6 +250,7 @@ module.exports = {
       }
 
       res.send(`${newCollection} has been Added successfully`);
+      return;
     } catch (err) {
       return next(
         ApiError.internalError("Your request could not be saved", err)

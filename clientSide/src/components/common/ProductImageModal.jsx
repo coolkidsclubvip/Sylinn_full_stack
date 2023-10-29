@@ -3,6 +3,7 @@ import * as styles from "../../styles/components/ProductImageSwitch.css";
 import { Link } from "react-router-dom";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 
+
 function ProductImageSwitch({ titleInfo }) {
 
  
@@ -123,7 +124,7 @@ function ProductImageSwitch({ titleInfo }) {
       <ul className={styles.ul} ref={slidesRef}>
         {titleInfo.urls?.map((url, index) => (
           <li
-            key={url.index}
+            key={index}
             className={`${styles.li}${
               index === slideIndex - 1 ? " " + styles.active : ""
             }`}
@@ -133,6 +134,9 @@ function ProductImageSwitch({ titleInfo }) {
                 src={url}
                 className={styles.smallImg}
                 alt={url}
+                onError={(e) => {
+                  e.target.src = imagePlaceHolder; //  
+                }}
                 onMouseEnter={() => {
                   handleOnMouseEnter(url);
                 }}

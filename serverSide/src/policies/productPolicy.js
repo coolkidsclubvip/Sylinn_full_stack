@@ -6,7 +6,7 @@ const debugJoi = require("debug")("app:joi");
 module.exports = {
   // [1] POST Validation
   validateProduct(req, res, next) {
-    console.log("req.body in Joi is: ",req.body);
+    // console.log("req.body in Joi is: ",req.body);
     req.body.products = JSON.parse(req.body.products);
 
    const schema = Joi.object({
@@ -14,8 +14,8 @@ module.exports = {
      newCollection: Joi.string().required(),
      code: Joi.string().required(),
      description: Joi.string().required(),
-     //  urls: Joi.array().items(Joi.string()).required(),
-     downloadUrls: Joi.array().items(Joi.string()).allow(null, ""),
+      // urls: Joi.array().items(Joi.string()).required(),
+    //  downloadUrls: Joi.array().items(Joi.string()).allow(null, ""),
      onSale: Joi.boolean().required(),
      title: Joi.string().required(),
      products: Joi.array() // id,name,rrp,stock are nested inside products

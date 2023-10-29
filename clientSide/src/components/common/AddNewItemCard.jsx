@@ -23,6 +23,7 @@ function AddNewItemCard({ setShowAddNewPanel }) {
 
           <Link to={""}>
             <button
+            type="button"
               className={styles.button}
               onClick={() => {
                 setShowAddNewPanel(true);

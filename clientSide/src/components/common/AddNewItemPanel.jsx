@@ -24,7 +24,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     downloadUrls: [],
     onSale: false,
     title: "",
-    products: [{} ],
+    products: [{}],
   });
 
   // Destructure data state nested object properties
@@ -39,7 +39,27 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     products,
   } = productData;
 
-  // const [{ id, name, rrp, stock }] = products;
+  // A state to receive uploaded images
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  // A state to receieve upload non-image files (pdf)
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+
+  //////////////////////////////////////
+  const [imageFields, setImageFields] = useState([{ value: null }]);
+  const [fileFields, setFileFields] = useState([{ value: null }]);
+
+  //
+  const addImageField = () => {
+    const newField = { value: null };
+    setImageFields([...imageFields, newField]);
+  };
+
+  const addFileField = () => {
+    const newField = { value: null };
+    setFileFields([...fileFields, newField]);
+  };
+  //////////////////////////////////////
 
   // Form event handlers:
   // [1] handleTextChange will handle change in state value event for TEXT data
@@ -55,30 +75,48 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     const updatedProducts = [...products]; // make a shallow copy of products
     updatedProducts[index][field] = value; // add new value to each product in array
 
-    console.log(
-      "Array.isArray(updatedProducts)",
-      Array.isArray(updatedProducts),
-      updatedProducts
-    );
     setProductData({ ...productData, products: updatedProducts }); // add new products array to productData
   };
 
   // [2.1] handleImageChange will handle change in state for IMAGE data
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    console.log("image file is:", file);
-    setProductData({ ...productData, urls: file });
+    // const file = e.target.files[0];
+    // console.log("image file is:", file);
+    const files = e.target.files;
+    const newUploadedImages = Array.from(files);
+    const updatedImages = [...uploadedImages, ...newUploadedImages];
+    setUploadedImages(updatedImages);
+    setProductData({ ...productData, urls: updatedImages });
   };
   // [2.2] handleFileChange will handle change in state for FILE data
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    console.log("pdf file is:", file);
-    setProductData({ ...productData, downloadUrls: file });
+    // const file = e.target.files[0];
+    // console.log("pdf file is:", file);
+    const files = e.target.files;
+    const newUploadedFiles = Array.from(files);
+    const updatedFiles = [...uploadedFiles, ...newUploadedFiles];
+    setUploadedFiles(updatedFiles);
+    setProductData({ ...productData, downloadUrls: updatedFiles });
   };
   //  Opens a new section to add one more variant
   const addProduct = () => {
-    const newProducts = [...products, { id: "", name: "", rrp: 0, stock: 0 }]; // default values
+    const newProducts = [
+      ...products,
+      { id: "", name: "", rrp: null, stock: null },
+    ]; // default values
     setProductData({ ...productData, products: newProducts });
+  };
+
+  // To delete files from to-be-deleted files list
+  const removeFile = (index) => {
+    const updatedFiles = [...uploadedFiles];
+    updatedFiles.splice(index, 1);
+    setUploadedFiles(updatedFiles);
+    // 重置文件上传字段的值为 ""
+    const fileInputs = document.getElementsByName("downloadUrls");
+    if (fileInputs[index]) {
+      fileInputs[index].value = "";
+    }
   };
 
   // Run function when SUBMIT is clicked
@@ -91,7 +129,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
       console.log("response is:", response);
       toast.success(`${productData.title} has been created successfully`);
       // setLoading(false);
-      fetchCollections();
+      await fetchCollections();
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
       setShowAddNewPanel(false);
     } catch (err) {
@@ -104,16 +142,13 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
   };
 
   console.log("ProductData is:", productData);
-  console.log(
-    "Array.isArray productData.products is:",
-    Array.isArray(productData.products)
-  );
 
   return (
     <Container>
       <div className={`${styles.container} shadow`}>
         <h1> AddNewItemPanel {category}</h1>
         <button
+          type="button"
           onClick={() => {
             setShowAddNewPanel(false);
           }}
@@ -173,7 +208,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
             {/* GROUP 5 & 6: IMAGE UPLOAD & PDF FILE UPLOAD */}
             <Row>
               <Col lg={6} md={6} sm={12}>
-                <Form.Group className="mb-3" controlId="image">
+                {/* <Form.Group className="mb-3" controlId="image">
                   <Form.Label>Product image</Form.Label>
                   <Form.Control
                     type="file"
@@ -181,10 +216,24 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                     name="urls"
                     onChange={handleImageChange}
                   />
-                </Form.Group>
+                </Form.Group> */}
+                {imageFields.map((field, index) => (
+                  <Form.Group key={index} className="mb-3">
+                    <Form.Label>Product image</Form.Label>
+                    <Form.Control
+                      type="file"
+                      className="mb-4"
+                      name="urls"
+                      onChange={(e) => handleImageChange(e)}
+                    />
+                  </Form.Group>
+                ))}
+                <button type="button" onClick={addImageField}>
+                  Add Image Upload
+                </button>
               </Col>
               <Col lg={6} md={6} sm={12}>
-                <Form.Group className="mb-3" controlId="pdf-file">
+                {/* <Form.Group className="mb-3" controlId="pdf-file">
                   <Form.Label>PDF File Upload</Form.Label>
                   <Form.Control
                     type="file"
@@ -192,7 +241,27 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                     name="downloadUrls"
                     onChange={handleFileChange}
                   />
-                </Form.Group>
+                </Form.Group> */}
+                {fileFields.map((field, index) => (
+                  <>
+                    {" "}
+                    <Form.Group key={index} className="mb-3">
+                      <Form.Label>File Upload</Form.Label>
+                      <Form.Control
+                        type="file"
+                        className="mb-4"
+                        name="downloadUrls"
+                        onChange={(e) => handleFileChange(e)}
+                      />
+                      <button type="button" onClick={() => removeFile(index)}>
+                        Remove
+                      </button>
+                    </Form.Group>
+                  </>
+                ))}
+                <button type="button" onClick={addFileField}>
+                  Add File Upload
+                </button>
               </Col>
             </Row>
 

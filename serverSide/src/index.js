@@ -11,7 +11,7 @@ const config = require("./config/config");
 const routes = require("./routes/routes");
 const { dbPing } = require("./config/db");
 const ApiError = require("./utils/ApiError");
-const ApiErrorHandler = require("./middleware/ApiErrorHandler");
+const apiErrorHandler = require("./middleware/apiErrorHandler");
 const corsOptions = require("./config/corsOptions");
 
 // // dev debug console logs
@@ -45,9 +45,9 @@ app.use("/api", routes());
 // Error handlers:
 app.use((req, res, next) => {
   next(ApiError.notFound()); // "send us to the next middleware"
-  //   next(err)
+
 });
-app.use(ApiErrorHandler);
+app.use(apiErrorHandler);
 
 // Ping DB & Set Port
 dbPing.then(() => {

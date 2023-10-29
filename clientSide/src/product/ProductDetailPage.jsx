@@ -11,6 +11,7 @@ import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import SyButton from "../components/common/SyButton"
 
+
 function ProductDetailPage() {
   const [data, setData] = useState([]);
   const [titleInfo, setTitleInfo] = useState({});

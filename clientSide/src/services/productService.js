@@ -15,8 +15,8 @@ function getAllCollections(category) {
 
 // POST - AddProduct
 function post(data) {
+  console.log("data to be sent to prepareFormData is:", data);
   const formData = prepareFormData(data);
-
   return api.post("/products", formData, formConfig);
 }
 
@@ -25,14 +25,13 @@ function post(data) {
 // PUT - EditProduct
 
 // DELETE - ProductDetail
-  function del(category, id) {
-    return api.delete(`/products/${category}/${id}`)
-  }
-
+function del(category, id) {
+  return api.delete(`/products/${category}/${id}`);
+}
 
 // get all products under /bath/felicity
 
-// function getFelicity() {
+// get a certain product collection
 function getProduct(category, collection) {
   return api.get(`/products/${category}/${collection}`);
 }
@@ -54,25 +53,34 @@ function prepareFormData(data, uploadedfile) {
 
   formData.append("description", data.description);
 
-  formData.append("urls", data.urls);
-  console.log("urls:", data.urls);
-  formData.append("downloadUrls", data.downloadUrls);
-  console.log("data.downloadUrls:", data.downloadUrls);
+  // formData.append("urls", data.urls);
+  // console.log("$$$$$data.urls in formdata:", data.urls);
+  // formData.append("downloadUrls", data.downloadUrls);
+  // console.log("$$$$$data.downloadUrls in formdata::",Array.isArray(data.downloadUrls) );
+
+  // Append each URL in data.urls array
+  data.urls.forEach((url, index) => {
+    formData.append(`urls[${index}]`, url);
+  });
+
+  // Append each URL in data.downloadUrls array
+  data.downloadUrls.forEach((url, index) => {
+    formData.append(`downloadUrls[${index}]`, url);
+  });
+
   formData.append("onSale", data.onSale);
   formData.append("title", data.title);
   console.log("Array.isArray===> data.products", Array.isArray(data.products)); //true
   formData.append("products", JSON.stringify(data.products));
+  // formData.append("products", data.products);
 
-  // Append data from the products array
-  // data.products.forEach((product, index) => {// Append each product's properties individually
-  //   formData.append(`products[${index}][id]`, product.id),
-  //   formData.append(`products[${index}][name]`, product.name),
-  //   formData.append(`products[${index}][rrp]`, product.rrp),
-  //   formData.append(`products[${index}][stock]`, product.stock)
-
-  // });
-
-  console.log("formData is 1:", formData);
+  // Append each variant in data.products array,different as urls or DownloadUrls, as there are objects inside its array
+  // for (let index = 0; index < data.products.length; index++) {
+  //   const product = data.products[index];
+  //   formData.append(`products[${index}][name]`, product.name);
+  //   formData.append(`products[${index}][rrp]`, product.rrp);
+  //   formData.append(`products[${index}][stock]`, product.stock);
+  // }
   // for PUT requests:
   if (uploadedfile) {
     formData.append("uploadedFile", uploadedfile);
@@ -85,9 +93,8 @@ const productService = {
   getAllCategories,
   getAllCollections,
   post,
-  // getFelicity,
   getProduct,
-  del
+  del,
 };
 
 export default productService;
