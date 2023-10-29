@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
     const payload = jwtDecode(token);
     localStorage.setItem("userToken", JSON.stringify(data));
     setUser(payload);
-    setHeaderToken()
+    setHeaderToken();
   };
 
   //2. retrieve user from local storage
@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
     setHeaderToken();
     navigate("/login");
   };
-// 给全局一个state of user, 和3个相关的方法
+  // 给全局一个state of user, 和3个相关的方法
   const value = { user, getCurrentUser, loginSaveUser, logout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

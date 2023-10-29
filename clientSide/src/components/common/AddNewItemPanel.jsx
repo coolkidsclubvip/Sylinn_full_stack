@@ -102,7 +102,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
   const addProduct = () => {
     const newProducts = [
       ...products,
-      { id: "", name: "", rrp: null, stock: null },
+      { id: "", name: "", rrp: 0, stock: 0 },
     ]; // default values
     setProductData({ ...productData, products: newProducts });
   };
@@ -208,15 +208,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
             {/* GROUP 5 & 6: IMAGE UPLOAD & PDF FILE UPLOAD */}
             <Row>
               <Col lg={6} md={6} sm={12}>
-                {/* <Form.Group className="mb-3" controlId="image">
-                  <Form.Label>Product image</Form.Label>
-                  <Form.Control
-                    type="file"
-                    className="mb-4"
-                    name="urls"
-                    onChange={handleImageChange}
-                  />
-                </Form.Group> */}
+             
                 {imageFields.map((field, index) => (
                   <Form.Group key={index} className="mb-3">
                     <Form.Label>Product image</Form.Label>
@@ -233,19 +225,11 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 </button>
               </Col>
               <Col lg={6} md={6} sm={12}>
-                {/* <Form.Group className="mb-3" controlId="pdf-file">
-                  <Form.Label>PDF File Upload</Form.Label>
-                  <Form.Control
-                    type="file"
-                    className="mb-4"
-                    name="downloadUrls"
-                    onChange={handleFileChange}
-                  />
-                </Form.Group> */}
+            
                 {fileFields.map((field, index) => (
-                  <>
+                   <div key={index}>
                     {" "}
-                    <Form.Group key={index} className="mb-3">
+                    <Form.Group  className="mb-3">
                       <Form.Label>File Upload</Form.Label>
                       <Form.Control
                         type="file"
@@ -257,7 +241,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                         Remove
                       </button>
                     </Form.Group>
-                  </>
+                  </div>
                 ))}
                 <button type="button" onClick={addFileField}>
                   Add File Upload

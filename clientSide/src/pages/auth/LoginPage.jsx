@@ -42,15 +42,17 @@ function LoginPage() {
       const response = await authService.login( user);
       // TO ADJUST LATER WITH CONTEXT API
       // console.log("response.data is:", response.data);
-      toast.success("Login successful");
+    toast.success("Login successful");
       loginSaveUser(response.data);
       navigate("/dashboard");
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+      
+setTimeout(() => {
+  setLoading(false);
+}, 1000);
+     
     } catch (err) {
       console.log(err?.response);
-      // toast.error(err.response.data);
+      toast.warn(err.response.data);
       setTimeout(() => {
         setLoading(false);
       }, 1000);

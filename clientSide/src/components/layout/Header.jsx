@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as styles from "../../styles/components/Header.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import {
@@ -23,10 +23,12 @@ import { toast } from "react-toastify";
 function Header({ showOffcanvas, setShowOffcanvas }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Hamburger button transformation
-  function myFunction(x) {
-    x.classList.toggle("change");
-  }
+  const navigate = useNavigate();
+
+  // // Hamburger button transformation
+  // function myFunction(x) {
+  //   x.classList.toggle("change");
+  // }
 
   // useAuth, our own custom hook to to call useContext remotely.
   const { user, logout } = useAuth();
@@ -50,8 +52,9 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
 
   // console.log("scrollTop is:", scrollTop);
   const handleClick = () => {
-    toast.success("Logged out successfully");
     logout();
+    toast.info("Logged out successfully");
+
   };
 
   return (
