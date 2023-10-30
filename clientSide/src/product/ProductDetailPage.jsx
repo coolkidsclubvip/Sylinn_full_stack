@@ -9,8 +9,8 @@ import ProductTabs from "../components/common/ProductTabs";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-import SyButton from "../components/common/SyButton"
-
+import SyButton from "../components/common/SyButton";
+import EditItemPanel from "../components/common/EditItemPanel";
 
 function ProductDetailPage() {
   const [data, setData] = useState([]);
@@ -19,9 +19,13 @@ function ProductDetailPage() {
   const [error, setError] = useState(false);
   const [selectedOption, setSelectedOption] = useState(""); //setSelectedOption from ProductOptions component
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [showEditPanel, setShowEditPanel] = useState(false);
   const [RRP, setRRP] = useState(""); // set RRP to selected option
   const [stock, setStock] = useState(""); // set stock to selected option
-  let { category, collection } = useParams();
+  let { category, collection } = useParams(); //useParams hook to be used only within a ROUTED component
+
+  console.log("titleInfo in productDetailPage is:", titleInfo);
+
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -82,26 +86,34 @@ function ProductDetailPage() {
   // Handle delete collection request
   const handleDelete = async (e) => {
     e.preventDefault();
-    console.log("Delete clicked");
+
     try {
       setLoading(true);
-           console.log("category,collection", category, collection);
+      console.log("category,collection", category, collection);
       const res = await productService.del(category, collection);
- 
-         // onSuccess - Redirect
+
+      // onSuccess - Redirect
       setLoading(false);
       toast.success(`Product ${titleInfo.title} has been deleted successfully`);
       navigate(`/products/${category}`);
     } catch (error) {
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
-      console.log(error);
-     
+      toast.error(error.message);
     }
   };
 
   return (
     <Container>
       <div className={styles.container}>
+        {showEditPanel && (
+          <EditItemPanel
+            setShowEditPanel={setShowEditPanel}
+            data={data}
+            titleInfo={titleInfo}
+            category={category}
+            collection={collection}
+          />
+        )}
         {/* 1st row */}
         <Row>
           {/* Big image */}
@@ -151,8 +163,16 @@ function ProductDetailPage() {
                     ) : (
                       <div>
                         {" "}
-                        <Button onClick={""}>Edit</Button>
-                        <SyButton loading={loading} onClick={handleDelete}>Delete</SyButton>{" "}
+                        <Button
+                          onClick={() => {
+                            setShowEditPanel(!showEditPanel);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                        <SyButton loading={loading} onClick={handleDelete}>
+                          Delete
+                        </SyButton>{" "}
                       </div>
                     )}
                   </div>

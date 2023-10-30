@@ -7,26 +7,42 @@ import {
   InputGroup,
   Spinner,
 } from "react-bootstrap";
-import * as styles from "../../styles/components/AddNewItemPanel.css";
+import * as styles from "../../styles/components/EditItemPanel.css";
 import SyCard from "./SyCard";
 import SyButton from "./SyButton";
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
+import NAImage from "../../../src/assets/images/no_image_available.jpeg";
 
-function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
+function EditItemPanel({
+  setShowEditPanel,
+  titleInfo,
+  data,
+  category,
+  collection,
+}) {
+  console.log("  title info in EditItemPanel are:", titleInfo);
+  console.log("data in EditItemPanel are:", data);
+
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState({
-    category: category,
-    newCollection: "",
-    code: "",
-    description: "",
+    // category: category,
+    newCollection: `${collection}`,
+    code: `${titleInfo.code}`,
+    description: `${titleInfo.description}`,
     urls: [],
     downloadUrls: [],
-    onSale: false,
-    title: "",
-    // products: [{}],
-    products: [{ id: "", name: "", rrp: 0, stock: 0 }],
+    onSale: `${titleInfo.onSale}`,
+    title: `${titleInfo.title}`,
+
+    products: data.map((product) => ({
+      id: `${product.id}`,
+      name: `${product.name}`,
+      rrp: `${product.rrp}`,
+      stock: `${product.stock}`,
+    })),
   });
+  // const [imageDeleted,setImageDeleted]=useState(false);
 
   // Destructure data state nested object properties
   const {
@@ -127,9 +143,9 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
       console.log("response is:", response);
       toast.success(`${productData.title} has been created successfully`);
       // setLoading(false);
-      await fetchCollections();
+      await // get refreshed Itemdetailpage
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
-      setShowAddNewPanel(false);
+      setShowEditPanel(false);
     } catch (err) {
       console.log("Error: " + err);
       toast.error(`${err}`);
@@ -141,21 +157,40 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
 
   console.log("ProductData is:", productData);
 
+  // Handle button click to DELETE EXISTING IMAGE
+  const handleImageDelete = async (e, url) => {
+    e.preventDefault();
+    const response = await productService.postImageUrl(
+      url,
+      category,
+      collection
+    );
+    toast.success(response.data);
+    // Replace image with default N/A image
+    const deletedImage= document.getElementById(url)
+    console.log("deletedImage is:",deletedImage);
+    deletedImage.src = NAImage;
+    // Get the button and disable it
+    const deletedBtn =  document.getElementById("btn"+`${url}`)
+    console.log("deletedBtn is:",deletedBtn);
+    deletedBtn.disabled = true
+  };
+
   return (
     <Container>
       <div className={`${styles.container} shadow`}>
-        <h1> AddNewItemPanel {category}</h1>
+        <h1> Edit Product Panel </h1>
         <button
           type="button"
           onClick={() => {
-            setShowAddNewPanel(false);
+            setShowEditPanel(false);
           }}
         >
           X
         </button>
-        <SyCard title="Add Product">
+        <SyCard title="Edit Product">
           <span>
-            You are adding a new product into category of <b>{`${category}`}</b>
+            You are enditing <b> xxxx</b>
           </span>
           <Form onSubmit={handleSubmit}>
             {/* GROUP 1 New Collection */}
@@ -203,12 +238,33 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/* GROUP 5 & 6: IMAGE UPLOAD & PDF FILE UPLOAD */}
+
+            <Row>
+              {titleInfo.urls.map((url, index) => (
+                <Col key={index}>
+                  <div className="mt-5 mb-5">
+                    <img src={url} id={url} />
+                    <button
+                    id={"btn"+ `${url}`}
+                      type="button"
+                      onClick={(e) => {
+                        handleImageDelete(e, url);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </Col>
+              ))}
+            </Row>
+
+            {/* GROUP  : IMAGE UPLOAD & PDF FILE UPLOAD */}
+
             <Row>
               <Col lg={6} md={6} sm={12}>
                 {imageFields.map((field, index) => (
                   <Form.Group key={index} className="mb-3">
-                    <Form.Label>Product image</Form.Label>
+                    <Form.Label>Add Image</Form.Label>
                     <Form.Control
                       type="file"
                       className="mb-4"
@@ -368,4 +424,4 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
   );
 }
 
-export default AddNewItemPanel;
+export default EditItemPanel;

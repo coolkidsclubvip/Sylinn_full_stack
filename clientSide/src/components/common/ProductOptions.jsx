@@ -15,7 +15,7 @@ function ProductOptions({ data, setSelectedOption }) {
         onChange={handleSelectChange}
       >
         <option value={""}>
-          <span className=" ">--Available Options--</span>
+         --Available Options--
         </option>
         {data.map((item) => (
           <option value={item.id} key={item.id}>

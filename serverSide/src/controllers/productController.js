@@ -1,6 +1,7 @@
 // Import modules
 const { db } = require("../config/db");
 const ApiError = require("../utils/ApiError");
+const bucketServices = require("../utils/bucketServices");
 const {
   storageBucketUpload,
   getFileFromUrl,
@@ -166,14 +167,12 @@ module.exports = {
 
   // [2] POST Product
   async postProduct(req, res, next) {
-  
     // save to cloud storage
     let imageUrls = [];
     let pdfUrls = [];
     console.log("res.locals.imageNames is:", res.locals.imageNames);
     console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
     try {
-      
       for (const imageName of res.locals.imageNames) {
         const imageUrl = await storageBucketUpload(imageName);
         imageUrls.push(imageUrl);
@@ -192,7 +191,7 @@ module.exports = {
       );
     }
 
-    // save to firestore
+    // save to Firestore
     try {
       const category = req.body.category;
       const newCollection = req.body.newCollection;
@@ -214,14 +213,17 @@ module.exports = {
 
       // Handle multiple product variants:
       console.log("req.body is: " + req.body);
-      console.log(
-        "  req.body.products is:",
-        req.body.products,
-        Array.isArray(req.body.products)
-      );
-      if (req.body.products.length > 1) {
-        const products = JSON.parse(req.body.products);
 
+      if (req.body.products.length > 1) {
+        const products = req.body.products;
+        console.log(
+          " products is:",
+          products,
+          "is products array?",
+          Array.isArray(products),
+          "typeof products is:",
+          typeof products
+        );
         console.log("products is:", products);
         console.log(" products type is:", Array.isArray(products));
         const productsPromises = products.map(async (product) => {
@@ -258,9 +260,131 @@ module.exports = {
     }
   },
 
-  // [3] GET Product BY ID
+  // [3] GET Product BY KEYWORD
+
+  async getProductByKeyword(req, res, next) {
+    console.log("search params is:", req.params);
+  },
 
   // [4] PUT Product BY ID
+
+  // [4.1] Delete product image by ID
+  async deleteProductImage(req, res, next) {
+    try {
+      // Get name from URL
+      const imageName = await bucketServices.getFileFromUrl(req.body.imageUrl);
+
+      // Delete image from bucket with name
+      //  const response = await bucketServices.deleteFileFromBucket(imageName);
+
+      // Delete image URL from Firestore titleInfo urls array
+      const category = req.body.category;
+      const collection = req.body.collection;
+      const docPath = `products/${category}`;
+      const urlToDelete = req.body.imageUrl;
+      const admin = require("firebase-admin");
+      const productRef = db.collection("products");
+
+      const snapshot = await productRef
+        .doc(category)
+        .collection(collection)
+        .get();
+      snapshot.forEach((doc) => {
+        // Get data from collection
+        const data = doc.data();
+        if (doc.id === "titleInfo") {
+          const titleInfo = doc.data();
+          const urls = titleInfo.urls || []; // Get the urls array, or an empty array if it does not exist
+
+          // Find and delete matching url
+          const updatedUrls = urls.filter((url) => url !== urlToDelete);
+
+          // Update the titleInfo.urls field using the update method
+          productRef
+            .doc(category)
+            .collection(collection)
+            .doc("titleInfo")
+            .update({
+              urls: updatedUrls,
+            })
+            .then(() => {
+              console.log(
+                `URL ${urlToDelete} has been deleted from titleInfo.urls`
+              );
+             
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error occurs when deleting image");
+            });
+        }
+      });
+      res.send(`Image ${imageName} has been deleted successfully`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  async putProductById(req, res, next) {
+    let downloadURL = null;
+    try {
+      if (req.files) {
+        // (i) Storage-Upload
+        const filename = res.locals.filename;
+        downloadURL = await storageBucketUpload(filename);
+
+        // 我为什么要“自动”删掉旧图片？？应该是提供手动删除功能
+        // // (ii) Delete OLD image version in Storage Bucket, if it exists
+        // if (req.body.uploadedFile) {
+        //   //请求更改的请求体里面 为什么会有就图片地址？？？？？？？？？？？？？
+        //   debugWRITE(`Deleting old image in storage: ${req.body.uploadedFile}`);
+        //   const bucketResponse = await deleteFileFromBucket(
+        //     req.body.uploadedFile
+        //   );
+        // }
+
+        // (b2) IMAGE NOT CHANGED: We just pass back the current downloadURL and pass that back to the database, unchanged!
+      } else {
+        console.log(`No change to image in DB`);
+        downloadURL = req.body.image;
+      }
+
+      // [500 ERROR] Checks for Errors in our File Upload
+    } catch (err) {
+      return next(
+        ApiError.internal(
+          "An error occurred in saving the image to storage",
+          err
+        )
+      );
+    }
+
+    // (c) Store the document query in variable & call UPDATE method for ID
+    try {
+      const productRef = db.collection("products").doc(req.params.id);
+      const response = await productRef.update({
+        name: req.body.name,
+        description: req.body.description,
+        category: req.body.category,
+        price: Number(req.body.price),
+        sizes: req.body.sizes,
+        texture: req.body.texture,
+        onSale: req.body.onSale,
+        isAvailable: req.body.isAvailable,
+        image: downloadURL,
+      });
+      res.send(response);
+
+      // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
+    } catch (err) {
+      return next(
+        ApiError.internal(
+          "Your request could not be processed at this time",
+          err
+        )
+      );
+    }
+  },
 
   // [5] DELETE Product BY ID
   async deleteProductById(req, res, next) {

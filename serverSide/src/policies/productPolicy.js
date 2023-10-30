@@ -8,7 +8,7 @@ module.exports = {
   validateProduct(req, res, next) {
     // console.log("req.body in Joi is: ",req.body);
     req.body.products = JSON.parse(req.body.products);
-
+// console.log("req.body in Joi is: ",req.body);
    const schema = Joi.object({
      category: Joi.string().required(),
      newCollection: Joi.string().required(),

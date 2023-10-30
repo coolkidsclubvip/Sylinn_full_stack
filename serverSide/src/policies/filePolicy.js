@@ -1,12 +1,10 @@
-// not JOI but my own custom policy
+// Not JOI but my own custom policy
 const ApiError = require("../utils/ApiError");
 const path = require("path");
 
-// 1. check file exists
+// 1. Check file exists
 const filePayloadExists = (req, res, next) => {
- 
-
-  console.log("req.body is: " ,  req.body );
+  console.log("req.body is: ", req.body);
   if (!req.files && !req.body.uploadFile) {
     return next(new ApiError("No file uploaded!"));
   }
@@ -16,7 +14,7 @@ const filePayloadExists = (req, res, next) => {
   next();
 };
 
-// 2. check file size
+// 2. Check file size
 const fileSizeLimiter = (req, res, next) => {
   const MB = 5; // no image bigger than 5MB is allowed
   const FILE_SIZE_LIMIT = MB * 1024 * 1024;
@@ -32,40 +30,17 @@ const fileSizeLimiter = (req, res, next) => {
   next();
 };
 
-
-// 3. check file extension
-const fileExtensionLimiter = (allowedExtensions) => {
-  const extensionRegex = new RegExp(
-    `\\.(${allowedExtensions.join("|")})$`,
-    "i"
-  );
-
+// 3. Check file extension
+const fileExtensionLimiter = (allowedExtArray) => {
   return (req, res, next) => {
     if (req.files) {
       for (const fieldName in req.files) {
-        if (Array.isArray(req.files[fieldName])) {
-          for (const file of req.files[fieldName]) {
-            if (!extensionRegex.test(file.name)) {
-              return next(
-                ApiError.cannotProcess(
-                  `Not allowed file type, Only ${allowedExtensions.join(
-                    ", "
-                  )} allowed`
-                )
-              );
-            }
-          }
-        } else {
-          const file = req.files[fieldName];
-          if (!extensionRegex.test(file.name)) {
-            return next(
-              ApiError.cannotProcess(
-                `Not allowed file type, Only ${allowedExtensions.join(
-                  ", "
-                )} allowed`
-              )
-            );
-          }
+        const file = req.files[fieldName];
+        const fileExtension = path.extname(file.name);
+
+        if (!allowedExtArray.includes(fileExtension)) {
+          const message = `Only ${allowedExtArray.join(", ")} files allowed.`;
+          return next(ApiError.cannotProcess(message));
         }
       }
     }
@@ -73,14 +48,52 @@ const fileExtensionLimiter = (allowedExtensions) => {
     next();
   };
 };
+// const fileExtensionLimiter = (allowedExtensions) => {
+//   const extensionRegex = new RegExp(
+//     `\\.(${allowedExtensions.join("|")})$`,
+//     "i"
+//   );
 
+//   return (req, res, next) => {
+//     console.log("req.files in fileExtensionLimiter:", req.files);
+//     if (req.files) {
+//       for (const fieldName in req.files) {
+//         if (Array.isArray(req.files[fieldName])) {
+//           for (const file of req.files[fieldName]) {
+//             if (!extensionRegex.test(file.name)) {
+//               return next(
+//                 ApiError.cannotProcess(
+//                   `Not allowed file type, Only ${allowedExtensions.join(
+//                     ", "
+//                   )} allowed`
+//                 )
+//               );
+//             }
+//           }
+//         } else {
+//           const file = req.files[fieldName];
+//           if (!extensionRegex.test(file.name)) {
+//             return next(
+//               ApiError.cannotProcess(
+//                 `Not allowed file type, Only ${allowedExtensions.join(
+//                   ", "
+//                 )} allowed`
+//               )
+//             );
+//           }
+//         }
+//       }
+//     }
 
-// export all fucntions as filePolicy
- const filePolicy = {
-     filePayloadExists,
-     fileSizeLimiter,
-     fileExtensionLimiter,
-}
+//     next();
+//   };
+// };
 
+// export all functions as filePolicy
+const filePolicy = {
+  filePayloadExists,
+  fileSizeLimiter,
+  fileExtensionLimiter,
+};
 
-module.exports =filePolicy;
+module.exports = filePolicy;

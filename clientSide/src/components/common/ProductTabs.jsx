@@ -14,30 +14,32 @@ function ProductTabs({titleInfo}) {
     <>
       <div className={styles.tabsContainer}>
         <table className={styles.customTable}>
-          <tr>
-            <td
-              className={`${styles.firstTab} ${
-                selected === "description" ? styles.activeNavLink : ""
-              }`}
-              onClick={() => handleTabClick("description")}
-            >
-              <span>Description</span>
-            </td>
-            <td className={styles.firstTab}>
-              <span>{"      "}</span>
-            </td>
-            <td
-              className={`${styles.firstTab} ${
-                selected === "downloads" ? styles.activeNavLink : ""
-              }`}
-              onClick={() => handleTabClick("downloads")}
-            >
-              <span>Downloads</span>
-            </td>
-            <td className={styles.restTab}>
-              <span></span>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td
+                className={`${styles.firstTab} ${
+                  selected === "description" ? styles.activeNavLink : ""
+                }`}
+                onClick={() => handleTabClick("description")}
+              >
+                <span>Description</span>
+              </td>
+              <td className={styles.firstTab}>
+                <span>{"      "}</span>
+              </td>
+              <td
+                className={`${styles.firstTab} ${
+                  selected === "downloads" ? styles.activeNavLink : ""
+                }`}
+                onClick={() => handleTabClick("downloads")}
+              >
+                <span>Downloads</span>
+              </td>
+              <td className={styles.restTab}>
+                <span></span>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       {selected === "description" && (
@@ -49,9 +51,17 @@ function ProductTabs({titleInfo}) {
       {selected === "downloads" && (
         <div className={styles.downloadsContent}>
           {/* Render the Downloads content here */}
-          <a href={`${titleInfo.downloadUrls}`} target="_blank" rel="noreferrer">
-            downloand pdf{" "}
-          </a>
+
+          {/* 在这里渲染下载链接内容 */}
+          <ul>
+            {titleInfo.downloadUrls.map((url, index) => (
+              <li key={index}>
+                <a href={url} target="_blank" rel="noreferrer">
+                  Download {index + 1}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </>

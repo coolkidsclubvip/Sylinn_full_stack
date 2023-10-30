@@ -1,7 +1,7 @@
 // import external libraries
 const express = require("express");
 const morgan = require("morgan");
-const fileUpload = require("express-fileupload");
+const fileUpload = require("express-fileupload");// it detect any file upload and store them in req.files
 const cors = require("cors");
 const helmet = require("helmet");
 require("dotenv").config();

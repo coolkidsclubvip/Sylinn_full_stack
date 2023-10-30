@@ -42,7 +42,7 @@ function CategoryPage() {
   }, [loading, category]);
 
   console.log("data in CategoryPage is:", data);
-  console.log("user is:", user);
+ 
 
   return (
     <Container>

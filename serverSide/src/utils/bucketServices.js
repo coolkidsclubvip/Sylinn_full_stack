@@ -6,6 +6,7 @@ const fs = require("fs");
 const config = require("../config/config");
 
 module.exports = {
+  // this function saves uploaded files into local storage, then uploads them to cloud storage and gets URLs back, then deletes from local storage.
   async storageBucketUpload(filename) {
     //1, generate a random uuid storage token
     debugBucket(`uploading ${filename} `);
@@ -79,10 +80,11 @@ console.log("downloadURL from DB:", downloadURL);
     return fileGlob;
   },
 
-  async deleteFileFromBucket(uploadedFile) {
+
+  async deleteFileFromBucket(oldFileName) {
     // Determine File Location in Storage
     // NOTE: You would ALSO want to CHECK if it existed in the storage bucket before deletion OTHERWISE it would hit an error!
-    const file = bucket.file(uploadedFile);
+    const file = bucket.file(oldFileName);
     const fileChecker = await file.exists();
 
     // [400 ERROR] Check for Item Existing in Storage Bucket
@@ -97,7 +99,7 @@ console.log("downloadURL from DB:", downloadURL);
       // NOTE: Default option is "false", meaning error is issued and delete request fails if file does NOT exist!
       const data = await file.delete(options);
       debugBucket(
-        `The file: ${uploadedFile}, does not exist in Storage.  Please check server for inconsistent data handling & database queries.`
+        `The file: ${oldFileName}, does not exist in Storage.`
       );
 
       // Return API response to controller
@@ -107,7 +109,7 @@ console.log("downloadURL from DB:", downloadURL);
     } else {
       // Call standard delete request
       const data = await file.delete();
-      console.log(`File deleted from Storage Bucket: ${uploadedFile}`);
+      console.log(`File deleted from Storage Bucket: ${oldFileName}`);
 
       // Return API response to controller
       return data[0];

@@ -13,11 +13,17 @@ function getAllCollections(category) {
 
 // GET ALL ONSALE - ProductSale
 
+
 // POST - AddProduct
 function post(data) {
   console.log("data to be sent to prepareFormData is:", data);
   const formData = prepareFormData(data);
   return api.post("/products", formData, formConfig);
+}
+
+// Post - iamge URL that will be deleted from bucket
+function postImageUrl(url,category,collection) {
+  return api.post("/products/deleteImage",{imageUrl: url,category: category,collection: collection});
 }
 
 // GET BY ID - ProductDetail
@@ -95,6 +101,7 @@ const productService = {
   post,
   getProduct,
   del,
+  postImageUrl,
 };
 
 export default productService;
