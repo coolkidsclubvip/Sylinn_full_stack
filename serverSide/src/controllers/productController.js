@@ -191,7 +191,7 @@ module.exports = {
       );
     }
 
-    // save to Firestore
+    // Create collection Ref oject
     try {
       const category = req.body.category;
       const newCollection = req.body.newCollection;
@@ -203,32 +203,21 @@ module.exports = {
         code: req.body.code,
         description: req.body.description,
         urls: imageUrls, // Use the array of image URLs
+        downloadUrls: pdfUrls, // Use the array of PDF URLs
         onSale: req.body.onSale,
         title: req.body.title,
-        downloadUrls: pdfUrls, // Use the array of PDF URLs
       };
 
       const titleInfoDoc = collectionRef.doc("titleInfo");
       const response1 = await titleInfoDoc.set(titleInfoData);
 
       // Handle multiple product variants:
-      console.log("req.body is: " + req.body);
-
       if (req.body.products.length > 1) {
         const products = req.body.products;
-        console.log(
-          " products is:",
-          products,
-          "is products array?",
-          Array.isArray(products),
-          "typeof products is:",
-          typeof products
-        );
-        console.log("products is:", products);
-        console.log(" products type is:", Array.isArray(products));
+
         const productsPromises = products.map(async (product) => {
           const productDoc = collectionRef.doc(product.id);
-          await productDoc.set({
+          await productDoc.update({
             name: product.name,
             rrp: Number(product.rrp),
             stock: product.stock,
@@ -240,22 +229,19 @@ module.exports = {
         //Handle only 1 product without any variant
       } else if (req.body.products.length == 1) {
         // Handle single product, no other options:
-        console.log(
-          "req.body.products只有一个 type is:",
-          Array.isArray(req.body.products)
-        );
-        await collectionRef.doc(req.body.products[0].id).set({
+
+        await collectionRef.doc(req.body.products[0].id).update({
           name: req.body.products[0].name,
           rrp: Number(req.body.products[0].rrp),
           stock: req.body.products[0].stock,
         });
       }
 
-      res.send(`${newCollection} has been Added successfully`);
+      res.send(`${newCollection} has been updated successfully`);
       return;
     } catch (err) {
       return next(
-        ApiError.internalError("Your request could not be saved", err)
+        ApiError.internalError("Your request could not be processed", err)
       );
     }
   },
@@ -273,9 +259,6 @@ module.exports = {
     try {
       // Get name from URL
       const imageName = await bucketServices.getFileFromUrl(req.body.imageUrl);
-
-      // Delete image from bucket with name
-      //  const response = await bucketServices.deleteFileFromBucket(imageName);
 
       // Delete image URL from Firestore titleInfo urls array
       const category = req.body.category;
@@ -309,9 +292,8 @@ module.exports = {
             })
             .then(() => {
               console.log(
-                `URL ${urlToDelete} has been deleted from titleInfo.urls`
+                `URL ${urlToDelete} has been deleted from cloud storage`
               );
-             
             })
             .catch((error) => {
               console.error(error);
@@ -325,66 +307,120 @@ module.exports = {
     }
   },
 
-  async putProductById(req, res, next) {
-    let downloadURL = null;
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // [4.2] PUT Product BY Collection
+  async putProductByCollection(req, res, next) {
+    console.log("req.body in putProductByCollection is: ", req.body);
+
+    // Images and files to be saved to cloud storage
+    let imageUrls = [];
+    let pdfUrls = [];
+    console.log("res.locals.imageNames is:", res.locals.imageNames);
+    console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
+
     try {
-      if (req.files) {
-        // (i) Storage-Upload
-        const filename = res.locals.filename;
-        downloadURL = await storageBucketUpload(filename);
-
-        // 我为什么要“自动”删掉旧图片？？应该是提供手动删除功能
-        // // (ii) Delete OLD image version in Storage Bucket, if it exists
-        // if (req.body.uploadedFile) {
-        //   //请求更改的请求体里面 为什么会有就图片地址？？？？？？？？？？？？？
-        //   debugWRITE(`Deleting old image in storage: ${req.body.uploadedFile}`);
-        //   const bucketResponse = await deleteFileFromBucket(
-        //     req.body.uploadedFile
-        //   );
-        // }
-
-        // (b2) IMAGE NOT CHANGED: We just pass back the current downloadURL and pass that back to the database, unchanged!
-      } else {
-        console.log(`No change to image in DB`);
-        downloadURL = req.body.image;
+      if (res.locals.imageNames) {
+        for (const imageName of res.locals.imageNames) {
+          const imageUrl = await storageBucketUpload(imageName);
+          imageUrls.push(imageUrl);
+        }
       }
 
-      // [500 ERROR] Checks for Errors in our File Upload
+      if (res.locals.pdfNames)
+        for (const pdfName of res.locals.pdfNames) {
+          const pdfUrl = await storageBucketUpload(pdfName);
+          pdfUrls.push(pdfUrl);
+        }
     } catch (err) {
       return next(
-        ApiError.internal(
-          "An error occurred in saving the image to storage",
+        ApiError.internalError(
+          "An error occurred when uploading image to cloud storage",
           err
         )
       );
     }
 
-    // (c) Store the document query in variable & call UPDATE method for ID
+    // Create collection Ref oject
     try {
-      const productRef = db.collection("products").doc(req.params.id);
-      const response = await productRef.update({
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.category,
-        price: Number(req.body.price),
-        sizes: req.body.sizes,
-        texture: req.body.texture,
-        onSale: req.body.onSale,
-        isAvailable: req.body.isAvailable,
-        image: downloadURL,
-      });
-      res.send(response);
+      const category = req.body.category;
+      const newCollection = req.body.newCollection;
+      const productRef = db.collection("products");
+      const collectionRef = productRef.doc(category).collection(newCollection);
+      const titleInfoDoc = collectionRef.doc("titleInfo");
 
-      // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
+      // Get existing urls and downloadUrls
+      const snapshot = await collectionRef.get();
+      let titleInfo = null;
+      snapshot.forEach((doc) => {
+        // Get data
+        const data = doc.data();
+        if (doc.id === "titleInfo") {
+          titleInfo = {
+            id: "titleInfo",
+            ...data,
+          };
+        }
+      });
+
+      console.log("old titleInfo in controller is:", titleInfo);
+
+      // Handle titleInfo
+      const updatedTitleInfo = {
+        code: req.body.code,
+        description: req.body.description,
+        urls: [...titleInfo.urls, ...imageUrls], // Append new imageUrls
+        downloadUrls: [...titleInfo.downloadUrls, ...pdfUrls], // Append new pdfUrls
+        onSale: req.body.onSale,
+        title: req.body.title,
+      };
+
+      const response1 = await titleInfoDoc.update(updatedTitleInfo);
+
+      // Handle multiple product variants:
+      const products = JSON.parse(req.body.products);
+      if (products.length > 1) {
+        console.log(
+          "products type is:",
+          Array.isArray(products),
+          typeof products
+        );
+        const productsPromises = products.map(async (product) => {
+          const productDoc = collectionRef.doc(product.id);
+          await productDoc.update({
+            name: product.name,
+            rrp: Number(product.rrp),
+            stock: product.stock,
+          });
+        });
+
+        await Promise.all(productsPromises);
+
+        //Handle only 1 product without any variant
+      } else if (products.length == 1) {
+        // Handle single product, no other options:
+
+        await collectionRef.doc(products[0].id).update({
+          name: products[0].name,
+          rrp: Number(products[0].rrp),
+          stock: products[0].stock,
+        });
+      }
+
+      res.send("Product collection updated successfully");
+
+      // 检查是否有错误发生;
     } catch (err) {
       return next(
-        ApiError.internal(
+        ApiError.internalError(
           "Your request could not be processed at this time",
           err
         )
       );
     }
   },
+
+  //////////////////////////////////////////////////////////////////////////////////////////
 
   // [5] DELETE Product BY ID
   async deleteProductById(req, res, next) {

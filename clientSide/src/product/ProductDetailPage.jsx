@@ -29,24 +29,24 @@ function ProductDetailPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await productService.getProduct(category, collection);
-        const responseData = response.data;
+  async function fetchProduct() {
+    try {
+      const response = await productService.getProduct(category, collection);
+      const responseData = response.data;
 
-        setData(responseData.docs);
-        setTitleInfo(responseData.titleInfo);
-        setLoading(false);
-      } catch (err) {
-        console.log(err?.response);
-        setError(true);
-        setLoading(false);
-      }
+      setData(responseData.docs);
+      setTitleInfo(responseData.titleInfo);
+      setLoading(false);
+      return responseData;
+    } catch (err) {
+      console.log(err?.response);
+      setError(true);
+      setLoading(false);
     }
-
+  }
+  useEffect(() => {
     if (loading) {
-      fetchProducts();
+      fetchProduct();
     }
   }, [loading]);
 
@@ -86,19 +86,26 @@ function ProductDetailPage() {
   // Handle delete collection request
   const handleDelete = async (e) => {
     e.preventDefault();
+    // Alert window to confirm delete
+    const deleteConfirmed = confirm("Confirm delete?");
+    if (deleteConfirmed) {
+      try {
+        setLoading(true);
+        console.log("category,collection", category, collection);
+        const res = await productService.del(category, collection);
 
-    try {
-      setLoading(true);
-      console.log("category,collection", category, collection);
-      const res = await productService.del(category, collection);
-
-      // onSuccess - Redirect
-      setLoading(false);
-      toast.success(`Product ${titleInfo.title} has been deleted successfully`);
-      navigate(`/products/${category}`);
-    } catch (error) {
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
-      toast.error(error.message);
+        // onSuccess - Redirect
+        setLoading(false);
+        toast.success(
+          `Product ${titleInfo.title} has been deleted successfully`
+        );
+        navigate(`/products/${category}`);
+      } catch (error) {
+        window.scroll({ top: 0, left: 0, behavior: "smooth" });
+        toast.error(error.message);
+      }
+    } else {
+      return;
     }
   };
 
@@ -112,6 +119,7 @@ function ProductDetailPage() {
             titleInfo={titleInfo}
             category={category}
             collection={collection}
+            fetchProduct={fetchProduct}
           />
         )}
         {/* 1st row */}
@@ -145,9 +153,9 @@ function ProductDetailPage() {
                   {/* if stock is undefined, no show anything, otherwise show availability accordingly */}
                   {stock >= 10 ? (
                     <span className="instock">In Stock</span>
-                  ) : stock < 10 && stock > 1 ? (
+                  ) : stock < 10 && stock >= 1 ? (
                     <span className="lowstock">Low Stock</span>
-                  ) : stock === 0 ? (
+                  ) : stock == 0 ? (
                     <span className="nostock">No Stock</span>
                   ) : (
                     ""
@@ -164,15 +172,19 @@ function ProductDetailPage() {
                       <div>
                         {" "}
                         <Button
+                          className="mt-5 me-5"
                           onClick={() => {
                             setShowEditPanel(!showEditPanel);
                           }}
                         >
                           Edit
                         </Button>
-                        <SyButton loading={loading} onClick={handleDelete}>
+                        <Button
+                          className="btn btn-danger mt-5 me-5"
+                          onClick={handleDelete}
+                        >
                           Delete
-                        </SyButton>{" "}
+                        </Button>{" "}
                       </div>
                     )}
                   </div>

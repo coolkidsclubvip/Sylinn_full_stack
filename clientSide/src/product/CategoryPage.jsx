@@ -6,7 +6,7 @@ import productService from "../services/productService";
 import TitleCard from "../components/common/TitleCard";
 import AddNewItemCard from "../components/common/AddNewItemCard";
 import * as fonts from "../styles/fonts/fonts.css.ts";
-import useCapitalizeFirstLetter from "../hooks/useCapitalizeFirstLetter";
+import utils from "../utils/readUtils";
 import useAuth from "../hooks/useAuth";
 import AddNewItemPanel from "../components/common/AddNewItemPanel";
 
@@ -19,30 +19,27 @@ function CategoryPage() {
 
   console.log("user in category page is:", user);
 
-   async function fetchCollections() {
-     try {
-       const response = await productService.getAllCollections(category);
-       const responseData = response.data;
+  async function fetchCollections() {
+    try {
+      const response = await productService.getAllCollections(category);
+      const responseData = response.data;
 
-       setData(responseData);
+      setData(responseData);
 
-       setLoading(false);
-     } catch (err) {
-       console.log(err?.response);
+      setLoading(false);
+    } catch (err) {
+      console.log(err?.response);
 
-       setLoading(false);
-     }
-   }
+      setLoading(false);
+    }
+  }
   useEffect(() => {
-   
-
     if (loading) {
       fetchCollections();
     }
   }, [loading, category]);
 
   console.log("data in CategoryPage is:", data);
- 
 
   return (
     <Container>
@@ -58,7 +55,7 @@ function CategoryPage() {
         <p>
           <span className={fonts.futuraTitle}>
             {" "}
-            {useCapitalizeFirstLetter(category.toString())}
+            {utils.capitalizeFirstLetter(category.toString())}
           </span>{" "}
           <br />
           <span className={fonts.normalText}>

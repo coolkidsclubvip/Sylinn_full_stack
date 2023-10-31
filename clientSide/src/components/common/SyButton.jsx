@@ -1,5 +1,5 @@
 
-import { Button } from "react-bootstrap";
+import { Button,Spinner } from "react-bootstrap";
 import Loader from "./Loader";
 
 function SyButton({loading,children,onClick}) {
@@ -11,7 +11,11 @@ function SyButton({loading,children,onClick}) {
       onClick={onClick}
       disabled={loading ? 1 : 0}
     >
-      {loading ? <Loader /> :  children }
+      {loading ? (
+        <Spinner animation="grow" size="sm" role="status" aria-hidden="true" />
+      ) : (
+        children
+      )}
     </Button>
   );
 }

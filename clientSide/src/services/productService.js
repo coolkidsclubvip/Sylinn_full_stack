@@ -13,7 +13,6 @@ function getAllCollections(category) {
 
 // GET ALL ONSALE - ProductSale
 
-
 // POST - AddProduct
 function post(data) {
   console.log("data to be sent to prepareFormData is:", data);
@@ -21,14 +20,26 @@ function post(data) {
   return api.post("/products", formData, formConfig);
 }
 
-// Post - iamge URL that will be deleted from bucket
-function postImageUrl(url,category,collection) {
-  return api.post("/products/deleteImage",{imageUrl: url,category: category,collection: collection});
+// Post - image URL that will be deleted from bucket
+function postImageUrl(url, category, collection) {
+  return api.post("/products/deleteImage", {
+    imageUrl: url,
+    category: category,
+    collection: collection,
+  });
 }
 
 // GET BY ID - ProductDetail
 
 // PUT - EditProduct
+function put(productData) {
+  const formData = prepareFormData(productData);
+  console.log("productData in service is:", productData);
+  return api.put(
+    `/products//edit/${productData.category}/${productData.newCollection}`,
+    formData,formConfig
+  );
+}
 
 // DELETE - ProductDetail
 function del(category, id) {
@@ -59,11 +70,6 @@ function prepareFormData(data, uploadedfile) {
 
   formData.append("description", data.description);
 
-  // formData.append("urls", data.urls);
-  // console.log("$$$$$data.urls in formdata:", data.urls);
-  // formData.append("downloadUrls", data.downloadUrls);
-  // console.log("$$$$$data.downloadUrls in formdata::",Array.isArray(data.downloadUrls) );
-
   // Append each URL in data.urls array
   data.urls.forEach((url, index) => {
     formData.append(`urls[${index}]`, url);
@@ -87,7 +93,7 @@ function prepareFormData(data, uploadedfile) {
   //   formData.append(`products[${index}][rrp]`, product.rrp);
   //   formData.append(`products[${index}][stock]`, product.stock);
   // }
-  // for PUT requests:
+  // for PUT requests, and I don't need this
   if (uploadedfile) {
     formData.append("uploadedFile", uploadedfile);
   }
@@ -102,6 +108,7 @@ const productService = {
   getProduct,
   del,
   postImageUrl,
+  put,
 };
 
 export default productService;

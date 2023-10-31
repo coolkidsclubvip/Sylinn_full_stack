@@ -47,6 +47,7 @@ module.exports = () => {
         ".avif",
         ".gif",
         ".pdf",
+        ".webp",
       ]),
       fileServerUpload,
     ], // use[] array brackets ensures process order
@@ -54,6 +55,28 @@ module.exports = () => {
   );
 
   // UPDATE BY ID Product
+  router.put(
+    "/edit/:category/:collection",
+  // [
+  //     verifyAuth.auth,
+  //     verifyAuth.admin,
+  //     productPolicy.validateProduct, // this is Joi validation
+  //     filePolicy.filePayloadExists,
+  //     filePolicy.fileSizeLimiter,
+  //     filePolicy.fileExtensionLimiter([
+  //       ".png",
+  //       ".jpg",
+  //       ".jpeg",
+  //       ".avif",
+  //       ".gif",
+  //       ".pdf",
+  //       ".webp",
+  //     ]
+  //     ),
+      fileServerUpload,
+  //   ],
+    ProductController.putProductByCollection
+  );
 
   // DELETE BY ID Product
   router.delete(

@@ -20,13 +20,15 @@ function EditItemPanel({
   data,
   category,
   collection,
+  fetchProduct,
 }) {
   console.log("  title info in EditItemPanel are:", titleInfo);
   console.log("data in EditItemPanel are:", data);
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [productData, setProductData] = useState({
-    // category: category,
+    category: category,
     newCollection: `${collection}`,
     code: `${titleInfo.code}`,
     description: `${titleInfo.description}`,
@@ -59,19 +61,21 @@ function EditItemPanel({
   // A state to receive uploaded images
   const [uploadedImages, setUploadedImages] = useState([]);
 
-  // A state to receieve upload non-image files (pdf)
+  // A state to receive upload non-image files (pdf)
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   //////////////////////////////////////
+  // Image Upload field(add more images)
   const [imageFields, setImageFields] = useState([{ value: null }]);
+  // File Upload field(add more files)
   const [fileFields, setFileFields] = useState([{ value: null }]);
 
-  //
+  // Add one more image upload field
   const addImageField = () => {
     const newField = { value: null };
     setImageFields([...imageFields, newField]);
   };
-
+  // Add one more file upload field
   const addFileField = () => {
     const newField = { value: null };
     setFileFields([...fileFields, newField]);
@@ -85,7 +89,7 @@ function EditItemPanel({
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
   };
-
+  console.log("即时的productData is: ", productData);
   // handle text input change
   const handleProductTextChange = (e, index, field) => {
     const { value } = e.target;
@@ -133,30 +137,6 @@ function EditItemPanel({
     }
   };
 
-  // Run function when SUBMIT is clicked
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // API request
-    try {
-      const response = await productService.post(productData);
-      console.log("response is:", response);
-      toast.success(`${productData.title} has been created successfully`);
-      // setLoading(false);
-      await // get refreshed Itemdetailpage
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
-      setShowEditPanel(false);
-    } catch (err) {
-      console.log("Error: " + err);
-      toast.error(`${err}`);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    }
-  };
-
-  console.log("ProductData is:", productData);
-
   // Handle button click to DELETE EXISTING IMAGE
   const handleImageDelete = async (e, url) => {
     e.preventDefault();
@@ -167,14 +147,50 @@ function EditItemPanel({
     );
     toast.success(response.data);
     // Replace image with default N/A image
-    const deletedImage= document.getElementById(url)
-    console.log("deletedImage is:",deletedImage);
+    const deletedImage = document.getElementById(url);
+    console.log("deletedImage is:", deletedImage);
     deletedImage.src = NAImage;
     // Get the button and disable it
-    const deletedBtn =  document.getElementById("btn"+`${url}`)
-    console.log("deletedBtn is:",deletedBtn);
-    deletedBtn.disabled = true
+    const deletedBtn = document.getElementById("btn" + `${url}`);
+    console.log("deletedBtn is:", deletedBtn);
+    deletedBtn.disabled = true;
   };
+
+  // Run function when SUBMIT is clicked
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // API request
+    try {
+      const response = await productService.put(productData);
+      //   console.log("response is:", response);
+      //   toast.success(`${productData.title} has been created successfully`);
+      //   // setLoading(false);
+      //    // get refreshed Itemdetailpage
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      // Re-fetch data for parent page--Product detail page
+      fetchProduct();
+      // Close edit panel
+      setShowEditPanel(false);
+      toast.success(`${productData.title} has been udpated successfully`);
+    } catch (err) {
+      //   console.log("Error: " + err);
+      //   toast.error(`${err}`);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+  };
+
+  if (error) {
+    return (
+      <Container>
+        <Spinner animation="border" variant="primary" size="lg">
+          Loading
+        </Spinner>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -195,13 +211,14 @@ function EditItemPanel({
           <Form onSubmit={handleSubmit}>
             {/* GROUP 1 New Collection */}
             <Form.Group className="mb-3 mt-3">
-              <Form.Label>New Collection</Form.Label>
+              <Form.Label> Collection</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Enter new collection name"
-                name="newCollection"
-                value={newCollection}
-                onChange={handleTextChange}
+                // type="text"
+                disabled={true}
+                placeholder={`${newCollection}`}
+                // name="newCollection"
+                // value={newCollection}
+                // onChange={handleTextChange}
               />
             </Form.Group>
             {/*GROUP 2 Product Code */}
@@ -245,7 +262,7 @@ function EditItemPanel({
                   <div className="mt-5 mb-5">
                     <img src={url} id={url} />
                     <button
-                    id={"btn"+ `${url}`}
+                      id={"btn" + `${url}`}
                       type="button"
                       onClick={(e) => {
                         handleImageDelete(e, url);
@@ -336,13 +353,14 @@ function EditItemPanel({
                     <Form.Group className="mb-3">
                       <Form.Label>Product ID</Form.Label>
                       <Form.Control
-                        type="text"
-                        placeholder="Enter variant ID"
-                        name={`products[${index}].id`}
-                        value={product.id}
-                        onChange={(e) =>
-                          handleProductTextChange(e, index, "id")
-                        }
+                        // type="text"
+                        disabled={true}
+                        placeholder={`${products[index].id}`}
+                        // name={`products[${index}].id`}
+                        // value={product.id}
+                        // onChange={(e) =>
+                        //   handleProductTextChange(e, index, "id")
+                        // }
                       />
                     </Form.Group>
                   </Col>
