@@ -44,7 +44,7 @@ function postFileUrl(url, category, collection) {
     const formData = prepareFormData(productData);
     console.log("productData in service is:", productData);
     return api.put(
-      `/products//edit/${productData.category}/${productData.newCollection}`,
+      `/products/edit/${productData.category}/${productData.newCollection}`,
       formData,
       formConfig
     );

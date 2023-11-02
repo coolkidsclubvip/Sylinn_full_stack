@@ -164,6 +164,43 @@ module.exports = {
   },
 
   ////// [1D] GET onSale Products
+  async getCollectionsOnSale(req, res, next) {
+    try {
+      const category = req.params.category;
+
+      if (!category) {
+        return next(ApiError.badRequest("Invalid Category"));
+      }
+
+      const productRef = db.collection("products").doc(category);
+      const snapshot = await productRef.listCollections();
+
+      const titleInfoDocs = [];
+
+      for (const collection of snapshot) {
+        const titleInfoRef = collection.doc("titleInfo");
+        const query = titleInfoRef
+          .where("onSale", "==", true)
+          .orderBy("name", "desc")
+          .limit(6);
+
+        const querySnapshot = await query.get();
+
+        querySnapshot.forEach((doc) => {
+          titleInfoDocs.push({
+            collectionId: collection.id,
+            titleInfo: doc.data(),
+          });
+        });
+      }
+
+      res.send(titleInfoDocs);
+    } catch (err) {
+      return next(
+        ApiError.internalError("The items selected could not be found", err)
+      );
+    }
+  },
 
   // [2] POST Product
   async postProduct(req, res, next) {
@@ -172,6 +209,12 @@ module.exports = {
     let pdfUrls = [];
     console.log("res.locals.imageNames is:", res.locals.imageNames);
     console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
+
+    // //////////////////delete this!!!!after postman ok
+    // req.body= JSON.parse(req.body.data);
+
+    // /////////////////////delete this!!!!after postman
+
     try {
       for (const imageName of res.locals.imageNames) {
         const imageUrl = await storageBucketUpload(imageName);
@@ -243,7 +286,7 @@ module.exports = {
         });
       }
 
-      res.send(`${newCollection} has been updated successfully`);
+      res.send(`${newCollection} has been added successfully`);
       return;
     } catch (err) {
       return next(
@@ -377,6 +420,10 @@ module.exports = {
     let pdfUrls = [];
     console.log("res.locals.imageNames is:", res.locals.imageNames);
     console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
+
+    // //////////////////delete this!!!!after postman ok
+    // req.body= JSON.parse(req.body.data);
+    // /////////////////////delete this!!!!after postman
 
     try {
       if (res.locals.imageNames) {
