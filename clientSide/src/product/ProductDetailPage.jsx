@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 import * as styles from "../styles/ProductDetailPage.css";
 import productService from "../services/productService";
 import Loader from "../components/common/Loader";
@@ -23,8 +23,6 @@ function ProductDetailPage() {
   const [RRP, setRRP] = useState(""); // set RRP to selected option
   const [stock, setStock] = useState(""); // set stock to selected option
   let { category, collection } = useParams(); //useParams hook to be used only within a ROUTED component
-
-  console.log("titleInfo in productDetailPage is:", titleInfo);
 
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -177,13 +175,13 @@ function ProductDetailPage() {
                             setShowEditPanel(!showEditPanel);
                           }}
                         >
-                          Edit
+                          {loading ? <Spinner /> : ""} Edit
                         </Button>
                         <Button
                           className="btn btn-danger mt-5 me-5"
                           onClick={handleDelete}
                         >
-                          Delete
+                          {loading ? <Spinner /> : ""} Delete
                         </Button>{" "}
                       </div>
                     )}

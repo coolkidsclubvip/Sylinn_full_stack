@@ -123,6 +123,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     setLoading(true);
     // API request
     try {
+      console.log("productData sending to server is:",productData);
       const response = await productService.post(productData);
       console.log("response is:", response);
       toast.success(`${productData.title} has been created successfully`);

@@ -1,12 +1,11 @@
-import { useState} from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form,Spinner } from "react-bootstrap";
+import { Form, Spinner, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
 
-import useAuth  from "../../hooks/useAuth";
-
+import useAuth from "../../hooks/useAuth";
 
 // LOCAL MODULES
 import * as styles from "../../styles/LoginPage.css.ts";
@@ -39,17 +38,16 @@ function LoginPage() {
 
     // Make an API call to register the user
     try {
-      const response = await authService.login( user);
+      const response = await authService.login(user);
       // TO ADJUST LATER WITH CONTEXT API
       // console.log("response.data is:", response.data);
-    toast.success("Login successful");
+      toast.success("Login successful");
       loginSaveUser(response.data);
       navigate("/dashboard");
-      
-setTimeout(() => {
-  setLoading(false);
-}, 1000);
-     
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     } catch (err) {
       console.log(err?.response);
       toast.warn(err.response.data);
@@ -90,8 +88,8 @@ setTimeout(() => {
             </Form.Group>
 
             {/* SUBMIT BUTTON */}
-      
-            <SyButton loading={loading}>
+
+            <Button onClick={handleSubmit} type="button">
               {loading ? (
                 <Spinner
                   as="span"
@@ -101,9 +99,10 @@ setTimeout(() => {
                   aria-hidden="true"
                 />
               ) : (
-                "Submit"
-              )}
-            </SyButton>
+                " "
+              )}{" "}
+              Submit
+            </Button>
           </Form>
 
           {/* Form ends */}

@@ -211,6 +211,12 @@ module.exports = {
       const titleInfoDoc = collectionRef.doc("titleInfo");
       const response1 = await titleInfoDoc.set(titleInfoData);
 
+      console.log(
+        "req.body.products in controller is:",
+        req.body.products,
+        Array.isArray(req.body.products),
+        typeof req.body.products
+      );
       // Handle multiple product variants:
       if (req.body.products.length > 1) {
         const products = req.body.products;
@@ -230,7 +236,7 @@ module.exports = {
       } else if (req.body.products.length == 1) {
         // Handle single product, no other options:
 
-        await collectionRef.doc(req.body.products[0].id).update({
+        await collectionRef.doc(req.body.products[0].id).set({
           name: req.body.products[0].name,
           rrp: Number(req.body.products[0].rrp),
           stock: req.body.products[0].stock,
@@ -254,7 +260,7 @@ module.exports = {
 
   // [4] PUT Product BY ID
 
-  // [4.1] Delete product image by ID
+  // [4.1.1] Delete product image by ID
   async deleteProductImage(req, res, next) {
     try {
       // Get name from URL
@@ -289,6 +295,59 @@ module.exports = {
             .doc("titleInfo")
             .update({
               urls: updatedUrls,
+            })
+            .then(() => {
+              console.log(
+                `URL ${urlToDelete} has been deleted from cloud storage`
+              );
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error occurs when deleting image");
+            });
+        }
+      });
+      res.send(`Image ${imageName} has been deleted successfully`);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  // [4.1.2] Delete product file by ID
+  async deleteProductFile(req, res, next) {
+    try {
+      // Get name from URL
+      const imageName = await bucketServices.getFileFromUrl(req.body.fileUrl);
+
+      // Delete image URL from Firestore titleInfo urls array
+      const category = req.body.category;
+      const collection = req.body.collection;
+      const docPath = `products/${category}`;
+      const urlToDelete = req.body.fileUrl;
+      const admin = require("firebase-admin");
+      const productRef = db.collection("products");
+
+      const snapshot = await productRef
+        .doc(category)
+        .collection(collection)
+        .get();
+      snapshot.forEach((doc) => {
+        // Get data from collection
+        const data = doc.data();
+        if (doc.id === "titleInfo") {
+          const titleInfo = doc.data();
+          const urls = titleInfo.downloadUrls || []; // Get the urls array, or an empty array if it does not exist
+
+          // Find and delete matching url
+          const updatedUrls = urls.filter((url) => url !== urlToDelete);
+
+          // Update the titleInfo.urls field using the update method
+          productRef
+            .doc(category)
+            .collection(collection)
+            .doc("titleInfo")
+            .update({
+              downloadUrls: updatedUrls,
             })
             .then(() => {
               console.log(
@@ -378,7 +437,8 @@ module.exports = {
       const response1 = await titleInfoDoc.update(updatedTitleInfo);
 
       // Handle multiple product variants:
-      const products = JSON.parse(req.body.products);
+      // const products = JSON.parse(req.body.products);
+      const products = req.body.products;
       if (products.length > 1) {
         console.log(
           "products type is:",
@@ -408,8 +468,6 @@ module.exports = {
       }
 
       res.send("Product collection updated successfully");
-
-      // 检查是否有错误发生;
     } catch (err) {
       return next(
         ApiError.internalError(

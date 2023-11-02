@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form,Spinner } from "react-bootstrap";
+import { Form, Spinner, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import authService from "../../services/authService";
 import SyCard from "../../components/common/SyCard";
@@ -117,7 +117,7 @@ function SignupPage() {
             </Form.Group>
             {/* SUBMIT BUTTON */}
 
-            <SyButton loading={loading}>
+            <Button onClick={handleSubmit} type="button">
               {loading ? (
                 <Spinner
                   as="span"
@@ -127,9 +127,10 @@ function SignupPage() {
                   aria-hidden="true"
                 />
               ) : (
-                "Submit"
-              )}
-            </SyButton>
+                " "
+              )}{" "}
+              Submit
+            </Button>
           </Form>
 
           {/* Form ends */}

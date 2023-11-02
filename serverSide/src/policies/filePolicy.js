@@ -48,46 +48,7 @@ const fileExtensionLimiter = (allowedExtArray) => {
     next();
   };
 };
-// const fileExtensionLimiter = (allowedExtensions) => {
-//   const extensionRegex = new RegExp(
-//     `\\.(${allowedExtensions.join("|")})$`,
-//     "i"
-//   );
 
-//   return (req, res, next) => {
-//     console.log("req.files in fileExtensionLimiter:", req.files);
-//     if (req.files) {
-//       for (const fieldName in req.files) {
-//         if (Array.isArray(req.files[fieldName])) {
-//           for (const file of req.files[fieldName]) {
-//             if (!extensionRegex.test(file.name)) {
-//               return next(
-//                 ApiError.cannotProcess(
-//                   `Not allowed file type, Only ${allowedExtensions.join(
-//                     ", "
-//                   )} allowed`
-//                 )
-//               );
-//             }
-//           }
-//         } else {
-//           const file = req.files[fieldName];
-//           if (!extensionRegex.test(file.name)) {
-//             return next(
-//               ApiError.cannotProcess(
-//                 `Not allowed file type, Only ${allowedExtensions.join(
-//                   ", "
-//                 )} allowed`
-//               )
-//             );
-//           }
-//         }
-//       }
-//     }
-
-//     next();
-//   };
-// };
 
 // export all functions as filePolicy
 const filePolicy = {

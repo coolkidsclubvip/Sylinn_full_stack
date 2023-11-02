@@ -18,6 +18,8 @@ module.exports = () => {
 
   // Delete Image from bucket by name, use Post to send image
   router.post("/deleteImage", productController.deleteProductImage);
+  // Delete File from bucket by name, use Post to send
+  router.post("/deleteFile", productController.deleteProductFile);
 
   // Search Products by collection keywords////to be completed
   router.get("/search/:keyword", ProductController.getProductByKeyword);
@@ -57,24 +59,23 @@ module.exports = () => {
   // UPDATE BY ID Product
   router.put(
     "/edit/:category/:collection",
-  // [
-  //     verifyAuth.auth,
-  //     verifyAuth.admin,
-  //     productPolicy.validateProduct, // this is Joi validation
-  //     filePolicy.filePayloadExists,
-  //     filePolicy.fileSizeLimiter,
-  //     filePolicy.fileExtensionLimiter([
-  //       ".png",
-  //       ".jpg",
-  //       ".jpeg",
-  //       ".avif",
-  //       ".gif",
-  //       ".pdf",
-  //       ".webp",
-  //     ]
-  //     ),
+    [
+      verifyAuth.auth,
+      verifyAuth.admin,
+      productPolicy.validateProduct, // this is Joi validation
+      // filePolicy.filePayloadExists,// No need to check if file exists in EDIT mode, it can be null
+      filePolicy.fileSizeLimiter,
+      filePolicy.fileExtensionLimiter([
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".avif",
+        ".gif",
+        ".pdf",
+        ".webp",
+      ]),
       fileServerUpload,
-  //   ],
+    ],
     ProductController.putProductByCollection
   );
 

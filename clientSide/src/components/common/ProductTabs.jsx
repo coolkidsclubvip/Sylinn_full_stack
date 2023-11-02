@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { Nav } from "react-bootstrap";
 import * as styles from "../../styles/components/ProductTabs.css";
+import pdfIcon from "../../../src/assets/images/pdfIcon.png";
 
 function ProductTabs({titleInfo}) {
   const [selected, setSelected] = useState("description"); // Set an initial selected tab
@@ -56,8 +57,16 @@ function ProductTabs({titleInfo}) {
           <ul>
             {titleInfo.downloadUrls.map((url, index) => (
               <li key={index}>
+                
                 <a href={url} target="_blank" rel="noreferrer">
-                  Download {index + 1}
+                <img
+                  src={pdfIcon}
+                  style={{
+                    height: "5rem",
+                    overflow: "hidden",
+                    margin: "1rem auto",
+                  }}
+                />  Download {index + 1}
                 </a>
               </li>
             ))}

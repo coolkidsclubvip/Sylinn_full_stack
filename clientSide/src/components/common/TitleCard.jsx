@@ -12,7 +12,10 @@ const {collectionId,titleInfo}=data
       <div className={styles.NAItem}>
         <Link to={`${collectionId}`}>
           <div className={styles.NAItemImage}>
-            <img src={titleInfo.urls?titleInfo.urls[0]: imagePlaceHolder } alt={titleInfo.title} />
+            <img
+              src={titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder}
+              alt={titleInfo.title}
+            />
           </div>
         </Link>
         <div className={styles.NAItemText}>
@@ -20,8 +23,8 @@ const {collectionId,titleInfo}=data
           <br />
           <p className={styles.code}>{titleInfo.code}</p>
 
-          <Link to={`${collectionId}`}>
-            <button className={styles.button}>Details</button>
+          <Link to={`${collectionId}`} className={styles.button}>
+            Details
           </Link>
         </div>
       </div>

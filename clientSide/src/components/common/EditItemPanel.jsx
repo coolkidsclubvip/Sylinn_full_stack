@@ -13,6 +13,8 @@ import SyButton from "./SyButton";
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
 import NAImage from "../../../src/assets/images/no_image_available.jpeg";
+import pdfIcon from "../../../src/assets/images/pdfIcon.png"
+import utils from "../../utils/readUtils";
 
 function EditItemPanel({
   setShowEditPanel,
@@ -21,6 +23,7 @@ function EditItemPanel({
   category,
   collection,
   fetchProduct,
+
 }) {
   console.log("  title info in EditItemPanel are:", titleInfo);
   console.log("data in EditItemPanel are:", data);
@@ -155,6 +158,25 @@ function EditItemPanel({
     console.log("deletedBtn is:", deletedBtn);
     deletedBtn.disabled = true;
   };
+  // Handle button click to DELETE EXISTING FILE
+
+  const handleFileDelete = async (e, url) => {
+    e.preventDefault();
+    const response = await productService.postFileUrl(
+      url,
+      category,
+      collection
+    );
+    toast.success(response.data);
+    // Replace image with default N/A image
+    const deletedImage = document.getElementById(url);
+    console.log("deletedImage is:", deletedImage);
+    deletedImage.src = NAImage;
+    // Get the button and disable it
+    const deletedBtn = document.getElementById("btn" + `${url}`);
+    console.log("deletedBtn is:", deletedBtn);
+    deletedBtn.disabled = true;
+  };
 
   // Run function when SUBMIT is clicked
   const handleSubmit = async (e) => {
@@ -170,6 +192,7 @@ function EditItemPanel({
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
       // Re-fetch data for parent page--Product detail page
       fetchProduct();
+  
       // Close edit panel
       setShowEditPanel(false);
       toast.success(`${productData.title} has been udpated successfully`);
@@ -206,7 +229,7 @@ function EditItemPanel({
         </button>
         <SyCard title="Edit Product">
           <span>
-            You are enditing <b> xxxx</b>
+            You are editing <b> {titleInfo.title}</b>
           </span>
           <Form onSubmit={handleSubmit}>
             {/* GROUP 1 New Collection */}
@@ -255,12 +278,22 @@ function EditItemPanel({
                 onChange={handleTextChange}
               />
             </Form.Group>
-
+            {/* Display existing images */}
             <Row>
               {titleInfo.urls.map((url, index) => (
                 <Col key={index}>
                   <div className="mt-5 mb-5">
-                    <img src={url} id={url} />
+                    <img
+                      src={url}
+                      id={url}
+                      style={{
+                        minWidth: "25%",
+                        maxWidth: "50%",
+                        height: "5rem",
+                        overflow: "hidden",
+                        margin: "1rem auto",
+                      }}
+                    />
                     <button
                       id={"btn" + `${url}`}
                       type="button"
@@ -281,7 +314,7 @@ function EditItemPanel({
               <Col lg={6} md={6} sm={12}>
                 {imageFields.map((field, index) => (
                   <Form.Group key={index} className="mb-3">
-                    <Form.Label>Add Image</Form.Label>
+                    <Form.Label>Image Upload</Form.Label>
                     <Form.Control
                       type="file"
                       className="mb-4"
@@ -291,9 +324,39 @@ function EditItemPanel({
                   </Form.Group>
                 ))}
                 <button type="button" onClick={addImageField}>
-                  Add Image Upload
+                  Add More Image
                 </button>
               </Col>
+
+              {/* Display existing files */}
+              <Row>
+                {titleInfo.downloadUrls.map((url, index) => (
+                  <Col key={index}>
+                    <div className="mt-5 mb-5">
+                      <img
+                        src={pdfIcon}
+                        id={url}
+                        style={{
+                          height: "5rem",
+                          overflow: "hidden",
+                          margin: "1rem auto",
+                        }}
+                      />
+                      <span>{utils.getFileFromUrl(url)}</span>
+                      <button
+                        id={"btn" + `${url}`}
+                        type="button"
+                        onClick={(e) => {
+                          handleFileDelete(e, url);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+
               <Col lg={6} md={6} sm={12}>
                 {fileFields.map((field, index) => (
                   <div key={index}>
@@ -313,7 +376,7 @@ function EditItemPanel({
                   </div>
                 ))}
                 <button type="button" onClick={addFileField}>
-                  Add File Upload
+                  Add More File
                 </button>
               </Col>
             </Row>

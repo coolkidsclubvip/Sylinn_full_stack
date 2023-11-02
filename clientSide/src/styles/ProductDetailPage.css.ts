@@ -1,7 +1,6 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "./global/themes.css";
 
-
 export const container = style({
   position: "relative",
   width: "100%",
@@ -15,9 +14,10 @@ export const modalContainer = style({
   position: "relative",
   width: "100%",
   height: "50vh",
-  backgroundColor: "green",
+  // backgroundColor: "green",
   overflow: "visible",
   zIndex: "90",
+  border: "1px solid rgba(200, 200, 200,0.9)",
 });
 export const infoContainer = style({
   position: "relative",

@@ -28,18 +28,27 @@ function postImageUrl(url, category, collection) {
     collection: collection,
   });
 }
-
-// GET BY ID - ProductDetail
-
-// PUT - EditProduct
-function put(productData) {
-  const formData = prepareFormData(productData);
-  console.log("productData in service is:", productData);
-  return api.put(
-    `/products//edit/${productData.category}/${productData.newCollection}`,
-    formData,formConfig
-  );
+// Post - file URL that will be deleted from bucket
+function postFileUrl(url, category, collection) {
+  return api.post("/products/deleteFile", {
+    fileUrl: url,
+    category: category,
+    collection: collection,
+  });
 }
+
+  // GET BY ID - ProductDetail
+
+  // PUT - EditProduct
+  function put(productData) {
+    const formData = prepareFormData(productData);
+    console.log("productData in service is:", productData);
+    return api.put(
+      `/products//edit/${productData.category}/${productData.newCollection}`,
+      formData,
+      formConfig
+    );
+  }
 
 // DELETE - ProductDetail
 function del(category, id) {
@@ -85,14 +94,6 @@ function prepareFormData(data, uploadedfile) {
   console.log("Array.isArray===> data.products", Array.isArray(data.products)); //true
   formData.append("products", JSON.stringify(data.products));
   // formData.append("products", data.products);
-
-  // Append each variant in data.products array,different as urls or DownloadUrls, as there are objects inside its array
-  // for (let index = 0; index < data.products.length; index++) {
-  //   const product = data.products[index];
-  //   formData.append(`products[${index}][name]`, product.name);
-  //   formData.append(`products[${index}][rrp]`, product.rrp);
-  //   formData.append(`products[${index}][stock]`, product.stock);
-  // }
   // for PUT requests, and I don't need this
   if (uploadedfile) {
     formData.append("uploadedFile", uploadedfile);
@@ -108,6 +109,7 @@ const productService = {
   getProduct,
   del,
   postImageUrl,
+  postFileUrl,
   put,
 };
 
