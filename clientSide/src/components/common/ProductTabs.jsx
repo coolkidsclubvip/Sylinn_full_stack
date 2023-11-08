@@ -43,6 +43,9 @@ function ProductTabs({titleInfo}) {
           </tbody>
         </table>
       </div>
+
+
+      
       {selected === "description" && (
         <div className={styles.descriptionContent}>
           {/* Render the Description content here */}

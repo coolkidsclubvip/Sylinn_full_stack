@@ -6,31 +6,28 @@ const debugJoi = require("debug")("app:joi");
 module.exports = {
   // [1] POST Validation
   validateProduct(req, res, next) {
-    console.log("req.body in Joi is: ",req.body);
+    console.log("req.body in Joi is: ", req.body);
     req.body.products = JSON.parse(req.body.products);
-console.log("req.body in Joi is: ",req.body, Array.isArray(req.body.products), typeof req.body.products);
-
-   const schema = Joi.object({
-     category: Joi.string().required(),
-     newCollection: Joi.string().required(),
-     code: Joi.string().required(),
-     description: Joi.string().required(),
-     urls: Joi.array().items(Joi.string()).allow(null, ""),
+    const schema = Joi.object({
+      category: Joi.string().required(),
+      newCollection: Joi.string().required(),
+      code: Joi.string().required(),
+      description: Joi.string().required(),
+      urls: Joi.array().items(Joi.string()).allow(null, ""),
       downloadUrls: Joi.array().items(Joi.string()).allow(null, ""),
-     onSale: Joi.boolean().required(),
-     title: Joi.string().required(),
-     products: Joi.array() // id,name,rrp,stock are nested inside products
-       .items(
-         Joi.object({
-           id: Joi.string().required(),
-           name: Joi.string().min(3).max(50).required(),
-           rrp: Joi.number().required(),
-           stock: Joi.number().required(),
-         })
-       )
-       .required(),
-   });
-
+      onSale: Joi.boolean().required(),
+      title: Joi.string().required(),
+      products: Joi.array() // id,name,rrp,stock are nested inside products
+        .items(
+          Joi.object({
+            id: Joi.string().required(),
+            name: Joi.string().min(3).max(50).required(),
+            rrp: Joi.number().required(),
+            stock: Joi.number().required(),
+          })
+        )
+        .required(),
+    });
 
     // Return one of two values
     const { error, value } = schema.validate(req.body);

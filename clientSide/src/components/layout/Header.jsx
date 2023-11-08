@@ -12,7 +12,7 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
-import Logo_sylinn_png from "../../assets/images/Logo-sylinn-png.png";
+import Logo_sylinn_big from "../../assets/images/Logo-sylinn-big.png";
 import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
 import useAuth from "../../hooks/useAuth";
 import { Turn as Hamburger } from "hamburger-react";
@@ -20,7 +20,12 @@ import { TbHeart, TbLogout, TbUserSquare, TbLogin2 } from "react-icons/tb";
 import { LuUserPlus } from "react-icons/lu";
 import { toast } from "react-toastify";
 
-function Header({ showOffcanvas, setShowOffcanvas }) {
+function Header({
+  showOffcanvas_Nav,
+  setShowOffcanvas_Nav,
+  showOffcanvas_Wish,
+  setShowOffcanvas_Wish,
+}) {
   const [isHovered, setIsHovered] = useState(false);
 
   const navigate = useNavigate();
@@ -54,7 +59,6 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
   const handleClick = () => {
     logout();
     toast.info("Logged out successfully");
-
   };
 
   return (
@@ -65,8 +69,8 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
         <Row className="d-flex align-items-center justify-content-between py-2 ms-5 mb-0">
           <Col sm={2} md={4} className="d-flex justify-content-center ">
             <Hamburger
-              toggled={showOffcanvas}
-              toggle={setShowOffcanvas}
+              toggled={showOffcanvas_Nav}
+              toggle={setShowOffcanvas_Nav}
               size={45}
               direction="right"
             />
@@ -76,7 +80,7 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
               <Link to={"/"}>
                 <img
                   src={`${
-                    scrollTop > 150 ? Logo_sylinn_small : Logo_sylinn_png
+                    scrollTop > 150 ? Logo_sylinn_small : Logo_sylinn_big
                   }`}
                   style={{ transition: "all 1s ease-in-out" }}
                   alt="Logo"
@@ -103,11 +107,16 @@ function Header({ showOffcanvas, setShowOffcanvas }) {
               </Link>
             )}
             {/* wishlist */}
-            <Link to={`user?{ "/wishlist":"/login"}`}>
+            <div
+              // to={user ? "" : "/login"}
+              onClick={() => {
+                setShowOffcanvas_Wish(!showOffcanvas_Wish);
+              }}
+            >
               &nbsp;
               <TbHeart size={30} />
               &nbsp;&nbsp;&nbsp;
-            </Link>
+            </div>
             {/* logout button */}
             {user && (
               <Link>

@@ -330,7 +330,7 @@ function EditItemPanel({
 
               {/* Display existing files */}
               <Row>
-                {titleInfo.downloadUrls.map((url, index) => (
+                {titleInfo.downloadUrls?.map((url, index) => (
                   <Col key={index}>
                     <div className="mt-5 mb-5">
                       <img

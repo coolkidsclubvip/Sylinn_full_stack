@@ -13,5 +13,5 @@ export const appContent = style({
   flex: 1,
   minHeight: "78vh",
  width:"100%",
-
+margin:"0 auto"
 })

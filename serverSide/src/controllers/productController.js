@@ -7,10 +7,8 @@ const {
   getFileFromUrl,
   deleteFileFromBucket,
 } = require("../utils/bucketServices");
-// const debugREAD = require("debug")("app:read");
-// const debugWRITE = require("debug")("app:write");
 
-// Function to delete a collection from firestore
+// Function to delete a collection from firestore, to be called in deleteCollectionById
 async function deleteCollection(collectionPath) {
   const collectionRef = db.collection(collectionPath);
   const batch = db.batch();
@@ -29,7 +27,7 @@ async function deleteCollection(collectionPath) {
 
 module.exports = {
   ////// [1A]  GET ALL Products
-  async getAllProducts(req, res, next) {
+  async getAllCategories(req, res, next) {
     try {
       // Store the collection reference in variable
       const productRef = db.collection("products");
@@ -48,16 +46,6 @@ module.exports = {
         snapshot.forEach((doc) => {
           docs.push({
             id: doc.id, //  只显示： [{"id":"acc"},{"id":"bath"},{"id":"grate"},{"id":"htr"},{"id":"led"},{"id":"sink"}]
-
-            // name: doc.data().name,
-            // description: doc.data().description,
-            // category: doc.data().category,
-            // price: doc.data().price,
-            // sizes: doc.data().sizes,
-            // texture: doc.data().texture,
-            // onSale: doc.data().onSale,
-            // isAvailable: doc.data().isAvailable,
-            // image: doc.data().image,
           });
         });
         res.send(docs);
@@ -84,7 +72,7 @@ module.exports = {
       const snapshot = await productRef.listCollections();
 
       const titleInfoDocs = [];
-
+      // Get titleInfos for all collections under this category
       for (const collection of snapshot) {
         const titleInfoDoc = await collection.doc("titleInfo").get();
         if (titleInfoDoc.exists) {
@@ -105,7 +93,7 @@ module.exports = {
   },
 
   ////// [1C]  A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
-  async getProduct(req, res, next) {
+  async getCollection(req, res, next) {
     try {
       console.log("req.params is:", req.params); //req.params is: { category: 'bath', collection: 'felicity' }
       const category = req.params.category;
@@ -164,37 +152,59 @@ module.exports = {
   },
 
   ////// [1D] GET onSale Products
-  async getCollectionsOnSale(req, res, next) {
+  async getOnSaleCollections(req, res, next) {
     try {
-      const category = req.params.category;
-
-      if (!category) {
-        return next(ApiError.badRequest("Invalid Category"));
-      }
-
-      const productRef = db.collection("products").doc(category);
-      const snapshot = await productRef.listCollections();
-
-      const titleInfoDocs = [];
-
-      for (const collection of snapshot) {
-        const titleInfoRef = collection.doc("titleInfo");
-        const query = titleInfoRef
-          .where("onSale", "==", true)
-          .orderBy("name", "desc")
-          .limit(6);
-
-        const querySnapshot = await query.get();
-
-        querySnapshot.forEach((doc) => {
-          titleInfoDocs.push({
-            collectionId: collection.id,
-            titleInfo: doc.data(),
-          });
+      // Get all categories
+      const productRef = db.collection("products");
+      const snapshot = await productRef.get();
+      let categories = [];
+      snapshot.forEach((doc) => {
+        categories.push({
+          id: doc.id, //    [{"id":"acc"},{"id":"bath"},{"id":"grate"},{"id":"htr"},{"id":"led"},{"id":"sink"}]
         });
-      }
+      });
 
-      res.send(titleInfoDocs);
+      const titleInfos = [];
+
+      await Promise.all(
+        categories.map(async (category) => {
+          // Make originalCategory to be pushed into titleInfos array later
+          const originalCategory = category.id;
+
+          const categoryRef = productRef.doc(category.id);
+          const snapshot = await categoryRef.listCollections();
+
+          // Get titleInfos for all collections under this category
+          for (const collection of snapshot) {
+            const originalCollection = collection.id;
+
+            const titleInfoDoc = collection.doc("titleInfo");
+
+            // Add a query to filter documents where onSale is true
+            const titleInfoSnapshot = await titleInfoDoc.get(); // 获取 titleInfo 文档
+
+            // Check whether the query results contain documents that meet the criteria
+            if (titleInfoSnapshot.exists) {
+              const titleInfoData = titleInfoSnapshot.data();
+
+              // Check titleInfoData  onSale property, for both boolean and string types
+              if (
+                titleInfoData.onSale === true ||
+                titleInfoData.onSale === "true"
+              ) {
+                titleInfos.push({
+                  category: originalCategory,
+                  collection: originalCollection, // Add the category property
+                  titleInfo: titleInfoData,
+                });
+              }
+            }
+          }
+          return;
+        })
+      );
+
+      res.send(titleInfos);
     } catch (err) {
       return next(
         ApiError.internalError("The items selected could not be found", err)
@@ -266,7 +276,7 @@ module.exports = {
 
         const productsPromises = products.map(async (product) => {
           const productDoc = collectionRef.doc(product.id);
-          await productDoc.update({
+          await productDoc.set({
             name: product.name,
             rrp: Number(product.rrp),
             stock: product.stock,
@@ -298,10 +308,179 @@ module.exports = {
   // [3] GET Product BY KEYWORD
 
   async getProductByKeyword(req, res, next) {
-    console.log("search params is:", req.params);
+    // What we need to fill up with filtered titleInfos
+    let filteredTitleInfoDocs = [];
+    try {
+      // Get all categories
+      const productRef = db.collection("products");
+      // Fetch ALL Currencies and store response in "snapshot"
+      const ProductSnapshot = await productRef.get();
+
+      let categories = [];
+      ProductSnapshot.forEach(async (doc) => {
+        categories.push({
+          id: doc.id, //  只显示： [{"id":"acc"},{"id":"bath"},{"id":"grate"},{"id":"htr"},{"id":"led"},{"id":"sink"}]
+        });
+      });
+      console.log("categories are: ", categories);
+
+      // Get all titleInfos from all collections//
+      let titleInfoDocs = [];
+
+      await Promise.all(
+        categories.map(async (category) => {
+          const categoryRef = productRef.doc(category.id);
+          const snapshot = await categoryRef.listCollections();
+
+          // Get titleInfos for all collections under this category
+          for (const collection of snapshot) {
+            const titleInfoDoc = await collection.doc("titleInfo").get();
+            if (titleInfoDoc.exists) {
+              titleInfoDocs.push({
+                collectionId: collection.id,
+                titleInfo: titleInfoDoc.data(),
+              });
+            }
+
+            //  console.log("titleInfoDocs are:", titleInfoDocs);
+          }
+          // Filter for all collections with keywords
+          const keyword = req.params.keyword;
+          // Convert the keyword to a case-insensitive regex
+          const keywordRegex = new RegExp(keyword, "i");
+          filteredTitleInfoDocs = titleInfoDocs.filter((item) => {
+            //  item.collectionId.titleInfo.includes(keywordRegex);
+            return keywordRegex.test(item.titleInfo.title);
+          });
+        })
+      );
+    } catch (err) {
+      console.log(err);
+      return next(
+        ApiError.badRequest("Failed to search a product with keyword", err)
+      );
+    }
+
+    res.send(filteredTitleInfoDocs);
   },
 
-  // [4] PUT Product BY ID
+  // [4]] PUT Product BY Collection
+  async putProductByCollection(req, res, next) {
+    // Images and files to be saved to cloud storage
+    let imageUrls = [];
+    let pdfUrls = [];
+
+    // //////////////////delete this!!!!after postman ok
+    // req.body= JSON.parse(req.body.data);
+    // /////////////////////delete this!!!!after postman
+
+    try {
+      if (res.locals.imageNames) {
+        for (const imageName of res.locals.imageNames) {
+          const imageUrl = await storageBucketUpload(imageName);
+          imageUrls.push(imageUrl);
+        }
+      }
+
+      if (res.locals.pdfNames)
+        for (const pdfName of res.locals.pdfNames) {
+          const pdfUrl = await storageBucketUpload(pdfName);
+          pdfUrls.push(pdfUrl);
+        }
+    } catch (err) {
+      return next(
+        ApiError.internalError(
+          "An error occurred when uploading image to cloud storage",
+          err
+        )
+      );
+    }
+
+    // Create collection Ref oject
+    try {
+      const category = req.body.category;
+      const newCollection = req.body.newCollection;
+      const productRef = db.collection("products");
+      const collectionRef = productRef.doc(category).collection(newCollection);
+      const titleInfoDoc = collectionRef.doc("titleInfo");
+
+      // Get existing urls and downloadUrls
+      const snapshot = await collectionRef.get();
+      let titleInfo = null;
+      snapshot.forEach((doc) => {
+        // Get data
+        const data = doc.data();
+        if (doc.id === "titleInfo") {
+          titleInfo = {
+            id: "titleInfo",
+            ...data,
+          };
+        }
+      });
+
+      console.log("old titleInfo in controller is:", titleInfo);
+
+      //Check whether titleInfo.downloadUrls is an array, if not, set it to an empty array(Allow no file)
+      if (!Array.isArray(titleInfo.downloadUrls)) {
+        titleInfo.downloadUrls = [];
+      }
+      // Same for the image (Allow no image)
+      if (!Array.isArray(titleInfo.urls)) {
+        titleInfo.urls = [];
+      }
+      // Handle titleInfo
+      const updatedTitleInfo = {
+        code: req.body.code,
+        description: req.body.description,
+        urls: [...titleInfo.urls, ...imageUrls], // Append new imageUrls
+        downloadUrls: [...titleInfo.downloadUrls, ...pdfUrls], // Append new pdfUrls
+        onSale: req.body.onSale,
+        title: req.body.title,
+      };
+
+      const response1 = await titleInfoDoc.update(updatedTitleInfo);
+
+      // Handle multiple product variants:
+      // const products = JSON.parse(req.body.products);
+      const products = req.body.products;
+      if (products.length > 1) {
+        console.log(
+          "products type is:",
+          Array.isArray(products),
+          typeof products
+        );
+        const productsPromises = products.map(async (product) => {
+          const productDoc = collectionRef.doc(product.id);
+          await productDoc.update({
+            name: product.name,
+            rrp: Number(product.rrp),
+            stock: product.stock,
+          });
+        });
+
+        await Promise.all(productsPromises);
+
+        //Handle only 1 product without any variant
+      } else if (products.length == 1) {
+        // Handle single product, no other options:
+
+        await collectionRef.doc(products[0].id).update({
+          name: products[0].name,
+          rrp: Number(products[0].rrp),
+          stock: products[0].stock,
+        });
+      }
+
+      res.send("Product collection updated successfully");
+    } catch (err) {
+      return next(
+        ApiError.internalError(
+          "Your request could not be processed at this time",
+          err
+        )
+      );
+    }
+  },
 
   // [4.1.1] Delete product image by ID
   async deleteProductImage(req, res, next) {
@@ -409,126 +588,8 @@ module.exports = {
     }
   },
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // [4.2] PUT Product BY Collection
-  async putProductByCollection(req, res, next) {
-    console.log("req.body in putProductByCollection is: ", req.body);
-
-    // Images and files to be saved to cloud storage
-    let imageUrls = [];
-    let pdfUrls = [];
-    console.log("res.locals.imageNames is:", res.locals.imageNames);
-    console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
-
-    // //////////////////delete this!!!!after postman ok
-    // req.body= JSON.parse(req.body.data);
-    // /////////////////////delete this!!!!after postman
-
-    try {
-      if (res.locals.imageNames) {
-        for (const imageName of res.locals.imageNames) {
-          const imageUrl = await storageBucketUpload(imageName);
-          imageUrls.push(imageUrl);
-        }
-      }
-
-      if (res.locals.pdfNames)
-        for (const pdfName of res.locals.pdfNames) {
-          const pdfUrl = await storageBucketUpload(pdfName);
-          pdfUrls.push(pdfUrl);
-        }
-    } catch (err) {
-      return next(
-        ApiError.internalError(
-          "An error occurred when uploading image to cloud storage",
-          err
-        )
-      );
-    }
-
-    // Create collection Ref oject
-    try {
-      const category = req.body.category;
-      const newCollection = req.body.newCollection;
-      const productRef = db.collection("products");
-      const collectionRef = productRef.doc(category).collection(newCollection);
-      const titleInfoDoc = collectionRef.doc("titleInfo");
-
-      // Get existing urls and downloadUrls
-      const snapshot = await collectionRef.get();
-      let titleInfo = null;
-      snapshot.forEach((doc) => {
-        // Get data
-        const data = doc.data();
-        if (doc.id === "titleInfo") {
-          titleInfo = {
-            id: "titleInfo",
-            ...data,
-          };
-        }
-      });
-
-      console.log("old titleInfo in controller is:", titleInfo);
-
-      // Handle titleInfo
-      const updatedTitleInfo = {
-        code: req.body.code,
-        description: req.body.description,
-        urls: [...titleInfo.urls, ...imageUrls], // Append new imageUrls
-        downloadUrls: [...titleInfo.downloadUrls, ...pdfUrls], // Append new pdfUrls
-        onSale: req.body.onSale,
-        title: req.body.title,
-      };
-
-      const response1 = await titleInfoDoc.update(updatedTitleInfo);
-
-      // Handle multiple product variants:
-      // const products = JSON.parse(req.body.products);
-      const products = req.body.products;
-      if (products.length > 1) {
-        console.log(
-          "products type is:",
-          Array.isArray(products),
-          typeof products
-        );
-        const productsPromises = products.map(async (product) => {
-          const productDoc = collectionRef.doc(product.id);
-          await productDoc.update({
-            name: product.name,
-            rrp: Number(product.rrp),
-            stock: product.stock,
-          });
-        });
-
-        await Promise.all(productsPromises);
-
-        //Handle only 1 product without any variant
-      } else if (products.length == 1) {
-        // Handle single product, no other options:
-
-        await collectionRef.doc(products[0].id).update({
-          name: products[0].name,
-          rrp: Number(products[0].rrp),
-          stock: products[0].stock,
-        });
-      }
-
-      res.send("Product collection updated successfully");
-    } catch (err) {
-      return next(
-        ApiError.internalError(
-          "Your request could not be processed at this time",
-          err
-        )
-      );
-    }
-  },
-
-  //////////////////////////////////////////////////////////////////////////////////////////
-
   // [5] DELETE Product BY ID
-  async deleteProductById(req, res, next) {
+  async deleteCollectionById(req, res, next) {
     try {
       // 1.Check document existence with matching id
       const productRef = db
@@ -582,4 +643,50 @@ module.exports = {
       );
     }
   },
+
+  ///////////////////////////////////////////to be deleted, for assessment purposes only//////////////////////////////
+  async getToilet(req, res, next) {
+    try {
+      // Composite index query
+      const productRef = db.collection("Toilet");
+      const snapshot = await productRef
+        .where("onSale", "==", true)
+        .where("stock", ">", "100")
+        .orderBy("stock", "asc")
+        .limit(2)
+        .get();
+
+      // [400 ERROR] Check for User Asking for Non-Existent Documents
+      if (snapshot.empty) {
+        return next(
+          ApiError.badRequest("The items you were looking for do not exist")
+        );
+
+        // SUCCESS: Push object properties to array and send to client
+      } else {
+        let docs = [];
+        snapshot.forEach((doc) => {
+          docs.push({
+            id: doc.id,
+            name: doc.data().name,
+            description: doc.data().description,
+
+            rrp: doc.data().rrp,
+
+            onSale: doc.data().onSale,
+
+            stock: doc.data().stock,
+          });
+        });
+        res.send(docs);
+      }
+
+      // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
+    } catch (err) {
+      return next(
+        ApiError.internalError("The items selected could not be found", err)
+      );
+    }
+  },
+  ///////////////////////////////////////////to be deleted, for assessment purposes only//////////////////////////////
 };

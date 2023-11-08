@@ -12,7 +12,7 @@ function ProductsGrid() {
 
           <div className={styles.row}>
             <div className={styles.column}>
-              <Link to="/htr" style={{ textDecoration: "none" }}>
+              <Link to="/products/htr" style={{ textDecoration: "none" }}>
                 {" "}
                 <div className={`${styles.div1} ${styles.gridText}`}>
                   <span>HEATED TOWEL RACK</span>
@@ -20,7 +20,7 @@ function ProductsGrid() {
               </Link>
             </div>
             <div className={styles.column}>
-              <Link to="/htr" style={{ textDecoration: "none" }}>
+              <Link to="/products/acc" style={{ textDecoration: "none" }}>
                 <div className={`${styles.div2} ${styles.gridText}`}>
                   {" "}
                   <span>ACCESSORY</span>
@@ -31,19 +31,19 @@ function ProductsGrid() {
                   <span>BATH TUB</span>
                 </div>
               </Link>
-              <Link to="/htr" style={{ textDecoration: "none" }}>
+              <Link to="/products/grate" style={{ textDecoration: "none" }}>
                 <div className={`${styles.div4} ${styles.gridText}`}>
                   <span>FLOOR GRATE</span>
                 </div>
               </Link>
             </div>
             <div className={styles.column}>
-              <Link to="/htr" style={{ textDecoration: "none" }}>
+              <Link to="/products/led" style={{ textDecoration: "none" }}>
                 <div className={`${styles.div5} ${styles.gridText}`}>
                   <span>LED MIRROR</span>
                 </div>
               </Link>
-              <Link to="/htr" style={{ textDecoration: "none" }}>
+              <Link to="/products/sink" style={{ textDecoration: "none" }}>
                 <div className={`${styles.div6} ${styles.gridText}`}>
                   <span>KITCHEN SINK</span>
                 </div>

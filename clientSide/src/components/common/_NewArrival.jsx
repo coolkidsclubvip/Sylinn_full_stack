@@ -3,7 +3,7 @@ import * as styles from "../../styles/NewArrival.css";
 
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import * as fonts from "../../styles/fonts/fonts.css.ts"
+import * as fonts from "../../styles/fonts/fonts.css"
 
 
 function NewArrival() {
@@ -47,6 +47,9 @@ function NewArrival() {
     },
   ];
 
+
+
+  
   return (
     <Container>
       <div className={styles.NAWrapper}>

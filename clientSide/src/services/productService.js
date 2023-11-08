@@ -12,6 +12,10 @@ function getAllCollections(category) {
 }
 
 // GET ALL ONSALE - ProductSale
+function getOnSaleCollections(){
+  return api.get("/products/onsale");
+}
+
 
 // POST - AddProduct
 function post(data) {
@@ -111,6 +115,7 @@ const productService = {
   postImageUrl,
   postFileUrl,
   put,
+  getOnSaleCollections,
 };
 
 export default productService;

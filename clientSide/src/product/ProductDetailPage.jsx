@@ -34,7 +34,7 @@ function ProductDetailPage() {
 
       setData(responseData.docs);
       setTitleInfo(responseData.titleInfo);
-      setLoading(false);
+       setLoading(false);
       return responseData;
     } catch (err) {
       console.log(err?.response);
@@ -61,9 +61,12 @@ function ProductDetailPage() {
         setRRP(selectedProduct.rrp);
         setStock(selectedProduct.stock);
         setSelectedProduct(selectedProduct);
+       
       }
     }
   }, [selectedOption, data]);
+
+
 
   if (error) {
     return (
@@ -107,6 +110,8 @@ function ProductDetailPage() {
     }
   };
 
+  console.log("stock is:", stock, "data[0].stock", data[0].stock);
+
   return (
     <Container>
       <div className={styles.container}>
@@ -144,24 +149,46 @@ function ProductDetailPage() {
                   $<span id="rrp">{RRP ? RRP : `${data[0].rrp}`}</span>
                 </h2>
                 <br />
-                <br />
-                <br />
+
                 {/* stock availability, 3 cases */}
                 <div id="stocknote">
                   {/* if stock is undefined, no show anything, otherwise show availability accordingly */}
-                  {stock >= 10 ? (
+                  {/* {stock >= 10 ? (
+                    <span className="instock">In Stock</span>
+                  ) : stock < 10 && stock >= 1 ? (
+                    <span className="lowstock">Low Stock</span>
+                  ) : stock === 0 ? (
+                    <span className="nostock">No Stock</span>
+                  ) : (
+                    stock===""? (setStock(data[0].stock)) :"TBC"
+                  )} */}
+                  {stock === "" ? (
+                    data[0].stock >= 10 ? (
+                      <span className="instock">In Stock</span>
+                    ) : data[0].stock < 10 && data[0].stock >= 1 ? (
+                      <span className="lowstock">Low Stock</span>
+                    ) : data[0].stock == 0 ? (
+                      <span className="nostock">No Stock</span>
+                    ) : (
+                      "TBC"
+                    )
+                  ) : stock >= 10 ? (
                     <span className="instock">In Stock</span>
                   ) : stock < 10 && stock >= 1 ? (
                     <span className="lowstock">Low Stock</span>
                   ) : stock == 0 ? (
                     <span className="nostock">No Stock</span>
                   ) : (
-                    ""
+                    "TBC"
                   )}
-                  <ProductOptions
-                    setSelectedOption={setSelectedOption}
-                    data={data}
-                  />
+
+                  {/* Only show option field when variant quantity is more than 1 */}
+                  {data.length > 1 && (
+                    <ProductOptions
+                      setSelectedOption={setSelectedOption}
+                      data={data}
+                    />
+                  )}
                   <div className={styles.buttonsGroups}>
                     {" "}
                     {!user || user.isAdmin === "false" ? (

@@ -14,7 +14,10 @@ const productController = require("../controllers/productController");
 // Setup routes within export function
 module.exports = () => {
   // GET ALL Products
-  router.get("/", ProductController.getAllProducts);
+  router.get("/", ProductController.getAllCategories);
+
+  // GET onSALE Products
+  router.get("/onsale", ProductController.getOnSaleCollections);
 
   // Delete Image from bucket by name, use Post to send image
   router.post("/deleteImage", productController.deleteProductImage);
@@ -28,9 +31,7 @@ module.exports = () => {
   router.get("/:category", ProductController.getCollections);
 
   // GET a certain product collection under a certain category === AKA GET PRODUCT BY ID
-  router.get("/:category/:collection", ProductController.getProduct);
-
-  // GET onSALE Products
+  router.get("/:category/:collection", ProductController.getCollection);
 
   // POST Product
   router.post(
@@ -83,7 +84,7 @@ module.exports = () => {
   router.delete(
     "/:category/:id",
     [verifyAuth.auth, verifyAuth.admin],
-    ProductController.deleteProductById
+    ProductController.deleteCollectionById
   );
 
   return router;

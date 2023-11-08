@@ -11,7 +11,7 @@ export const navbtn = style({
   display: "flex",
   flexDirection: "column",
 
-  textAlign: "center",
+  // textAlign: "center",
 
   marginTop: "1rem",
 });

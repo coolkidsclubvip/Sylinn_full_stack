@@ -38,6 +38,7 @@ export const smallHeader = style({
   top: 0,
   left: 0,
   right: 0,
+  fontWeight:vars.fontWeights["bold"],
   // margin: "-8px auto",
   // fontSize: vars.fontSizes["1x"],
   // fontWeight: vars.fontWeights["bold"],

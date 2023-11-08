@@ -20,20 +20,28 @@ function Dashboard() {
             <div>
               <h3> {user.username}</h3>
               <p>{user.email}</p>
-              <ul style={{ textAlign: "center", margin: "5rem" }}>
-                what's in my cart:
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-              </ul>
             </div>
 
             {/* Admin exclusive stuff is here: */}
 
-            {user.isAdmin === "true" && (
-              <div>$$only Amin can see this line</div>
+            {user.isAdmin == "true" ? (
+              <div>
+                <h3>$$only Amin can see this line</h3>
+
+                <button type="button">To view all registered users</button>
+              </div>
+            ) : (
+              <div>
+                {" "}
+                <ul style={{ textAlign: "center", margin: "5rem" }}>
+                  what's in my cart:
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                </ul>
+              </div>
             )}
           </SyCard>
         )}

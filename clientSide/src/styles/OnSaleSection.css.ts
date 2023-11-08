@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "../styles/global/themes.css";
-import * as fonts from "../styles/fonts/fonts.css";
+import { vars } from "./global/themes.css";
+import * as fonts from "./fonts/fonts.css";
 
 export const NAWrapper = style({
   width: "70vw",
@@ -11,18 +11,19 @@ export const NAWrapper = style({
   margin: "15vh auto",
 });
 
-export const NAList = style({
+export const OSList = style({
   width: "100%",
+  padding: "5rem 0"
 });
 
-export const NAItem = style({
+export const OSItem = style({
   height: "400px",
   overflow: "hidden",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.5)",
   margin: "20px 4px",
 });
 
-export const NAItemText = style({
+export const OSItemText = style({
   height: "65px",
   fontSize: "16px",
   position: "relative",
@@ -33,7 +34,7 @@ export const NAItemText = style({
   fontWeight: "600",
 });
 
-export const NAItemImage = style({
+export const OSItemImage = style({
   opacity: 1,
   width: "100%",
   height: "230px",
@@ -71,3 +72,40 @@ export const button = style({
   left: "10%",
   ":hover": { backgroundColor: vars.colors.brandDark },
 });
+
+
+// /////////// Tabs style////////////
+
+export const tabsContainer = style({
+  width: "100%",
+});
+
+export const customTable = style({
+  width: "100%",
+  //   borderCollapse: "collapse",
+  borderBottom: "1px solid #ddd",
+});
+
+export const firstTab = style({
+  width: "1rem",
+  padding: "0",
+  color: "rgba(0,0,0,0.5)",
+  // backgroundColor:"green",
+  textDecoration: "none",
+  ":hover": { cursor: "pointer" },
+});
+export const restTab = style({
+  width: "50%",
+  // backgroundColor: "grey",
+});
+
+export const activeNavLink = style({
+  color: "black",
+  borderBottom: "2px solid black",
+});
+
+export const descriptionContent = style({
+  display: "block" /* Show the Description content */,
+});
+
+export const downloadsContent = style({});

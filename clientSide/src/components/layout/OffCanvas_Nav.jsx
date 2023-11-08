@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Navbar, Nav, Form } from "react-bootstrap";
-import * as styles from "../../styles/components/OffCanvas.css";
+import * as styles from "../../styles/components/OffCanvas.css_Nav.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import SearchBar from "../common/SearchBar";
 
-function OffCanvas({ showOffcanvas, setShowOffcanvas }) {
-  const offCanvasWidth = "15vw";
+function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
+  const offCanvasWidth = "280px";
   const paddingTop = "10vh";
   return (
     <>
@@ -20,13 +20,13 @@ function OffCanvas({ showOffcanvas, setShowOffcanvas }) {
           id="offcanvasScrolling"
           aria-labelledby="offcanvasScrollingLabel"
         >
-          <div className="offcanvas-body d-flex flex-column mt-5 py-0 ">
+          <div className="offcanvas-body d-flex flex-column mt-5 py-5 ">
             <SearchBar />
 
             <Nav.Link className={styles.navbtn} href="/">
               <span className={fonts.futuraNav}>Home&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="about.html">
+            <Nav.Link className={styles.navbtn} href="/about">
               <span className={fonts.futuraNav}>About&nbsp;&nbsp;</span>
             </Nav.Link>
             <Nav.Link className={styles.navbtn} href="gallery.html">
@@ -48,4 +48,4 @@ function OffCanvas({ showOffcanvas, setShowOffcanvas }) {
   );
 }
 
-export default OffCanvas;
+export default OffCanvas_Nav;
