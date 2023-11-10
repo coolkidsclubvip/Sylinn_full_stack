@@ -1,29 +1,38 @@
 import { style } from "@vanilla-extract/css";
+import { vars } from "../global/themes.css";
+import * as fonts from "../fonts/fonts.css";
 
 export const tabsContainer = style({
   width: "100%",
+  marginTop:"10rem"
 });
 
 export const customTable = style({
   width: "100%",
   //   borderCollapse: "collapse",
-  borderBottom: "1px solid #ddd",
+  borderBottom: "2px solid #ddd",
 });
 
 export const firstTab = style({
-  width: "1rem",
-  padding: "0",
-  color: "rgba(0,0,0,0.5)",
+  width: "10%",
+  padding: "5px",
+  textAlign: "center",
   textDecoration: "none",
-  ":hover": { cursor: "pointer" },
+  opacity: 0.6,
+  ":hover": {
+    cursor: "pointer",
+    opacity: 1,
+    backgroundColor: vars.colors.grey,
+  },
 });
 export const restTab = style({
-  width: "80%",
+  width: "50%",
 });
 
 export const activeNavLink = style({
-  color: "black",
+  opacity: 1,
   borderBottom: "2px solid black",
+  backgroundColor: vars.colors.grey,
 });
 
 export const descriptionContent = style({

@@ -1,21 +1,5 @@
 
 
-function priceFormatter(number) {
-  let decNum = number.toFixed(2);
-  let str = decNum.toString().split(".");
-  str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return "$" + str.join(".");
-}
-
-// Capitalize random number of words
-function capitalizeFirstLetter(text) {
-  if (typeof text !== "string") {
-    return text;
-  }
-
-  return text.replace(/\b\w/g, (char) => char.toUpperCase());
-}
-
 // Get File name from a download URL
 function getFileFromUrl(downloadURL) {
   // Slice off the base URL from downloadURL
@@ -29,6 +13,6 @@ function getFileFromUrl(downloadURL) {
   return fileGlob;
 }
 
-const utils = { priceFormatter, capitalizeFirstLetter, getFileFromUrl };
+const readUtils = {   getFileFromUrl };
 
-export default utils;
+export default readUtils;

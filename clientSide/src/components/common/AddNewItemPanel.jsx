@@ -123,7 +123,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     setLoading(true);
     // API request
     try {
-      console.log("productData sending to server is:",productData);
+      console.log("productData sending to server is:", productData);
       const response = await productService.post(productData);
       console.log("response is:", response);
       toast.success(`${productData.title} has been created successfully`);
@@ -145,19 +145,21 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
   return (
     <Container>
       <div className={`${styles.container} shadow`}>
-        <h1> AddNewItemPanel {category}</h1>
-        <button
-          type="button"
-          onClick={() => {
-            setShowAddNewPanel(false);
-          }}
-        >
-          X
-        </button>
-        <SyCard title="Add Product">
-          <span>
-            You are adding a new product into category of <b>{`${category}`}</b>
-          </span>
+        <h1>
+          {" "}
+          Adding a new product into <b>{`${category}`}</b>
+        </h1>
+
+        <SyCard title="Add Product" className={styles.card}>
+          <button
+            type="button"
+            onClick={() => {
+              setShowAddNewPanel(false);
+            }}
+            className={`btn btn-warning shadow ${styles.closeBtn}`}
+          >
+            <b>X</b>
+          </button>
           <Form onSubmit={handleSubmit}>
             {/* GROUP 1 New Collection */}
             <Form.Group className="mb-3 mt-3">
@@ -218,8 +220,12 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                     />
                   </Form.Group>
                 ))}
-                <button type="button" onClick={addImageField}>
-                  Add Image Upload
+                <button
+                  type="button"
+                  onClick={addImageField}
+                  className="btn btn-primary"
+                >
+                  Add More Image
                 </button>
               </Col>
               <Col lg={6} md={6} sm={12}>
@@ -234,14 +240,22 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                         name="downloadUrls"
                         onChange={(e) => handleFileChange(e)}
                       />
-                      <button type="button" onClick={() => removeFile(index)}>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(index)}
+                        className="btn btn-warning"
+                      >
                         Remove
                       </button>
                     </Form.Group>
                   </div>
                 ))}
-                <button type="button" onClick={addFileField}>
-                  Add File Upload
+                <button
+                  type="button"
+                  onClick={addFileField}
+                  className="btn btn-primary"
+                >
+                  Add More File
                 </button>
               </Col>
             </Row>
@@ -345,11 +359,15 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
               </div>
             ))}
             <Form.Group className="mb-3">
-              <button type="button" onClick={addProduct}>
-                Add Another Product(Variant)
+              <button
+                type="button"
+                onClick={addProduct}
+                className="btn btn-primary mt-3"
+              >
+                Add More Product(Variant)
               </button>
             </Form.Group>
-            <SyButton loading={loading}>
+            <button className="btn btn-success mt-5">
               {loading ? (
                 <Spinner
                   as="span"
@@ -361,7 +379,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
               ) : (
                 "Submit"
               )}
-            </SyButton>
+            </button>
           </Form>
         </SyCard>
       </div>

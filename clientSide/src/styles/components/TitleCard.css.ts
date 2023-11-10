@@ -1,6 +1,5 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/global/themes.css";
-import * as fonts from "../../styles/fonts/fonts.css";
 
 export const NAWrapper = style({
   width: "70vw",
@@ -16,18 +15,19 @@ export const NAList = style({
 });
 
 export const NAItem = style({
-  height: "400px",
+  height: "420px",
   overflow: "hidden",
-  boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.5)",
+  boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   margin: "20px 4px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
 });
 
 export const NAItemText = style({
-
-textAlign:"left",
+  textAlign: "left",
   position: "relative",
-
-padding:"2% 10%"
+  padding: "1.1rem",
 });
 
 export const NAItemImage = style({
@@ -37,7 +37,7 @@ export const NAItemImage = style({
   overflow: "hidden",
   padding: 0,
   transition: "all 0.5s ease",
-  ":hover": { opacity: 0.8 },
+  ":hover": { opacity: 0.9 },
 });
 
 export const code = style({
@@ -45,11 +45,11 @@ export const code = style({
   fontWeight: vars.fontWeights.normal,
   opacity: 0.7,
 });
-export const description = style({
-  fontFamily: vars.fonts.body,
-  fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights.normal,
-});
+// export const description = style({
+//   fontFamily: vars.fonts.body,
+//   fontSize: vars.fontSizes["1x"],
+//   fontWeight: vars.fontWeights.normal,
+// });
 
 export const button = style({
   fontFamily: vars.fonts.brand,
@@ -64,8 +64,7 @@ export const button = style({
   textAlign: "center",
   cursor: "pointer",
   width: "80%",
-  position: "absolute",
-  marginTop: 0,
-  left: "10%",
+  marginTop: "auto",
+  marginBottom: "1rem",
   ":hover": { backgroundColor: vars.colors.brandDark },
 });

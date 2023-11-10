@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as styles from "../styles/CategoryPage.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Breadcrumb } from "react-bootstrap";
 import productService from "../services/productService";
 import TitleCard from "../components/common/TitleCard";
 import AddNewItemCard from "../components/common/AddNewItemCard";
 import * as fonts from "../styles/fonts/fonts.css.ts";
-import utils from "../utils/readUtils";
+import writeUtils from "../utils/writeUtils";
 import useAuth from "../hooks/useAuth";
 import AddNewItemPanel from "../components/common/AddNewItemPanel";
 
@@ -44,6 +44,19 @@ function CategoryPage() {
   return (
     <Container>
       <div className={styles.container}>
+        <Row>
+          <Col sm={12}>
+            {" "}
+            <Breadcrumb>
+              <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+              <Breadcrumb.Item href={`/products/${category}`} active>
+                {writeUtils.formatCategoryName(category)}
+              </Breadcrumb.Item>
+            
+            </Breadcrumb>
+          </Col>
+        </Row>
+
         {showAddNewPanel && (
           <AddNewItemPanel
             setShowAddNewPanel={setShowAddNewPanel}
@@ -55,7 +68,7 @@ function CategoryPage() {
         <p>
           <span className={fonts.futuraTitle}>
             {" "}
-            {utils.capitalizeFirstLetter(category.toString())}
+            {writeUtils.capitalizeFirstLetter(category.toString())}
           </span>{" "}
           <br />
           <span className={fonts.normalText}>

@@ -13,25 +13,23 @@ export const NAWrapper = style({
 
 export const OSList = style({
   width: "100%",
-  padding: "5rem 0"
+  padding: "2rem 0",
 });
 
 export const OSItem = style({
-  height: "400px",
+  height: "420px",
   overflow: "hidden",
-  boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.5)",
+  boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   margin: "20px 4px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
 });
 
 export const OSItemText = style({
-  height: "65px",
-  fontSize: "16px",
-  position: "relative",
   textAlign: "left",
-  //   textAlign: "center",
-  padding: "2% 10%",
-  //   paddingLeft: "1rem",
-  fontWeight: "600",
+  position: "relative",
+  padding: "1.1rem",
 });
 
 export const OSItemImage = style({
@@ -40,7 +38,7 @@ export const OSItemImage = style({
   height: "230px",
   padding: 0,
   transition: "all 0.5s ease",
-  ":hover": { opacity: 0.8 },
+  ":hover": { opacity: 0.9 },
 });
 
 export const code = style({
@@ -48,11 +46,11 @@ export const code = style({
   fontWeight: vars.fontWeights.normal,
   opacity: 0.7,
 });
-export const description = style({
-  fontFamily: vars.fonts.body,
-  fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights.normal,
-});
+// export const description = style({
+//   fontFamily: vars.fonts.body,
+//   fontSize: vars.fontSizes["1x"],
+//   fontWeight: vars.fontWeights.normal,
+// });
 
 export const button = style({
   fontFamily: vars.fonts.brand,
@@ -67,12 +65,11 @@ export const button = style({
   textAlign: "center",
   cursor: "pointer",
   width: "80%",
-  position: "absolute",
-  marginTop: 0,
-  left: "10%",
+  marginLeft:"10%",
+  marginTop: "auto",
+  marginBottom: "1rem",
   ":hover": { backgroundColor: vars.colors.brandDark },
 });
-
 
 // /////////// Tabs style////////////
 
@@ -83,29 +80,36 @@ export const tabsContainer = style({
 export const customTable = style({
   width: "100%",
   //   borderCollapse: "collapse",
-  borderBottom: "1px solid #ddd",
+  borderBottom: "2px solid #ddd",
 });
 
 export const firstTab = style({
-  width: "1rem",
-  padding: "0",
-  color: "rgba(0,0,0,0.5)",
-  // backgroundColor:"green",
+  width: "10%",
+  padding: "5px",
+  textAlign: "center",
   textDecoration: "none",
-  ":hover": { cursor: "pointer" },
+  opacity: 0.6,
+  ":hover": {
+    cursor: "pointer",
+    opacity: 1,
+    backgroundColor: vars.colors.grey,
+  },
 });
-export const restTab = style({
-  width: "50%",
-  // backgroundColor: "grey",
-});
+
+// export const restTab = style({
+//   width: "50%",
+//   // backgroundColor: "grey",
+// });
 
 export const activeNavLink = style({
-  color: "black",
+  opacity: 1,
+  backgroundColor:vars.colors.grey,
   borderBottom: "2px solid black",
+  
 });
 
-export const descriptionContent = style({
-  display: "block" /* Show the Description content */,
-});
+// export const descriptionContent = style({
+//   display: "block" /* Show the Description content */,
+// });
 
 export const downloadsContent = style({});

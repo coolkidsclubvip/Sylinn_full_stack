@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import * as styles from "../styles/page/AboutPage.css";
 import * as fonts from "../../src/styles/fonts/fonts.css";

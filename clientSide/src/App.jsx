@@ -25,10 +25,9 @@ function App() {
 
         <Route path="/products/:category" element={<CategoryPage />} />
 
-        <Route path="/search/:keyword" element={<SearchPage />} />
+        <Route path="products/search/:keyword" element={<SearchPage />} />
         <Route
-          path="/products/:category/:collection"
-          element={<ProductDetailPage />}
+          path="/products/:category/:collection" element={<ProductDetailPage />}
         />
 
         <Route path="/about" element={<AboutPage />} />

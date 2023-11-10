@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import * as styles from "../../styles/OnSaleSection.css";
 // import * as styles from "../../styles/components/ProductTabs.css";
-import productService from "../../services/ProductService";
+import productService from "../../services/productService";
 import { Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css";
 import { toast } from "react-toastify";
+import writeUtils from "../../utils/writeUtils";
 
-function NewArrival() {
+function OnSale() {
   const [titleInfos, setTitleInfos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("");
   // titleInfos[0].category
 
   async function FetchOnSaleTitleInfos() {
@@ -26,11 +27,23 @@ function NewArrival() {
       setLoading(false);
     }
   }
+  // a new function to call 1st available category
+  function fetchFirstCat() {
+    if (titleInfos.length == 0) {
+      console.log("no data");
+    } else {
+      const firstCat = titleInfos[0].category;
+      setSelectedCategory(firstCat);
+    }
+  }
 
   useEffect(() => {
     if (loading) {
       FetchOnSaleTitleInfos();
+
+      // call function to set default category
     }
+    fetchFirstCat();
   }, [loading]);
 
   const handleTabClick = (category) => {
@@ -40,7 +53,8 @@ function NewArrival() {
   const uniqueCategories = [
     ...new Set(titleInfos.map((data) => data.category)),
   ];
-
+  // Put all unique categories in order alphabetically
+  uniqueCategories.sort();
   // console.log("titleInfos are:", titleInfos);
   return (
     <Container>
@@ -55,6 +69,7 @@ function NewArrival() {
         <div className={styles.tabsContainer}>
           <table className={styles.customTable}>
             <tbody>
+              {/* Render category names */}
               <tr>
                 {uniqueCategories.length >= 1 &&
                   uniqueCategories.map((category, index) => (
@@ -67,12 +82,15 @@ function NewArrival() {
                       }`}
                       onClick={() => handleTabClick(category)}
                     >
-                      <span>{category}</span>
+                      {/* Use predefined formatter to prettier default category names */}
+                      <span className={fonts.futuraTabText}>
+                        {writeUtils.formatCategoryName(category)}
+                      </span>
                     </td>
                   ))}
-                <td className={styles.restTab}>
+                {/* <td className={styles.restTab}>
                   <span></span>
-                </td>
+                </td> */}
               </tr>
             </tbody>
           </table>
@@ -98,19 +116,10 @@ function NewArrival() {
                       </span>
                       <br />
                       <p className={styles.code}>{data.titleInfo.code}</p>
-                      {/* <p className={styles.description}>
-                        {data.titleInfo.description}
-                      </p> */}
-
-                      
-                        <Link
-                          to={`/products/${data.category}/${data.collection}`}
-                          className={styles.button}
-                        >
-                          DETAILS
-                        </Link>
-                     
                     </div>
+                    <Link to={`/products/${data.category}/${data.collection}`}>
+                      <button className={styles.button}> DETAILS</button>
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -123,6 +132,6 @@ function NewArrival() {
   );
 }
 
-export default NewArrival;
+export default OnSale;
 
 /* <div className={styles.divideLineStyles}></div> */

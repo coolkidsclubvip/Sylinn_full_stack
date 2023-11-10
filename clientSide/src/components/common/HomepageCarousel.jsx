@@ -1,8 +1,6 @@
-import React from "react";
-import s001 from "../../assets/images/s001.jpg";
-import s002 from "../../assets/images/s002.jpg";
-import s003 from "../../assets/images/s003.jpg";
-import s004 from "../../assets/images/s004.jpg";
+// import s001 from "../../assets/images/s001.jpeg";
+// import s002 from "../../assets/images/s002.jpeg";
+// import s003 from "../../assets/images/s003.jpeg";
 import * as styles from "../../styles/components/HomepageCarousel.css";
 
 function HomepageCarousel() {
@@ -17,7 +15,7 @@ function HomepageCarousel() {
               type="button"
               data-bs-target="#demo"
               data-bs-slide-to="0"
-              className="active"
+              className="active  "
             ></button>
             <button
               type="button"
@@ -33,18 +31,14 @@ function HomepageCarousel() {
 
           {/* <!-- 轮播图片 --> */}
           <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img src={s001} className="d-block w-100" />
-            </div>
-            <div className="carousel-item">
-              <img src={s002} className="d-block w-100" />
-            </div>
-            <div className="carousel-item">
-              <img src={s003} className="d-block w-100" />
-            </div>
-            <div className="carousel-item">
-              <img src={s004} className="d-block w-100" />
-            </div>
+            <div className={`carousel-item active ${styles.image1}`}/>
+              
+            
+            <div className={`carousel-item active ${styles.image2}`}/>
+           
+            <div className={`carousel-item active ${styles.image3}`}/>
+             
+          
           </div>
 
           {/* <!-- 左右切换按钮 --> */}

@@ -204,6 +204,20 @@ module.exports = {
         })
       );
 
+      // Sort titleInfos alphabetically
+      titleInfos.sort((a, b) => {
+        const categoryA = a.category.toLowerCase();
+        const categoryB = b.category.toLowerCase();
+
+        if (categoryA < categoryB) {
+          return -1;
+        }
+        if (categoryA > categoryB) {
+          return 1;
+        }
+        return 0;
+      });
+
       res.send(titleInfos);
     } catch (err) {
       return next(
@@ -309,6 +323,7 @@ module.exports = {
 
   async getProductByKeyword(req, res, next) {
     // What we need to fill up with filtered titleInfos
+    console.log("req.params.keywords: " + req.params.keywords);
     let filteredTitleInfoDocs = [];
     try {
       // Get all categories
@@ -331,12 +346,13 @@ module.exports = {
         categories.map(async (category) => {
           const categoryRef = productRef.doc(category.id);
           const snapshot = await categoryRef.listCollections();
-
+          const originalCategory = category.id;
           // Get titleInfos for all collections under this category
           for (const collection of snapshot) {
             const titleInfoDoc = await collection.doc("titleInfo").get();
             if (titleInfoDoc.exists) {
               titleInfoDocs.push({
+                category: originalCategory,
                 collectionId: collection.id,
                 titleInfo: titleInfoDoc.data(),
               });
@@ -347,7 +363,7 @@ module.exports = {
           // Filter for all collections with keywords
           const keyword = req.params.keyword;
           // Convert the keyword to a case-insensitive regex
-          const keywordRegex = new RegExp(keyword, "i");
+          const keywordRegex = new RegExp(`\\b${keyword}\\b`, "i");
           filteredTitleInfoDocs = titleInfoDocs.filter((item) => {
             //  item.collectionId.titleInfo.includes(keywordRegex);
             return keywordRegex.test(item.titleInfo.title);
@@ -364,15 +380,12 @@ module.exports = {
     res.send(filteredTitleInfoDocs);
   },
 
+
   // [4]] PUT Product BY Collection
   async putProductByCollection(req, res, next) {
     // Images and files to be saved to cloud storage
     let imageUrls = [];
     let pdfUrls = [];
-
-    // //////////////////delete this!!!!after postman ok
-    // req.body= JSON.parse(req.body.data);
-    // /////////////////////delete this!!!!after postman
 
     try {
       if (res.locals.imageNames) {
@@ -407,6 +420,7 @@ module.exports = {
       // Get existing urls and downloadUrls
       const snapshot = await collectionRef.get();
       let titleInfo = null;
+      const existingProducts = [];
       snapshot.forEach((doc) => {
         // Get data
         const data = doc.data();
@@ -415,10 +429,10 @@ module.exports = {
             id: "titleInfo",
             ...data,
           };
+        } else {
+          existingProducts.push({id:doc.id, data}); // Assuming each doc in the collection represents a product
         }
       });
-
-      console.log("old titleInfo in controller is:", titleInfo);
 
       //Check whether titleInfo.downloadUrls is an array, if not, set it to an empty array(Allow no file)
       if (!Array.isArray(titleInfo.downloadUrls)) {
@@ -440,38 +454,62 @@ module.exports = {
 
       const response1 = await titleInfoDoc.update(updatedTitleInfo);
 
-      // Handle multiple product variants:
-      // const products = JSON.parse(req.body.products);
-      const products = req.body.products;
-      if (products.length > 1) {
-        console.log(
-          "products type is:",
-          Array.isArray(products),
-          typeof products
+      // Push newly created products into newProducts array
+      const reqProducts = req.body.products;
+      const newProducts = [];
+
+      for (const product of reqProducts) {
+        const foundProduct = existingProducts.find(
+          (existingProduct) => existingProduct.id === product.id
         );
-        const productsPromises = products.map(async (product) => {
-          const productDoc = collectionRef.doc(product.id);
-          await productDoc.update({
-            name: product.name,
-            rrp: Number(product.rrp),
-            stock: product.stock,
-          });
-        });
-
-        await Promise.all(productsPromises);
-
-        //Handle only 1 product without any variant
-      } else if (products.length == 1) {
-        // Handle single product, no other options:
-
-        await collectionRef.doc(products[0].id).update({
-          name: products[0].name,
-          rrp: Number(products[0].rrp),
-          stock: products[0].stock,
-        });
+        if (!foundProduct) {
+          newProducts.push(product);
+        }
       }
+      console.log("^^^^^^^^^ REQ PRODUCT IS: ", reqProducts);
+      console.log("########## exisingproducts:", existingProducts);
+      console.log("$$$$$$$$$$$$ newProducts:", newProducts);
+      // Merge new and existing products into a common array
+      const allProducts = [...existingProducts, ...newProducts];
+      console.log("allProducts ARE:", allProducts);
 
-      res.send("Product collection updated successfully");
+      // Delete products that are in the database but not in reqProducts
+
+      const deletePromises = existingProducts
+        .filter(
+          (existingProduct) =>
+            !reqProducts.some((product) => product.id === existingProduct.id)
+        ) //如果 !allProducts.some(product => product.id === existingProduct.id) 返回 true，表示这个 existingProduct 不在 allProducts 中。
+        .map(async (product) => {
+          console.log("########product to be deleted is:", product);
+          const productDoc = collectionRef.doc(product.id);
+          try {
+            await productDoc.delete();
+
+            //update allproducts here
+            // const idx = allProducts.indexOf(product.id);
+            // const obj = allProducts.splice(idx, 1);
+          } catch (error) {
+            res.send("error deleting product:", error);
+          }
+        });
+
+      await Promise.all(deletePromises);
+
+      // Update or create product
+      const productsPromises = reqProducts.map(async (product) => {
+        const productDoc = collectionRef.doc(product.id);
+        await productDoc.set({
+          id: product.id,
+          name: product.name,
+          rrp: Number(product.rrp),
+          stock: product.stock,
+        });
+      });
+
+      await Promise.all(productsPromises);
+
+      res.send("Product has been updated successfully");
     } catch (err) {
       return next(
         ApiError.internalError(
@@ -588,7 +626,7 @@ module.exports = {
     }
   },
 
-  // [5] DELETE Product BY ID
+  // [5] DELETE collection BY ID
   async deleteCollectionById(req, res, next) {
     try {
       // 1.Check document existence with matching id
@@ -611,8 +649,6 @@ module.exports = {
         }
       });
 
-      console.log("titleInfo.urls: " + titleInfo.urls);
-
       const deletePromises = titleInfo.urls.map(async (url) => {
         const uploadedFile = getFileFromUrl(url); // Replace with your logic to get the file
         console.log("uploadedFile for image: ", uploadedFile);
@@ -625,7 +661,7 @@ module.exports = {
       const deleteDownloadPromises = titleInfo.downloadUrls.map(
         async (downloadUrl) => {
           const uploadedFile = getFileFromUrl(downloadUrl); // Replace with your logic to get the file
-          console.log("uploadedFile for pdf: ", uploadedFile);
+
           return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
         }
       );
@@ -643,50 +679,4 @@ module.exports = {
       );
     }
   },
-
-  ///////////////////////////////////////////to be deleted, for assessment purposes only//////////////////////////////
-  async getToilet(req, res, next) {
-    try {
-      // Composite index query
-      const productRef = db.collection("Toilet");
-      const snapshot = await productRef
-        .where("onSale", "==", true)
-        .where("stock", ">", "100")
-        .orderBy("stock", "asc")
-        .limit(2)
-        .get();
-
-      // [400 ERROR] Check for User Asking for Non-Existent Documents
-      if (snapshot.empty) {
-        return next(
-          ApiError.badRequest("The items you were looking for do not exist")
-        );
-
-        // SUCCESS: Push object properties to array and send to client
-      } else {
-        let docs = [];
-        snapshot.forEach((doc) => {
-          docs.push({
-            id: doc.id,
-            name: doc.data().name,
-            description: doc.data().description,
-
-            rrp: doc.data().rrp,
-
-            onSale: doc.data().onSale,
-
-            stock: doc.data().stock,
-          });
-        });
-        res.send(docs);
-      }
-
-      // [500 ERROR] Checks for Errors in our Query - issue with route or DB query
-    } catch (err) {
-      return next(
-        ApiError.internalError("The items selected could not be found", err)
-      );
-    }
-  },
-  ///////////////////////////////////////////to be deleted, for assessment purposes only//////////////////////////////
 };

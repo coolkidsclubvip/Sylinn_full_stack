@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation,   } from "react-router-dom";
 import * as styles from "../../styles/components/Header.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import {
@@ -26,15 +26,14 @@ function Header({
   showOffcanvas_Wish,
   setShowOffcanvas_Wish,
 }) {
-  const [isHovered, setIsHovered] = useState(false);
 
-  const navigate = useNavigate();
+  // Determine if current page is Homepage
+  const location = useLocation();
 
-  // // Hamburger button transformation
-  // function myFunction(x) {
-  //   x.classList.toggle("change");
-  // }
 
+  const isHomePage = location.pathname === "/";
+
+  
   // useAuth, our own custom hook to to call useContext remotely.
   const { user, logout } = useAuth();
 
@@ -64,7 +63,7 @@ function Header({
   return (
     <Container fluid>
       <div
-        className={` ${scrollTop > 150 ? styles.smallHeader : styles.header}`}
+        className={` ${scrollTop < 200 && isHomePage ? styles.bigHeader:styles.smallHeader    }`}
       >
         <Row className="d-flex align-items-center justify-content-between py-2 ms-5 mb-0">
           <Col sm={2} md={4} className="d-flex justify-content-center ">
@@ -80,7 +79,7 @@ function Header({
               <Link to={"/"}>
                 <img
                   src={`${
-                    scrollTop > 150 ? Logo_sylinn_small : Logo_sylinn_big
+                    scrollTop < 200 && isHomePage  ?    Logo_sylinn_big:Logo_sylinn_small
                   }`}
                   style={{ transition: "all 1s ease-in-out" }}
                   alt="Logo"
@@ -107,7 +106,7 @@ function Header({
               </Link>
             )}
             {/* wishlist */}
-            <div
+            <Link
               // to={user ? "" : "/login"}
               onClick={() => {
                 setShowOffcanvas_Wish(!showOffcanvas_Wish);
@@ -116,7 +115,7 @@ function Header({
               &nbsp;
               <TbHeart size={30} />
               &nbsp;&nbsp;&nbsp;
-            </div>
+            </Link>
             {/* logout button */}
             {user && (
               <Link>

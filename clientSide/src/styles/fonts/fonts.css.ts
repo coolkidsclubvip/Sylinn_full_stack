@@ -17,9 +17,17 @@ export const futuraNav = style({
   fontFamily: futura,
   fontSize: vars.fontSizes["3x"],
   fontWeight: vars.fontWeights.bold,
-
+opacity: 0.6,
   color: vars.colors.black,
-  ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
+  ":hover": { opacity: 1 },
+});
+
+export const futuraTabText = style({
+  fontFamily: futura,
+  fontSize: vars.fontSizes["3x"],
+  fontWeight: vars.fontWeights.bold,
+  color: vars.colors.black,
+ 
 });
 
 export const futuraGridCardTitles = style({

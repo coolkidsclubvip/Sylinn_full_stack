@@ -21,7 +21,7 @@ function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
           aria-labelledby="offcanvasScrollingLabel"
         >
           <div className="offcanvas-body d-flex flex-column mt-5 py-5 ">
-            <SearchBar />
+            <SearchBar setShowOffcanvas={setShowOffcanvas}/>
 
             <Nav.Link className={styles.navbtn} href="/">
               <span className={fonts.futuraNav}>Home&nbsp;&nbsp;</span>

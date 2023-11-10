@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { Nav } from "react-bootstrap";
 import * as styles from "../../styles/components/ProductTabs.css";
+import * as fonts from "../../styles/fonts/fonts.css";
 import pdfIcon from "../../../src/assets/images/pdfIcon.png";
 
 function ProductTabs({titleInfo}) {
@@ -23,18 +24,16 @@ function ProductTabs({titleInfo}) {
                 }`}
                 onClick={() => handleTabClick("description")}
               >
-                <span>Description</span>
+                <span className={fonts.futuraTabText}>Description</span>
               </td>
-              <td className={styles.firstTab}>
-                <span>{"      "}</span>
-              </td>
+
               <td
                 className={`${styles.firstTab} ${
                   selected === "downloads" ? styles.activeNavLink : ""
                 }`}
                 onClick={() => handleTabClick("downloads")}
               >
-                <span>Downloads</span>
+                <span className={fonts.futuraTabText}>Downloads</span>
               </td>
               <td className={styles.restTab}>
                 <span></span>
@@ -44,8 +43,6 @@ function ProductTabs({titleInfo}) {
         </table>
       </div>
 
-
-      
       {selected === "description" && (
         <div className={styles.descriptionContent}>
           {/* Render the Description content here */}
@@ -60,16 +57,16 @@ function ProductTabs({titleInfo}) {
           <ul>
             {titleInfo.downloadUrls.map((url, index) => (
               <li key={index}>
-                
                 <a href={url} target="_blank" rel="noreferrer">
-                <img
-                  src={pdfIcon}
-                  style={{
-                    height: "5rem",
-                    overflow: "hidden",
-                    margin: "1rem auto",
-                  }}
-                />  Download {index + 1}
+                  <img
+                    src={pdfIcon}
+                    style={{
+                      height: "5rem",
+                      overflow: "hidden",
+                      margin: "1rem auto",
+                    }}
+                  />{" "}
+                  Download {index + 1}
                 </a>
               </li>
             ))}

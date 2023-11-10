@@ -2,42 +2,38 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../global/themes.css";
 import * as fonts from "../fonts/fonts.css";
 
-export const NAWrapper = style({
-  width: "70vw",
-  height: "auto",
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  margin: "15vh auto",
-});
-
-export const NAList = style({
+export const container = style({
   width: "100%",
+  marginTop: "20vh",
 });
 
-export const NAItem = style({
-  height: "420px",
+export const OSList = style({
+  width: "100%",
+  padding: "5rem 0",
+});
+
+export const OSItem = style({
+  height: "400px",
   overflow: "hidden",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   margin: "20px 4px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
 });
 
-export const NAItemText = style({
-  textAlign: "left",
+export const OSItemText = style({
+  height: "65px",
+  fontSize: "16px",
   position: "relative",
-
-  padding: "1.1rem",
+  textAlign: "left",
+  //   textAlign: "center",
+  padding: "2% 5%",
+  //   paddingLeft: "1rem",
+  fontWeight: "600",
 });
 
-export const NAItemImage = style({
+export const OSItemImage = style({
   opacity: 1,
-  width: "200px",
-  height: "auto",
-  overflow: "hidden",
-  margin: "0 auto",
+  width: "100%",
+  height: "230px",
   padding: 0,
   transition: "all 0.5s ease",
   ":hover": { opacity: 0.8 },
@@ -60,15 +56,15 @@ export const button = style({
   fontWeight: vars.fontWeights.normal,
   border: "none",
   outline: 0,
-  // display: "inline-block",
+  display: "inline-block",
   padding: "4px",
   color: "white",
-  backgroundColor: "green",
+  backgroundColor: vars.colors.brand,
   textAlign: "center",
   cursor: "pointer",
   width: "80%",
- marginLeft: "10%",
-  marginBottom: "1rem",
-
-  ":hover": { opacity: "0.8" },
+  position: "absolute",
+  marginTop: 0,
+  left: "10%",
+  ":hover": { backgroundColor: vars.colors.brandDark },
 });

@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Breadcrumb,
+} from "react-bootstrap";
 import * as styles from "../styles/ProductDetailPage.css";
 import productService from "../services/productService";
 import Loader from "../components/common/Loader";
@@ -9,8 +16,8 @@ import ProductTabs from "../components/common/ProductTabs";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-import SyButton from "../components/common/SyButton";
 import EditItemPanel from "../components/common/EditItemPanel";
+import writeUtils from "../utils/writeUtils";
 
 function ProductDetailPage() {
   const [data, setData] = useState([]);
@@ -34,7 +41,7 @@ function ProductDetailPage() {
 
       setData(responseData.docs);
       setTitleInfo(responseData.titleInfo);
-       setLoading(false);
+      setLoading(false);
       return responseData;
     } catch (err) {
       console.log(err?.response);
@@ -61,12 +68,9 @@ function ProductDetailPage() {
         setRRP(selectedProduct.rrp);
         setStock(selectedProduct.stock);
         setSelectedProduct(selectedProduct);
-       
       }
     }
   }, [selectedOption, data]);
-
-
 
   if (error) {
     return (
@@ -110,8 +114,6 @@ function ProductDetailPage() {
     }
   };
 
-  console.log("stock is:", stock, "data[0].stock", data[0].stock);
-
   return (
     <Container>
       <div className={styles.container}>
@@ -125,7 +127,22 @@ function ProductDetailPage() {
             fetchProduct={fetchProduct}
           />
         )}
+
         {/* 1st row */}
+        <Row>
+          <Col sm={12}>
+            {" "}
+            <Breadcrumb>
+              <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+              <Breadcrumb.Item href={`/products/${category}`}>
+                {writeUtils.formatCategoryName(category)}
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active>{titleInfo.title}</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </Row>
+
+        {/* 2nd row */}
         <Row>
           {/* Big image */}
           <Col sm={12} md={7}>
@@ -138,7 +155,7 @@ function ProductDetailPage() {
             <div className={styles.infoContainer}>
               {/* Product title starts */}
               <div className="productTitle">
-                <h1>{titleInfo.title}</h1>
+                <h1>{writeUtils.capitalizeFirstLetter(titleInfo.title)}</h1>
                 <span className="pdtcode">Product Code: {titleInfo.code}</span>
                 <br />
                 <br />
@@ -150,18 +167,8 @@ function ProductDetailPage() {
                 </h2>
                 <br />
 
-                {/* stock availability, 3 cases */}
+                {/* stock availability, 3 cases...and more */}
                 <div id="stocknote">
-                  {/* if stock is undefined, no show anything, otherwise show availability accordingly */}
-                  {/* {stock >= 10 ? (
-                    <span className="instock">In Stock</span>
-                  ) : stock < 10 && stock >= 1 ? (
-                    <span className="lowstock">Low Stock</span>
-                  ) : stock === 0 ? (
-                    <span className="nostock">No Stock</span>
-                  ) : (
-                    stock===""? (setStock(data[0].stock)) :"TBC"
-                  )} */}
                   {stock === "" ? (
                     data[0].stock >= 10 ? (
                       <span className="instock">In Stock</span>
@@ -191,7 +198,7 @@ function ProductDetailPage() {
                   )}
                   <div className={styles.buttonsGroups}>
                     {" "}
-                    {!user || user.isAdmin === "false" ? (
+                    {!user || user.isAdmin == false ? (
                       <button>Add to wishlist</button>
                     ) : (
                       <div>
@@ -223,7 +230,7 @@ function ProductDetailPage() {
             <Col sm={12} md={5}></Col>
           </Row>
         </Row>
-        {/* 2nd row */}
+        {/* 3rd row */}
 
         <Row>
           <Col>

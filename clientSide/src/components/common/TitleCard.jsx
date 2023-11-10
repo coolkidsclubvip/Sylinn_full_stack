@@ -22,11 +22,10 @@ const {collectionId,titleInfo}=data
           <span className={fonts.futuraGridCardTitles}>{titleInfo.title}</span>
           <br />
           <p className={styles.code}>{titleInfo.code}</p>
-
-          <Link to={`${collectionId}`} className={styles.button}>
-            Details
-          </Link>
         </div>
+        <Link to={`${collectionId}`}>
+          <button className={styles.button}> DETAILS</button>
+        </Link>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export const bannerWrapper = style({
   width: "70vw",
   height: "45vh",
   padding: 0,
-  margin: "15vh auto",
+  margin: "5vh auto",
   display: "flex",
   flexDirection: "row",
   overflow: "hidden",

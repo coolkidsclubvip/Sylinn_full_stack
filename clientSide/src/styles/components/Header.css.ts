@@ -12,7 +12,7 @@ import { vars } from "../../styles/global/themes.css";
 
 // });
 
-export const header = style({
+export const bigHeader = style({
   position: "fixed",
   width: "100%",
   height: "12vh",
@@ -49,15 +49,15 @@ export const smallHeader = style({
   color: vars.colors.black,
   backgroundColor: "white",
   // transform: "scale(0.9)",
-  boxShadow: "2px 2px 8px  rgba(0, 0, 0, 0.5)",
+  boxShadow: "1px 1px 8px  rgba(0, 0, 0, 0.5)",
   transition: "all 0.7s ease",
 });
 
-globalStyle(`${header} a`, {
+globalStyle(`${bigHeader} a`, {
   textDecoration: "none",
   color: vars.colors.black,
 });
-globalStyle(`${header} a:hover`, {
+globalStyle(`${bigHeader} a:hover`, {
   textDecoration: "none",
   color: vars.colors.brand,
 });

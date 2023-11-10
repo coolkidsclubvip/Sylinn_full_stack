@@ -6,16 +6,20 @@ function getAllCategories() {
   return api.get("/products");
 }
 
+// GET PRODUCT BY SEARCH KEYWORD
+function getCollectionBySearchKeyword(keyword) {
+  return api.get(`/products/search/${keyword}`);
+}
+
 // GET ALL COLLETIONS UNDER A CATEGORY
 function getAllCollections(category) {
   return api.get(`/products/${category}`);
 }
 
 // GET ALL ONSALE - ProductSale
-function getOnSaleCollections(){
+function getOnSaleCollections() {
   return api.get("/products/onsale");
 }
-
 
 // POST - AddProduct
 function post(data) {
@@ -41,18 +45,18 @@ function postFileUrl(url, category, collection) {
   });
 }
 
-  // GET BY ID - ProductDetail
+// GET BY ID - ProductDetail
 
-  // PUT - EditProduct
-  function put(productData) {
-    const formData = prepareFormData(productData);
-    console.log("productData in service is:", productData);
-    return api.put(
-      `/products/edit/${productData.category}/${productData.newCollection}`,
-      formData,
-      formConfig
-    );
-  }
+// PUT - EditProduct
+function put(productData) {
+  const formData = prepareFormData(productData);
+  console.log("productData in service is:", productData);
+  return api.put(
+    `/products/edit/${productData.category}/${productData.newCollection}`,
+    formData,
+    formConfig
+  );
+}
 
 // DELETE - ProductDetail
 function del(category, id) {
@@ -116,6 +120,7 @@ const productService = {
   postFileUrl,
   put,
   getOnSaleCollections,
+  getCollectionBySearchKeyword,
 };
 
 export default productService;

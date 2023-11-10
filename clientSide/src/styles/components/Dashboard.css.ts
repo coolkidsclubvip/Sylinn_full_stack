@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/themes.css";
 
-export const dashboardWrapper = style({
+export const container= style({
   width: "70vw",
   height: "90vh",
   margin: "0 auto",

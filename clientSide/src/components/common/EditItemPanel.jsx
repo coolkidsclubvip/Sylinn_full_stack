@@ -13,17 +13,17 @@ import SyButton from "./SyButton";
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
 import NAImage from "../../../src/assets/images/no_image_available.jpeg";
-import pdfIcon from "../../../src/assets/images/pdfIcon.png"
-import utils from "../../utils/readUtils";
+import pdfIcon from "../../../src/assets/images/pdfIcon.png";
+import readUtils from "../../utils/readUtils";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 function EditItemPanel({
   setShowEditPanel,
   titleInfo,
-  data,
+  data,//data are products(variant)
   category,
   collection,
   fetchProduct,
-
 }) {
   console.log("  title info in EditItemPanel are:", titleInfo);
   console.log("data in EditItemPanel are:", data);
@@ -140,6 +140,19 @@ function EditItemPanel({
     }
   };
 
+
+    // To delete files from to-be-deleted files list
+  const removeImage= (index) => {
+    const updatedImages = [...uploadedImages];
+    updatedImages.splice(index, 1);
+    setUploadedImages(updatedImages);
+    // Set input in form to " "
+     const fileInputs = document.getElementsByName("urls");
+     if (fileInputs[index]) {
+       fileInputs[index].value = "";
+     }
+  }
+
   // Handle button click to DELETE EXISTING IMAGE
   const handleImageDelete = async (e, url) => {
     e.preventDefault();
@@ -151,11 +164,11 @@ function EditItemPanel({
     toast.success(response.data);
     // Replace image with default N/A image
     const deletedImage = document.getElementById(url);
-    console.log("deletedImage is:", deletedImage);
+
     deletedImage.src = NAImage;
     // Get the button and disable it
     const deletedBtn = document.getElementById("btn" + `${url}`);
-    console.log("deletedBtn is:", deletedBtn);
+
     deletedBtn.disabled = true;
   };
   // Handle button click to DELETE EXISTING FILE
@@ -170,12 +183,28 @@ function EditItemPanel({
     toast.success(response.data);
     // Replace image with default N/A image
     const deletedImage = document.getElementById(url);
-    console.log("deletedImage is:", deletedImage);
+
     deletedImage.src = NAImage;
     // Get the button and disable it
     const deletedBtn = document.getElementById("btn" + `${url}`);
-    console.log("deletedBtn is:", deletedBtn);
+
     deletedBtn.disabled = true;
+  };
+
+  // Run function to delete a product(variant) by its ID
+
+  const handleDeleteProduct = async (e, id) => {
+    e.preventDefault();
+    console.log("id is", id);
+    id; // 要删除的产品的ID
+    const filteredProducts = data.filter(
+      (product) => product.id !== id
+    );
+    console.log("filteredProducts are:", filteredProducts);
+    // setProductsData(filteredProducts);
+
+    // Update the whole productData with updated productsData
+    setProductData({ ...productData, products: filteredProducts });
   };
 
   // Run function when SUBMIT is clicked
@@ -192,10 +221,10 @@ function EditItemPanel({
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
       // Re-fetch data for parent page--Product detail page
       fetchProduct();
-  
+
       // Close edit panel
       setShowEditPanel(false);
-      toast.success(`${productData.title} has been udpated successfully`);
+      toast.success(`${productData.title} has been updated successfully`);
     } catch (err) {
       //   console.log("Error: " + err);
       //   toast.error(`${err}`);
@@ -218,19 +247,22 @@ function EditItemPanel({
   return (
     <Container>
       <div className={`${styles.container} shadow`}>
-        <h1> Edit Product Panel </h1>
-        <button
-          type="button"
-          onClick={() => {
-            setShowEditPanel(false);
-          }}
-        >
-          X
-        </button>
-        <SyCard title="Edit Product">
-          <span>
-            You are editing <b> {titleInfo.title}</b>
-          </span>
+        <h1>
+          {" "}
+          Editing <b> {titleInfo.title}</b>{" "}
+        </h1>
+
+        <SyCard title="Edit Product" className={styles.card}>
+          <button
+            type="button"
+            onClick={() => {
+              setShowEditPanel(false);
+            }}
+            className={`btn btn-warning shadow ${styles.closeBtn}`}
+          >
+            <b>X</b>
+          </button>
+
           <Form onSubmit={handleSubmit}>
             {/* GROUP 1 New Collection */}
             <Form.Group className="mb-3 mt-3">
@@ -296,12 +328,13 @@ function EditItemPanel({
                     />
                     <button
                       id={"btn" + `${url}`}
+                      className="btn btn-danger btn-sm"
                       type="button"
                       onClick={(e) => {
                         handleImageDelete(e, url);
                       }}
                     >
-                      Delete
+                      <RiDeleteBinLine />
                     </button>
                   </div>
                 </Col>
@@ -321,9 +354,21 @@ function EditItemPanel({
                       name="urls"
                       onChange={(e) => handleImageChange(e)}
                     />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="btn btn-warning"
+                    >
+                      Remove
+                    </button>
                   </Form.Group>
                 ))}
-                <button type="button" onClick={addImageField}>
+
+                <button
+                  type="button"
+                  onClick={addImageField}
+                  className="btn btn-primary"
+                >
                   Add More Image
                 </button>
               </Col>
@@ -342,15 +387,16 @@ function EditItemPanel({
                           margin: "1rem auto",
                         }}
                       />
-                      <span>{utils.getFileFromUrl(url)}</span>
+                      <span>{readUtils.getFileFromUrl(url)}</span>
                       <button
                         id={"btn" + `${url}`}
                         type="button"
+                        className="btn btn-danger btn-sm"
                         onClick={(e) => {
                           handleFileDelete(e, url);
                         }}
                       >
-                        Delete
+                        <RiDeleteBinLine />
                       </button>
                     </div>
                   </Col>
@@ -369,13 +415,21 @@ function EditItemPanel({
                         name="downloadUrls"
                         onChange={(e) => handleFileChange(e)}
                       />
-                      <button type="button" onClick={() => removeFile(index)}>
+                      <button
+                        type="button"
+                        onClick={() => removeFile(index)}
+                        className="btn btn-warning"
+                      >
                         Remove
                       </button>
                     </Form.Group>
                   </div>
                 ))}
-                <button type="button" onClick={addFileField}>
+                <button
+                  type="button"
+                  onClick={addFileField}
+                  className="btn btn-primary"
+                >
                   Add More File
                 </button>
               </Col>
@@ -417,13 +471,13 @@ function EditItemPanel({
                       <Form.Label>Product ID</Form.Label>
                       <Form.Control
                         // type="text"
-                        disabled={true}
+                        disabled={false}
                         placeholder={`${products[index].id}`}
-                        // name={`products[${index}].id`}
-                        // value={product.id}
-                        // onChange={(e) =>
-                        //   handleProductTextChange(e, index, "id")
-                        // }
+                        name={`products[${index}].id`}
+                        value={product.id}
+                        onChange={(e) =>
+                          handleProductTextChange(e, index, "id")
+                        }
                       />
                     </Form.Group>
                   </Col>
@@ -478,26 +532,34 @@ function EditItemPanel({
                     </Form.Group>
                   </Col>
                 </Row>
+               {products.length>1&& <button
+                  onClick={(e) => {
+                    handleDeleteProduct(e, `${products[index].id}`);
+                  }}
+                  className="btn btn-danger btn-sm"
+                >
+                  <RiDeleteBinLine />
+                </button>}
               </div>
             ))}
             <Form.Group className="mb-3">
-              <button type="button" onClick={addProduct}>
+              <button
+                type="button"
+                onClick={addProduct}
+                className="btn btn-primary mt-3"
+              >
                 Add Another Product(Variant)
               </button>
             </Form.Group>
-            <SyButton loading={loading}>
+            <button className="btn btn-success mt-5  ">
               {loading ? (
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
+                <>
+                  <Spinner size="sm" /> Submit
+                </>
               ) : (
                 "Submit"
               )}
-            </SyButton>
+            </button>
           </Form>
         </SyCard>
       </div>

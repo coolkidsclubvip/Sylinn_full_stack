@@ -4,7 +4,7 @@ import { vars } from "./global/themes.css";
 export const container = style({
   position: "relative",
   width: "100%",
-  marginTop: "15vh",
+  marginTop: "20vh",
   minHeight: "68vh",
   textAlign: "center",
   // backgroundColor: "greenyellow",
@@ -17,14 +17,15 @@ export const modalContainer = style({
   // backgroundColor: "green",
   overflow: "visible",
   zIndex: "90",
-  border: "1px solid rgba(200, 200, 200,0.9)",
+  borderRight:"2px solid rgba(200, 200, 200,0.9)",
+  
 });
 export const infoContainer = style({
   position: "relative",
   width: "auto",
   height: "50vh",
 
-  backgroundColor: "lightgrey",
+
 });
 export const descriptionContainer = style({
   position: "relative",

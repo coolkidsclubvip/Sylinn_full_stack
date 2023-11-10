@@ -19,7 +19,7 @@ export const leadCard = style({
   color: vars.colors.brandDark,
   margin: "0 auto",
   padding: "2rem",
-  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+  boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   textAlign: "center",
 });
 

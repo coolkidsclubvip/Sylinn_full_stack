@@ -7,14 +7,12 @@ export const imageContainer = style({
   backgroundSize: "cover",
   position: "relative",
   height: "200px",
-  //为什么header总是会盖住内容，
- marginTop:"12vh"
+  marginTop: "8vh",
 });
-
 
 export const titleText = style({
   backgroundColor: "white",
- 
+
   fontSize: "3rem",
   fontWeight: vars.fontWeights.bolder,
   margin: "0 auto",
@@ -25,18 +23,15 @@ export const titleText = style({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  mixBlendMode:"screen"
+  mixBlendMode: "screen",
 });
 
 export const contentImage = style({
-  width:"30vw",
-  height:"auto",
+  width: "30vw",
+  height: "auto",
   overflow: "hidden",
-})
+});
 
-
- export const  contentText=style({
-
-paddingTop: "4rem"
-  
- })
+export const contentText = style({
+  paddingTop: "4rem",
+});

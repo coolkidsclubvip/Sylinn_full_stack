@@ -6,7 +6,7 @@ export const container= style({
   
   position: "relative",
   width: "100%",
-  marginTop: "15vh",
+  marginTop: "20vh",
   minHeight: "68vh",
   textAlign: "center",
   // backgroundColor: "greenyellow",
