@@ -1,11 +1,23 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../global/themes.css";
 
-export const bigImg = style({
-  borderRadius: "5px",
-  cursor: "pointer",
-  transition: "0.3s",
+export const modalContainer=style({
+  display:"flex",
+  flexDirection:"column",
+})
+
+export const bigImgContainer = style({
+  width: "100%",
+  height: "400px",
+  position: "relative",
+  overflow: "hidden",
 });
+
+// export const bigImg = style({
+//   borderRadius: "5px",
+//   cursor: "pointer",
+//   transition: "0.3s",
+// });
 
 export const modal = style({
   display: "none",
@@ -130,9 +142,3 @@ export const active = style({
   borderColor: "rgba(0, 0, 0, 0.699)",
 });
 
-export const bigImgContainer = style({
-  width: "700px",
-  height: "400px",
-  position: "relative",
-  overflow: "hidden",
-});

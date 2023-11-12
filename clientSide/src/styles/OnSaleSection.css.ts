@@ -108,8 +108,3 @@ export const activeNavLink = style({
   
 });
 
-// export const descriptionContent = style({
-//   display: "block" /* Show the Description content */,
-// });
-
-export const downloadsContent = style({});

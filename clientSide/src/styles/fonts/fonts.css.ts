@@ -24,7 +24,7 @@ opacity: 0.6,
 
 export const futuraTabText = style({
   fontFamily: futura,
-  fontSize: vars.fontSizes["3x"],
+  fontSize: vars.fontSizes["2x"],
   fontWeight: vars.fontWeights.bold,
   color: vars.colors.black,
  

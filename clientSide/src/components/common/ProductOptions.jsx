@@ -9,14 +9,12 @@ function ProductOptions({ data, setSelectedOption }) {
 
   return (
     <div className={styles.container}>
-     
       <Form.Select
         aria-label="Default select example"
         onChange={handleSelectChange}
+        style={{  boxShadow: "none", }}
       >
-        <option value={""}>
-         --Available Options--
-        </option>
+        <option value={""}>--Available Options--</option>
         {data.map((item) => (
           <option value={item.id} key={item.id}>
             {item.name}

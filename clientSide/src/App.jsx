@@ -14,6 +14,7 @@ import PrivateRoutes from "./components/layout/PrivateRoutes";
 import ProductDetailPage from "./product/ProductDetailPage";
 import CategoryPage from "./product/CategoryPage";
 import SearchPage from "./pages/SearchPage";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   return (
@@ -27,12 +28,15 @@ function App() {
 
         <Route path="products/search/:keyword" element={<SearchPage />} />
         <Route
-          path="/products/:category/:collection" element={<ProductDetailPage />}
+          path="/products/:category/:collection"
+          element={<ProductDetailPage />}
         />
 
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/register" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
+
         {/* a private auth route */}
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />

@@ -26,6 +26,7 @@ module.exports = () => {
 
   // Search Products by collection keywords////to be completed
   router.get("/search/:keyword", ProductController.getProductByKeyword);
+  // router.get("/search/:code", ProductController.getProductByCode)
 
   // Get ALL Collections under a certain category
   router.get("/:category", ProductController.getCollections);

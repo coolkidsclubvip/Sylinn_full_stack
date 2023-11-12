@@ -1,14 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import * as styles from "../../styles/components/ProductImageSwitch.css";
+import * as styles from "../../styles/components/ProductImageModal.css";
 import { Link } from "react-router-dom";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Breadcrumb,
+} from "react-bootstrap";
 
 
-function ProductImageSwitch({ titleInfo }) {
-
- 
+function ProductImageModal({ titleInfo }) {
   const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
-
 
   const [slideIndex, setSlideIndex] = useState(0);
   const [bigImageUrl, setBigImageUrl] = useState(isBigImageUrl); // Initialize with the first image URL
@@ -85,68 +90,85 @@ function ProductImageSwitch({ titleInfo }) {
     setBigImageUrl(url);
   }; // Update the big image URL
 
-
   return (
-    <div id="productImageSwitch">
-      {titleInfo && (
-        <div className={styles.bigImgContainer}>
-          <img
-            src={bigImageUrl}
-            id="bigImg"
-            alt="SIN-KD11649B"
-            ref={bigImgRef}
-          />
-        </div>
-      )}
-      <div id="myModal" className={styles.modal} ref={modalRef}>
-        <span
-          id="closeBtn "
-          className={`${styles.close} ${styles.closeHover}`}
-          ref={closeBtnRef}
-        >
-          &times;
-        </span>
-        <img className={styles.modalContent} id="img01" ref={modalImgRef} />
-        <div id="caption" ref={captionTextRef}></div>
-        <span
-          className={`${styles.prev} ${styles.prevLeft}`}
-          onClick={() => plusSlides(-1)}
-        >
-          &#10094;
-        </span>
-        <span
-          className={`${styles.prev} ${styles.next}`}
-          onClick={() => plusSlides(1)}
-        >
-          &#10095;
-        </span>
-      </div>
-      <ul className={styles.ul} ref={slidesRef}>
-        {titleInfo.urls?.map((url, index) => (
-          <li
-            key={index}
-            className={`${styles.li}${
-              index === slideIndex - 1 ? " " + styles.active : ""
-            }`}
-          >
-            <Link to="">
+    <Container className={styles.modalContainer}>
+      <Row>
+        <Col sm={12}>
+          {/* Big modal image */}
+          <div id="productImageSwitch">
+            {titleInfo && (
+              <div className={styles.bigImgContainer}>
+                <img
+                  src={bigImageUrl}
+                  id="bigImg"
+                  alt="SIN-KD11649B"
+                  ref={bigImgRef}
+                />
+              </div>
+            )}
+            <div id="myModal" className={styles.modal} ref={modalRef}>
+              <span
+                id="closeBtn "
+                className={`${styles.close} ${styles.closeHover}`}
+                ref={closeBtnRef}
+              >
+                &times;
+              </span>
               <img
-                src={url}
-                className={styles.smallImg}
-                alt={url}
-                onError={(e) => {
-                  e.target.src = imagePlaceHolder; //  
-                }}
-                onMouseEnter={() => {
-                  handleOnMouseEnter(url);
-                }}
+                className={styles.modalContent}
+                id="img01"
+                ref={modalImgRef}
               />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+              <div id="caption" ref={captionTextRef}></div>
+              <span
+                className={`${styles.prev} ${styles.prevLeft}`}
+                onClick={() => plusSlides(-1)}
+              >
+                &#10094;
+              </span>
+              <span
+                className={`${styles.prev} ${styles.next}`}
+                onClick={() => plusSlides(1)}
+              >
+                &#10095;
+              </span>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col sm={12}>
+          {/* Small images */}
+          <div>
+            <ul className={styles.ul} ref={slidesRef}>
+              {titleInfo.urls?.map((url, index) => (
+                <li
+                  key={index}
+                  className={`${styles.li}${
+                    index === slideIndex - 1 ? " " + styles.active : ""
+                  }`}
+                >
+                  <Link to="">
+                    <img
+                      src={url}
+                      className={styles.smallImg}
+                      alt={url}
+                      onError={(e) => {
+                        e.target.src = imagePlaceHolder; //
+                      }}
+                      onMouseEnter={() => {
+                        handleOnMouseEnter(url);
+                      }}
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
-export default ProductImageSwitch;
+export default ProductImageModal;

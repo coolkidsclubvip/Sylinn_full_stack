@@ -7,10 +7,7 @@ import {
   Row,
   Col,
   Navbar,
-  Nav,
-  Form,
-  OverlayTrigger,
-  Tooltip,
+
 } from "react-bootstrap";
 import Logo_sylinn_big from "../../assets/images/Logo-sylinn-big.png";
 import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
@@ -72,7 +69,12 @@ function Header({
           }`}
         >
           <Row className="d-flex align-items-center justify-content-between py-2 ms-5 mb-0">
-            <Col sm={2} md={4} className="d-flex justify-content-center ">
+            <Col
+              xs={4}
+              sm={4}
+              md={4}
+              className="d-flex justify-content-center "
+            >
               <Hamburger
                 toggled={showOffcanvas_Nav}
                 toggle={setShowOffcanvas_Nav}
@@ -80,7 +82,7 @@ function Header({
                 direction="right"
               />
             </Col>
-            <Col sm={6} md={4} className="d-flex justify-content-center">
+            <Col xs={4} sm={4} md={4} className="d-flex justify-content-center">
               <Navbar.Brand>
                 <Link to={"/"}>
                   <img
@@ -89,13 +91,13 @@ function Header({
                         ? Logo_sylinn_big
                         : Logo_sylinn_small
                     }`}
-                    style={{ height: "100%" }}
+                    style={{ width: "100%" }}
                     alt="Logo"
                   />
                 </Link>
               </Navbar.Brand>
             </Col>
-            <Col sm={4} md={4} className="d-flex justify-content-center">
+            <Col xs={4} sm={4} md={4} className="d-flex justify-content-center">
               {!user && (
                 <Link to={"/login"}>
                   <TbLogin2 size={30} className="me-4" />

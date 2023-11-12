@@ -7,6 +7,7 @@ export const container = style({
   marginTop: "20vh",
   minHeight: "68vh",
   textAlign: "center",
+
   // backgroundColor: "greenyellow",
 });
 
@@ -17,17 +18,53 @@ export const modalContainer = style({
   // backgroundColor: "green",
   overflow: "visible",
   zIndex: "90",
-  borderRight:"2px solid rgba(200, 200, 200,0.9)",
-  
+  borderRight: "2px solid rgba(200, 200, 200,0.9)",
+  "@media": {
+    "(max-width: 1366px)": {
+      marginTop: "20vh", // md and below width margin top
+    },
+  },
 });
+
+
 export const infoContainer = style({
   position: "relative",
   width: "auto",
   height: "50vh",
-
-
+  textAlign: "left",
+  '@media': {
+    '(max-width: 1366px)': {
+      marginTop: "20vh", // md and below width margin top
+    }},
 });
-export const descriptionContainer = style({
+
+export const rrp = style({
+  textAlign: "center",
+  marginTop: "2rem",
+});
+export const stock = style({
+  height: "25px",
+  textAlign: "center",
+  marginTop: "2rem",
+});
+
+export const inStock = style({
+  color: "green",
+});
+
+export const lowStock = style({
+  color: "purple",
+});
+
+export const noStock = style({
+  color: "red",
+});
+
+export const buttonsGroups = style({
+  textAlign: "center",
+});
+
+export const tabsContainer = style({
   position: "relative",
   width: "100%",
   height: "50vh",

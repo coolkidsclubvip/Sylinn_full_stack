@@ -18,8 +18,10 @@ import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import EditItemPanel from "../components/common/EditItemPanel";
 import writeUtils from "../utils/writeUtils";
+import * as fonts from "../styles/fonts/fonts.css";
 
 function ProductDetailPage() {
+  // Initialize product detail data
   const [data, setData] = useState([]);
   const [titleInfo, setTitleInfo] = useState({});
   const [loading, setLoading] = useState(true);
@@ -62,6 +64,10 @@ function ProductDetailPage() {
       const selectedProduct = data.find(
         (product) => product.id === selectedOption
       );
+      // If in initial state, no selected option, stock should be " "
+      if (selectedOption === "") {
+        setStock();
+      }
 
       if (selectedProduct) {
         // Update rRP and Stock state
@@ -71,7 +77,7 @@ function ProductDetailPage() {
       }
     }
   }, [selectedOption, data]);
-
+  
   if (error) {
     return (
       <Container className="text-center mt-4">
@@ -82,9 +88,9 @@ function ProductDetailPage() {
 
   if (loading) {
     return (
-      <Container className="text-center mt-4">
+   
         <Loader />
-      </Container>
+    
     );
   }
 
@@ -96,8 +102,8 @@ function ProductDetailPage() {
     if (deleteConfirmed) {
       try {
         setLoading(true);
-        console.log("category,collection", category, collection);
-        const res = await productService.del(category, collection);
+        
+         await productService.del(category, collection);
 
         // onSuccess - Redirect
         setLoading(false);
@@ -115,7 +121,7 @@ function ProductDetailPage() {
   };
 
   return (
-    <Container>
+    <Container  >
       <div className={styles.container}>
         {showEditPanel && (
           <EditItemPanel
@@ -154,87 +160,84 @@ function ProductDetailPage() {
           <Col sm={12} md={5}>
             <div className={styles.infoContainer}>
               {/* Product title starts */}
-              <div className="productTitle">
+              <div className={fonts.futuraTitle}>
                 <h1>{writeUtils.capitalizeFirstLetter(titleInfo.title)}</h1>
-                <span className="pdtcode">Product Code: {titleInfo.code}</span>
-                <br />
-                <br />
-                <br />
-                <br />
-
+              </div>
+              <div className={styles.code}>Product Code: {titleInfo.code}</div>
+              <div className={styles.rrp}>
+                RRP:{" "}
                 <h2>
-                  $<span id="rrp">{RRP ? RRP : `${data[0].rrp}`}</span>
+                  $ <span id="rrp">{RRP ? RRP : `${data[0].rrp}`}</span>
                 </h2>
-                <br />
+              </div>
 
-                {/* stock availability, 3 cases...and more */}
-                <div id="stocknote">
-                  {stock === "" ? (
-                    data[0].stock >= 10 ? (
-                      <span className="instock">In Stock</span>
-                    ) : data[0].stock < 10 && data[0].stock >= 1 ? (
-                      <span className="lowstock">Low Stock</span>
-                    ) : data[0].stock == 0 ? (
-                      <span className="nostock">No Stock</span>
-                    ) : (
-                      "TBC"
-                    )
-                  ) : stock >= 10 ? (
-                    <span className="instock">In Stock</span>
-                  ) : stock < 10 && stock >= 1 ? (
-                    <span className="lowstock">Low Stock</span>
-                  ) : stock == 0 ? (
-                    <span className="nostock">No Stock</span>
+              {/* stock availability, 3 cases...and more */}
+              <div id="stocknote" className={styles.stock}>
+                {/* When there is only 1 product variant */}
+                {!selectedOption && data.length > 1 ? (
+                  " "
+                ) : stock === "" ? (
+                  data[0].stock >= 10 ? (
+                    <span className={styles.inStock}>In Stock</span>
+                  ) : data[0].stock < 10 && data[0].stock >= 1 ? (
+                    <span className={styles.lowStock}>Low Stock</span>
+                  ) : data[0].stock == 0 ? (
+                    <span className={styles.noStock}>No Stock</span>
                   ) : (
-                    "TBC"
+                    "Please call us to check stock availability"
+                  )
+                ) : // When there are more product variant
+                stock >= 10 ? (
+                  <span className={styles.inStock}>In Stock</span>
+                ) : stock < 10 && stock >= 1 ? (
+                  <span className={styles.lowStock}>Low Stock</span>
+                ) : stock == 0 ? (
+                  <span className={styles.noStock}>No Stock</span>
+                ) : (
+                  "Please call us to check stock availability"
+                )}
+              </div>
+              {/* Only show option field when variant quantity is more than 1 */}
+              <div className={styles.option}>
+                {data.length > 1 && (
+                  <ProductOptions
+                    setSelectedOption={setSelectedOption}
+                    data={data}
+                  />
+                )}
+                <div className={styles.buttonsGroups}>
+                  {" "}
+                  {user && user.isAdmin === "true" && (
+                    <div>
+                      {" "}
+                      <Button
+                        className="mt-5 me-5"
+                        onClick={() => {
+                          setShowEditPanel(!showEditPanel);
+                        }}
+                      >
+                        {loading ? <Spinner /> : ""} Edit
+                      </Button>
+                      <Button
+                        className="btn btn-danger mt-5 me-5"
+                        onClick={handleDelete}
+                      >
+                        {loading ? <Spinner /> : ""} Delete
+                      </Button>{" "}
+                    </div>
                   )}
-
-                  {/* Only show option field when variant quantity is more than 1 */}
-                  {data.length > 1 && (
-                    <ProductOptions
-                      setSelectedOption={setSelectedOption}
-                      data={data}
-                    />
-                  )}
-                  <div className={styles.buttonsGroups}>
-                    {" "}
-                    {!user || user.isAdmin == false ? (
-                      <button>Add to wishlist</button>
-                    ) : (
-                      <div>
-                        {" "}
-                        <Button
-                          className="mt-5 me-5"
-                          onClick={() => {
-                            setShowEditPanel(!showEditPanel);
-                          }}
-                        >
-                          {loading ? <Spinner /> : ""} Edit
-                        </Button>
-                        <Button
-                          className="btn btn-danger mt-5 me-5"
-                          onClick={handleDelete}
-                        >
-                          {loading ? <Spinner /> : ""} Delete
-                        </Button>{" "}
-                      </div>
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
           </Col>
 
-          <Row>
-            {" "}
-            <Col sm={12} md={5}></Col>
-          </Row>
+         
         </Row>
         {/* 3rd row */}
 
         <Row>
           <Col>
-            <div className={styles.descriptionContainer}>
+            <div className={styles.tabsContainer}>
               <ProductTabs titleInfo={titleInfo} />
             </div>{" "}
           </Col>

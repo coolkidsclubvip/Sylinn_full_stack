@@ -112,7 +112,7 @@ function OnSale() {
                     </Link>
                     <div className={styles.OSItemText}>
                       <span className={fonts.futuraGridCardTitles}>
-                        {data.titleInfo.title}
+                        {writeUtils.capitalizeFirstLetter(data.titleInfo.title)}
                       </span>
                       <br />
                       <p className={styles.code}>{data.titleInfo.code}</p>
@@ -125,13 +125,9 @@ function OnSale() {
               ))}
           </div>
         )}
-
-        {/* //////////////////////// */}
       </div>
     </Container>
   );
 }
 
 export default OnSale;
-
-/* <div className={styles.divideLineStyles}></div> */

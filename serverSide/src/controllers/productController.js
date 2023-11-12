@@ -319,12 +319,13 @@ module.exports = {
     }
   },
 
-  // [3] GET Product BY KEYWORD
+  // [3] GET Product BY KEYWORD OR CODE
 
   async getProductByKeyword(req, res, next) {
     // What we need to fill up with filtered titleInfos
-    console.log("req.params.keywords: " + req.params.keywords);
+    let titleInfoDocs = [];
     let filteredTitleInfoDocs = [];
+    let filteredTitleInfoDocsByCode=[]
     try {
       // Get all categories
       const productRef = db.collection("products");
@@ -340,7 +341,6 @@ module.exports = {
       console.log("categories are: ", categories);
 
       // Get all titleInfos from all collections//
-      let titleInfoDocs = [];
 
       await Promise.all(
         categories.map(async (category) => {
@@ -357,11 +357,10 @@ module.exports = {
                 titleInfo: titleInfoDoc.data(),
               });
             }
-
-            //  console.log("titleInfoDocs are:", titleInfoDocs);
           }
           // Filter for all collections with keywords
           const keyword = req.params.keyword;
+          console.log("req.params.keywords: ", req.params.keyword);
           // Convert the keyword to a case-insensitive regex
           const keywordRegex = new RegExp(`\\b${keyword}\\b`, "i");
           filteredTitleInfoDocs = titleInfoDocs.filter((item) => {
@@ -376,8 +375,31 @@ module.exports = {
         ApiError.badRequest("Failed to search a product with keyword", err)
       );
     }
+    console.log("filteredTitleInfoDocs are:", filteredTitleInfoDocs);
+    // If no yields no product,move on to the next Search By Code
+    if (filteredTitleInfoDocs.length == 0) {
+      ////[3.5]GET Product BY code
 
-    res.send(filteredTitleInfoDocs);
+      try {
+        console.log("titleInfoDocs are:", titleInfoDocs);
+
+        // Filter for all collections with possible code
+        const keyword = req.params.keyword;
+        console.log("req.params.keywords: ", req.params.keyword);
+        // Convert the keyword to a case-insensitive regex
+        const keywordRegex = new RegExp(keyword, "i");
+       await Promise.all( filteredTitleInfoDocsByCode = titleInfoDocs.filter((item) => {
+          //  item.collectionId.titleInfo.includes(keywordRegex);
+          return keywordRegex.test(item.titleInfo.code);
+        }))
+      } catch (err) {
+        console.log(err);
+      }
+
+      res.send(filteredTitleInfoDocsByCode);
+    } else {
+      res.send(filteredTitleInfoDocs);
+    }
   },
 
   // [4]] PUT Product BY Collection

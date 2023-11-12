@@ -3,7 +3,7 @@ import { vars } from "../global/themes.css";
 import * as fonts from "../fonts/fonts.css";
 
 export const imageContainer = style({
-  backgroundImage: "url(./images/about_bg.jpg)",
+  backgroundImage: "url(./images/contact_bg.jpg)",
   backgroundSize: "cover",
   position: "relative",
   height: "200px",
@@ -12,9 +12,9 @@ export const imageContainer = style({
 
 export const titleText = style({
   backgroundColor: "white",
-  fontFamily: vars.fonts.brand,
   fontSize: vars.fontSizes["6x"],
-  fontWeight: vars.fontWeights.bolder,
+  fontFamily: vars.fonts.brand,
+  fontWeight: vars.fontWeights.bold,
   margin: "0 auto",
   padding: "1rem",
   textAlign: "center",
@@ -25,12 +25,11 @@ export const titleText = style({
   mixBlendMode: "screen",
 });
 
-export const contentImage = style({
-  width: "30vw",
-  height: "auto",
-  overflow: "hidden",
+export const image = style({
+  display: "inline-block",
+  width: "35px",
 });
 
 export const contentText = style({
-  paddingTop: "4rem",
+  paddingLeft: "1rem",
 });
