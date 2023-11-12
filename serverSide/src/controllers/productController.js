@@ -380,7 +380,6 @@ module.exports = {
     res.send(filteredTitleInfoDocs);
   },
 
-
   // [4]] PUT Product BY Collection
   async putProductByCollection(req, res, next) {
     // Images and files to be saved to cloud storage
@@ -430,7 +429,7 @@ module.exports = {
             ...data,
           };
         } else {
-          existingProducts.push({id:doc.id, data}); // Assuming each doc in the collection represents a product
+          existingProducts.push({ id: doc.id, data }); // Assuming each doc in the collection represents a product
         }
       });
 

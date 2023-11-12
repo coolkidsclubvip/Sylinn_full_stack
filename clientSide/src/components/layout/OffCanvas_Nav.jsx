@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Navbar, Nav, Form } from "react-bootstrap";
-import * as styles from "../../styles/components/OffCanvas.css_Nav.css";
+import * as styles from "../../styles/layout/OffCanvas.css_Nav.css";
 import * as fonts from "../../styles/fonts/fonts.css";
-import SearchBar from "../common/SearchBar";
+
 
 function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
   const offCanvasWidth = "280px";
@@ -21,25 +21,25 @@ function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
           aria-labelledby="offcanvasScrollingLabel"
         >
           <div className="offcanvas-body d-flex flex-column mt-5 py-5 ">
-            <SearchBar setShowOffcanvas={setShowOffcanvas}/>
+       
 
             <Nav.Link className={styles.navbtn} href="/">
               <span className={fonts.futuraNav}>Home&nbsp;&nbsp;</span>
             </Nav.Link>
+            <Nav.Link className={styles.navbtn} href="/retailers_map">
+              <span className={fonts.futuraNav}>Products&nbsp;&nbsp;</span>
+            </Nav.Link>
             <Nav.Link className={styles.navbtn} href="/about">
               <span className={fonts.futuraNav}>About&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="gallery.html">
+            <Nav.Link className={styles.navbtn} href="/gallery">
               <span className={fonts.futuraNav}>Gallery&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="contact.html">
+            <Nav.Link className={styles.navbtn} href="/contact">
               <span className={fonts.futuraNav}>Contact&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="retailers_map.html">
+            <Nav.Link className={styles.navbtn} href="/retailers_map">
               <span className={fonts.futuraNav}>Retailers&nbsp;&nbsp;</span>
-            </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="retailers_map.html">
-              <span className={fonts.futuraNav}>Products&nbsp;&nbsp;</span>
             </Nav.Link>
           </div>
         </div>{" "}

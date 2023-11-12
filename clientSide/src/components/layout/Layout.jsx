@@ -1,12 +1,12 @@
 import { useState } from "react";
-import * as styles from "../../styles/Layout.css";
+import * as styles from "../../styles/layout/Layout.css";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import Header from "./Header";
 import Footer from "./Footer";
 import OffCanvas_Nav from "./OffCanvas_Nav";
-import OffCanvas_Wish from "./OffCanvas_Wish";
+// import OffCanvas_Wish from "./OffCanvas_Wish";
 
 const Layout = () => {
   const [showOffcanvas_Nav, setShowOffcanvas_Nav] = useState(false);
@@ -36,10 +36,10 @@ const Layout = () => {
         showOffcanvas_Wish={showOffcanvas_Wish}
         setShowOffcanvas_Wish={setShowOffcanvas_Wish}
       />
-      <OffCanvas_Wish
+      {/* <OffCanvas_Wish
         showOffcanvas={showOffcanvas_Wish}
         setShowOffcanvas={setShowOffcanvas_Wish}
-      />
+      /> */}
       <div
         className={styles.appContent}
         // Click anywhere in the content body to close either offcanvas

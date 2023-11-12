@@ -1,15 +1,12 @@
 import { useState } from "react";
-// 
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
+import * as styles from "../../styles/layout/SearchBar.css"
 
-
-const SearchBar = ({ setShowOffcanvas }) => {
+const SearchBar = ( ) => {
   const [keyword, setKeyword] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -21,33 +18,33 @@ const SearchBar = ({ setShowOffcanvas }) => {
     if (keyword === "") {
       alert("Please enter something!");
     } else {
-
       setKeyword("");
-// setShowOffcanvas(false);
+      // setShowOffcanvas(false);
       navigate(`products/search/${keyword}`);
     }
   };
 
   return (
-    <div className="d-flex flex-column ">
+    <div className={styles.searchForm}>
       <Form onSubmit={handleSubmit}>
         <FloatingLabel
           controlId="Input"
           label="Search Keyword"
-          className="mb-5"
+          className="w-100 mt-1 "
         >
           <Form.Control
             type="text"
             placeholder="Enter your search keywords"
             value={keyword}
             onChange={onChange}
+            style={{ outline: "none",boxShadow: "none",height:"60px" }   }
           />
 
           {/* <Button
             type="submit"
             variant="light"
             onClick={handleSubmit}
-            className="d-flex  py-0 ms-auto w-50 "
+            className="d-flex  py-0 ms-auto w-25 "
           >
             <BsSearch /> 
           </Button> */}

@@ -1,4 +1,4 @@
-import * as styles from "../../styles/components/Footer.css";
+import * as styles from "../../styles/layout/Footer.css";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 import Logo_sylinn_text from "../../assets/images/Logo-sylinn-text-height30px.png";
 import fb_icon from "../../assets/images/fb_icon.png";
