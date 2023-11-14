@@ -8,7 +8,7 @@ export const searchForm= style({
      height:"70px",
      paddingLeft :"50%",
      transform: "translateX(-20%)",
-     
+    
      
 })
 

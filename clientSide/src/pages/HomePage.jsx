@@ -1,7 +1,7 @@
 import * as styles from "../styles/HomePage.css";
 import HomepageCarousel from "../components/common/HomepageCarousel";
 import ProductsGrid from "../components/common/ProductsGrid";
-import OnSale from "../components/common/OnSale";
+import OnSale from "../components/layout/OnSale";
 import Banner1 from "../components/common/Banner1";
 import Banner2 from "../components/common/Banner2";
 

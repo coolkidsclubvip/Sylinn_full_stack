@@ -36,9 +36,13 @@ export const activeNavLink = style({
 });
 
 export const descriptionContent = style({
-  display: "block" /* Show the Description content */
+  // display: "block" /* Show the Description content */
+  textAlign: "left",
+  paddingTop:"3rem"
 });
 
 export const downloadsContent = style({
-  
+  textDecoration: "none",
+  textAlign:"left",
+  display: "flex"
 });

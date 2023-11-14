@@ -11,13 +11,14 @@ export const container = style({
   // backgroundColor: "greenyellow",
 });
 
-export const modalContainer = style({
+export const imageContainer = style({
   position: "relative",
   width: "100%",
-  height: "50vh",
+  height: "auto",
   // backgroundColor: "green",
   overflow: "visible",
   zIndex: "90",
+  paddingRight:"1rem",
   borderRight: "2px solid rgba(200, 200, 200,0.9)",
   "@media": {
     "(max-width: 1366px)": {

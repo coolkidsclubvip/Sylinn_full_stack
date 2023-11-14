@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as styles from "../../styles/layout/Layout.css";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
+import BacktoTopBtn from "./BacktoTopBtn"
 import Header from "./Header";
 import Footer from "./Footer";
 import OffCanvas_Nav from "./OffCanvas_Nav";
@@ -50,6 +50,7 @@ const Layout = () => {
       >
         <Outlet />
       </div>
+      <BacktoTopBtn/>
       <Footer />
     </div>
   );

@@ -77,7 +77,7 @@ function ProductDetailPage() {
       }
     }
   }, [selectedOption, data]);
-  
+
   if (error) {
     return (
       <Container className="text-center mt-4">
@@ -87,11 +87,7 @@ function ProductDetailPage() {
   }
 
   if (loading) {
-    return (
-   
-        <Loader />
-    
-    );
+    return <Loader />;
   }
 
   // Handle delete collection request
@@ -102,8 +98,8 @@ function ProductDetailPage() {
     if (deleteConfirmed) {
       try {
         setLoading(true);
-        
-         await productService.del(category, collection);
+
+        await productService.del(category, collection);
 
         // onSuccess - Redirect
         setLoading(false);
@@ -121,7 +117,7 @@ function ProductDetailPage() {
   };
 
   return (
-    <Container  >
+    <Container>
       <div className={styles.container}>
         {showEditPanel && (
           <EditItemPanel
@@ -152,7 +148,7 @@ function ProductDetailPage() {
         <Row>
           {/* Big image */}
           <Col sm={12} md={7}>
-            <div className={styles.modalContainer}>
+            <div className={styles.imageContainer}>
               <ProductImageModal titleInfo={titleInfo} />
             </div>{" "}
           </Col>
@@ -230,8 +226,6 @@ function ProductDetailPage() {
               </div>
             </div>
           </Col>
-
-         
         </Row>
         {/* 3rd row */}
 

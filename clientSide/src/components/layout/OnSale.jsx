@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import * as styles from "../../styles/OnSaleSection.css";
+import * as styles from "../../styles/layout/OnSaleSection.css";
 // import * as styles from "../../styles/components/ProductTabs.css";
 import productService from "../../services/productService";
 import { Container, Spinner } from "react-bootstrap";
@@ -60,7 +60,7 @@ function OnSale() {
     <Container>
       <div className={styles.NAWrapper}>
         <p>
-          <span className={fonts.futuraTitle}>Our best sellers</span> <br />
+          <span className={fonts.futuraTitle}>Our Best Sellers</span> <br />
           <span className={fonts.normalText}>
             New European design that is fresh off the boat
           </span>

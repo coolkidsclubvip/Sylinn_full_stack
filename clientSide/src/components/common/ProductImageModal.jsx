@@ -18,7 +18,7 @@ function ProductImageModal({ titleInfo }) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [bigImageUrl, setBigImageUrl] = useState(isBigImageUrl); // Initialize with the first image URL
   const [slides, setSlides] = useState([]);
-
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const modalRef = useRef(null);
   const bigImgRef = useRef(null);
   const modalImgRef = useRef(null);
@@ -76,19 +76,28 @@ function ProductImageModal({ titleInfo }) {
     if (slides && n >= 1 && n <= slides.length) {
       modalImgRef.current.src = titleInfo.urls[n - 1];
 
-      slides.forEach((slide) => {
-        slide.classList.remove(styles.active1);
-      });
+      // slides.forEach((slide) => {
+      //   slide.classList.remove(styles.active1);
+      // });
 
-      slides[n - 1].classList.add(styles.active1);
+      // slides[n - 1].classList.add(styles.active1);
 
       bigImgRef.current.setAttribute("src", titleInfo.urls[n - 1]);
     }
   }
 
-  const handleOnMouseEnter = (url) => {
-    setBigImageUrl(url);
-  }; // Update the big image URL
+  // const handleOnMouseEnter = (url) => {
+  //   setBigImageUrl(url);
+  // }; // Update the big image URL
+    const handleOnMouseEnter = (url, index) => {
+      setBigImageUrl(url);
+      showSlides(index + 1);
+      setHoveredIndex(index); // 更新被悬停的小图索引
+    };
+
+    const handleOnMouseLeave = () => {
+      setHoveredIndex(null); // 鼠标离开时重置悬停状态
+    };
 
   return (
     <Container className={styles.modalContainer}>
@@ -101,7 +110,7 @@ function ProductImageModal({ titleInfo }) {
                 <img
                   src={bigImageUrl}
                   id="bigImg"
-                  alt="SIN-KD11649B"
+                  alt="productImage"
                   ref={bigImgRef}
                 />
               </div>
@@ -151,13 +160,16 @@ function ProductImageModal({ titleInfo }) {
                   <Link to="">
                     <img
                       src={url}
-                      className={styles.smallImg}
+                      className={`${styles.smallImg} ${
+                        hoveredIndex === index ? styles.borderedImg : ""
+                      } `}
                       alt={url}
                       onError={(e) => {
                         e.target.src = imagePlaceHolder; //
                       }}
                       onMouseEnter={() => {
-                        handleOnMouseEnter(url);
+                        handleOnMouseEnter(url,index);
+                       
                       }}
                     />
                   </Link>

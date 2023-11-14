@@ -1,14 +1,14 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../global/themes.css";
 
-export const modalContainer=style({
-  display:"flex",
-  flexDirection:"column",
-})
+export const modalContainer = style({
+  display: "flex",
+  flexDirection: "column",
+});
 
 export const bigImgContainer = style({
   width: "100%",
-  height: "400px",
+  height: "auto",
   position: "relative",
   overflow: "hidden",
 });
@@ -69,15 +69,11 @@ export const close = style({
   borderRadius: "3px",
   backgroundColor: "rgba(0, 0, 0, 0.5)",
   ":hover": {
-
     textDecoration: "none",
     cursor: "pointer",
     backgroundColor: "rgba(0, 0, 0, 0.9)",
   },
 });
-
-
-
 
 export const prev = style({
   cursor: "pointer",
@@ -105,21 +101,26 @@ export const prevLeft = style({
   left: "10%",
 });
 
-export const active1 = style({
-  background: "#1c82c7",
-  /* color: #fff; */
-});
+// export const active1 = style({
+//   // background: "#1c82c7",
+//   /* color: #fff; */
+// });
 
 export const smallImg = style({
   width: "80px",
-  height: "54px",
-  marginTop: 0,
-  margin: "1rem",
-  ":hover": {
-    cursor: "default",
-    border: `2px solid ${vars.colors.brand}`,
-  },
+  height: "auto",
+  marginTop: "1rem",
+  // transition: "all 0.6s ease",
+  // ":hover": {
+  //   cursor: "default",
+  //   border: `2px solid ${vars.colors.brand}`,
+  // },
 });
+
+export const borderedImg = style({
+  border: `2px solid ${vars.colors.brand}`,
+});
+
 export const ul = style({
   listStyle: "none",
   overflow: "hidden",
@@ -141,4 +142,3 @@ export const li = style({
 export const active = style({
   borderColor: "rgba(0, 0, 0, 0.699)",
 });
-

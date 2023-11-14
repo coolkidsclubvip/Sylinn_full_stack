@@ -23,7 +23,7 @@ function Header({
   showOffcanvas_Nav,
   setShowOffcanvas_Nav,
   showOffcanvas_Wish,
-  setShowOffcanvas_Wish,
+  // setShowOffcanvas_Wish,
 }) {
   // Determine if current page is Homepage
   const location = useLocation();
