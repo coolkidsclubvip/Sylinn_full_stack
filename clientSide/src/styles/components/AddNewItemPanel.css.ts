@@ -6,13 +6,12 @@ export const container = style({
   position: "absolute",
   width: "110vw",
   height: "auto",
-  overflow: "hidden" ,
   backgroundColor: "rgba(200, 200, 200, 0.9)",
   zIndex: 99,
   marginLeft: "50%",
   translate: "-50%",
   marginTop: "-20vh",
-  padding: "0",
+  padding: "5rem 2rem",
 });
 
 export const card = style({
@@ -22,6 +21,6 @@ export const card = style({
 export const closeBtn = style({
   position: "absolute",
   width: "5rem",
-  top: "0",
+  top: "50px",
   right: "20%",
 });

@@ -10,9 +10,9 @@ import {
   Spinner,
   Breadcrumb,
 } from "react-bootstrap";
+import readUtils from "../../utils/readUtils";
 
-
-function ProductImageModal({ titleInfo }) {
+function ProductImageModal({ titleInfo, selectedOption }) {
   const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
 
   const [slideIndex, setSlideIndex] = useState(0);
@@ -57,9 +57,6 @@ function ProductImageModal({ titleInfo }) {
   }, [slideIndex]);
 
   function plusSlides(n) {
-    console.log("slides is:", slides);
-    console.log("slides.length is:", slides.length);
-    // console.log("slides.length is:", slides.length);
     const newIndex = slideIndex + n;
 
     if (newIndex > slides.length) {
@@ -69,7 +66,6 @@ function ProductImageModal({ titleInfo }) {
     } else {
       setSlideIndex(newIndex); // otherwise,set a normal index
     }
-    console.log("slideIndex is:", slideIndex);
   }
 
   function showSlides(n) {
@@ -86,18 +82,95 @@ function ProductImageModal({ titleInfo }) {
     }
   }
 
-  // const handleOnMouseEnter = (url) => {
+  // When mouse hover on small images, set big image url accordingly
+  // const handleOnMouseEnter = (url, index) => {
   //   setBigImageUrl(url);
-  // }; // Update the big image URL
-    const handleOnMouseEnter = (url, index) => {
-      setBigImageUrl(url);
-      showSlides(index + 1);
-      setHoveredIndex(index); // 更新被悬停的小图索引
-    };
+  //   showSlides(index + 1);
+  //   setHoveredIndex(index); // 更新被悬停的小图索引
+  // };
+const handleOnMouseEnter = (url, index) => {
+  if (selectedOption) {
+    // 如果有 selectedOption，找到当前小图对应的 titleInfo.urls 中的索引
+    const currentSmallImageIndex = titleInfo.urls.findIndex((u) => u === url);
 
-    const handleOnMouseLeave = () => {
-      setHoveredIndex(null); // 鼠标离开时重置悬停状态
-    };
+    // 根据索引找到对应的 imageNames 中的索引
+    const selectedIndex =
+      currentSmallImageIndex !== -1 ? currentSmallImageIndex : 0;
+
+    if (selectedIndex !== -1) {
+      setBigImageUrl(titleInfo.urls[selectedIndex]);
+      showSlides(selectedIndex + 1);
+    }
+  } else {
+    // 否则，使用当前小图的 URL
+    setBigImageUrl(url);
+    showSlides(index + 1);
+  }
+
+  setHoveredIndex(index); // 更新被悬停的小图索引
+};
+
+  // Set the big image URL according to selected option
+  //1. Get image names from urls
+  const imageNames = [];
+  // 2.A function to get rid of timestamp from imageName
+  const deleteTimestampFromName = (imageName) => {
+    const indexOfUnderscore = imageName.indexOf("_");
+    return indexOfUnderscore !== -1
+      ? imageName.slice(indexOfUnderscore + 1)
+      : imageName;
+  };
+  titleInfo.urls.map((url) => {
+    const imageName = readUtils.getFileFromUrl(url);
+    const imageNamesWithoutTimestamp = deleteTimestampFromName(imageName);
+    imageNames.push(imageNamesWithoutTimestamp);
+  });
+
+  //3. Matching imageNames with selected options, and set big image url accordingly
+  const handleOptionChange = (selectedOption) => {
+    // 通过 selectedOption 找到包含在 imageNames 中的项的索引
+    const selectedIndex = imageNames.findIndex((imageName) =>
+      imageName.includes(selectedOption)
+    );
+
+    // 如果找到了对应的索引，更新 bigImageUrl 和 slideIndex
+    if (selectedIndex !== -1) {
+      setBigImageUrl(titleInfo.urls[selectedIndex]);
+      setSlideIndex(selectedIndex + 1);
+    }
+  };
+
+  // 在 useEffect 中监听 selectedOption 的变化，并调用 handleOptionChange
+  useEffect(() => {
+    if (selectedOption) {
+      handleOptionChange(selectedOption);
+    }
+  }, [selectedOption]);
+
+
+//
+const [smallImages, setSmallImages] = useState(titleInfo.urls);
+
+  useEffect(() => {
+    if (selectedOption) {
+      // 如果存在 selectedOption，则根据索引数组更新小图数组
+      const selectedIndexes = imageNames
+        .map((imageName, index) =>
+          imageName.includes(selectedOption) ? index : null
+        )
+        .filter((index) => index !== null);
+
+      const updatedSmallImages = selectedIndexes.map(
+        (index) => titleInfo.urls[index]
+      );
+      setSmallImages(updatedSmallImages);
+    } else {
+      // 否则，保持默认的小图数组
+      setSmallImages(titleInfo.urls);
+    }
+  }, [selectedOption, titleInfo.urls]);
+
+
 
   return (
     <Container className={styles.modalContainer}>
@@ -150,7 +223,7 @@ function ProductImageModal({ titleInfo }) {
           {/* Small images */}
           <div>
             <ul className={styles.ul} ref={slidesRef}>
-              {titleInfo.urls?.map((url, index) => (
+              {smallImages?.map((url, index) => (
                 <li
                   key={index}
                   className={`${styles.li}${
@@ -168,8 +241,7 @@ function ProductImageModal({ titleInfo }) {
                         e.target.src = imagePlaceHolder; //
                       }}
                       onMouseEnter={() => {
-                        handleOnMouseEnter(url,index);
-                       
+                        handleOnMouseEnter(url, index);
                       }}
                     />
                   </Link>
@@ -184,3 +256,5 @@ function ProductImageModal({ titleInfo }) {
 }
 
 export default ProductImageModal;
+
+

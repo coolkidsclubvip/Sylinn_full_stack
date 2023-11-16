@@ -17,7 +17,7 @@ function CategoryPage() {
   const { category } = useParams();
   const [showAddNewPanel, setShowAddNewPanel] = useState(false);
 
-  console.log("user in category page is:", user);
+
 
   async function fetchCollections() {
     try {
@@ -49,10 +49,10 @@ function CategoryPage() {
             {" "}
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+              <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
               <Breadcrumb.Item href={`/products/${category}`} active>
                 {writeUtils.formatCategoryName(category)}
               </Breadcrumb.Item>
-            
             </Breadcrumb>
           </Col>
         </Row>

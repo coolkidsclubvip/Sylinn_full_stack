@@ -72,3 +72,11 @@ export const tabsContainer = style({
   margin: "5vh auto",
   // backgroundColor: vars.colors.grey,
 });
+
+
+export const relatedProductsContainer = style({
+  width: "100%",
+  height: "auto",
+  borderTop: "2px solid #ddd",
+  
+});

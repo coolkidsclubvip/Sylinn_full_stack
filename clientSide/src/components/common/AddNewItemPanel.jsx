@@ -12,6 +12,7 @@ import SyCard from "./SyCard";
 import SyButton from "./SyButton";
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
+import writeUtils from "../../utils/writeUtils";
 
 function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
   const [loading, setLoading] = useState(false);
@@ -147,7 +148,8 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
       <div className={`${styles.container} shadow`}>
         <h1>
           {" "}
-          Adding a new product into <b>{`${category}`}</b>
+          Adding a new product into{" "}
+          <b>{writeUtils.formatCategoryName(`${category}`)}</b>
         </h1>
 
         <SyCard title="Add Product" className={styles.card}>

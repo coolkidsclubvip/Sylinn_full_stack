@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import EditItemPanel from "../components/common/EditItemPanel";
 import writeUtils from "../utils/writeUtils";
 import * as fonts from "../styles/fonts/fonts.css";
+import RelatedProductsCarousel from "../components/common/RelatedProductsCarousel";
 
 function ProductDetailPage() {
   // Initialize product detail data
@@ -31,6 +32,7 @@ function ProductDetailPage() {
   const [showEditPanel, setShowEditPanel] = useState(false);
   const [RRP, setRRP] = useState(""); // set RRP to selected option
   const [stock, setStock] = useState(""); // set stock to selected option
+  const [relatedProducts, setRelatedProducts] = useState([]); // set related products
   let { category, collection } = useParams(); //useParams hook to be used only within a ROUTED component
 
   const { user } = useAuth();
@@ -77,6 +79,29 @@ function ProductDetailPage() {
       }
     }
   }, [selectedOption, data]);
+
+  // Fetch related products and prop into RelatedProductCarousel
+  async function fetchCollections() {
+    try {
+      const response = await productService.getAllCollections(category);
+      const responseData = response.data;
+
+      // exclude current product
+      const filteredProducts = responseData.filter(
+        (item) => item.collectionId !== collection
+      );
+
+      setRelatedProducts(filteredProducts);
+    } catch (err) {
+      console.log(err?.response);
+    }
+  }
+  // Fetch related products when initiated
+  useEffect(() => {
+    fetchCollections();
+  }, [category, loading]);
+
+  console.log("related products are:", relatedProducts);
 
   if (error) {
     return (
@@ -149,7 +174,10 @@ function ProductDetailPage() {
           {/* Big image */}
           <Col sm={12} md={7}>
             <div className={styles.imageContainer}>
-              <ProductImageModal titleInfo={titleInfo} />
+              <ProductImageModal
+                titleInfo={titleInfo}
+                selectedOption={selectedOption}
+              />
             </div>{" "}
           </Col>
           {/* Title,subTitle,RRP,stock */}
@@ -237,6 +265,18 @@ function ProductDetailPage() {
           </Col>
         </Row>
       </div>
+      <Row >
+        <Col >
+          <span className={fonts.futuraTabText}>Related Products:</span>
+          <div className={styles.relatedProductsContainer}>
+            <RelatedProductsCarousel
+              relatedProducts={relatedProducts}
+              category={category}
+              setLoading={setLoading}
+            />
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 }

@@ -7,7 +7,7 @@ export const footer = style({
   width: "70vw",
   height: "10vh",
   margin: "0 auto",
-  marginTop:"15vh",
+  marginTop:"10vh",
   paddingTop: 0,
   bottom: 0,
   fontFamily:vars.fonts.brand,

@@ -42,7 +42,7 @@ function ProductTabs({ titleInfo }) {
     };
 
 
-  console.log("titleInfo.description are:", titleInfo.description);
+ 
   return (
     <>
       <div className={styles.tabsContainer}>

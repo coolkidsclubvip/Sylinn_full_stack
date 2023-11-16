@@ -26,7 +26,7 @@ function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
             <Nav.Link className={styles.navbtn} href="/">
               <span className={fonts.futuraNav}>Home&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="/retailers_map">
+            <Nav.Link className={styles.navbtn} href="/products">
               <span className={fonts.futuraNav}>Products&nbsp;&nbsp;</span>
             </Nav.Link>
             <Nav.Link className={styles.navbtn} href="/about">

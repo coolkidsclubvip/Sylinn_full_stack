@@ -1,88 +1,122 @@
-//  抄的  大改下面
+import { useState, useEffect, useAuth, useParams } from "react";
+import { Container, Row, Col, Breadcrumb, Card } from "react-bootstrap";
+import productService from "../services/productService";
+import * as styles from "../styles/page/ProductsPage.css";
+import * as fonts from "../styles/fonts/fonts.css";
+import writeUtils from "../utils/writeUtils";
+import acc_cate from "../assets/images/acc_cate.png";
+import bath_cate from "../assets/images/bath_cate.png";
+import grate_cate from "../assets/images/grate_cate.png";
+import no_image_available from "../assets/images/no_image_available.jpeg";
 
-// import { useState, useEffect, useRef } from 'react';
-// import Container from "react-bootstrap/Container";
-// import BathPage from './BathPage';
+function ProductsPage() {
+  const [categories, setCategories] = useState([]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-// import productService from '../../services/productService';
-// import ProductsList from "../../components/features/products/ProductsList"
-// import TuLoader from '../../components/common/TuLoader';
+  //Get all categories
+  async function getAllCategories() {
+    try {
+      const response = await productService.getAllCategories();
 
-// function ProductsPage() {
-  // PRODUCTS STATE
-  // const [data, setData] = useState([])
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(false);
+      setCategories(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
-  // // HOOK: ON-LOAD SIDE EFFECTS
-  // const effectRan = useRef(false);
-  // useEffect(() => {
-  //   console.log("Effect Ran");
-  //   if (effectRan.current === false) {
-  //     fetchProducts();
-  //     setLoading(false);
+  useEffect(() => {
+    getAllCategories();
+  }, []);
 
-  //     // CLEAN UP FUNCTION
-  //     return () => {
-  //       console.log("Unmounted");
-  //       effectRan.current = true;
-  //     }
-  //   }
-  // }, []);
+  console.log("categories are:", categories);
 
-  // // [5A] COMPONENT FUNCTION
-  // async function fetchProducts() {
+  // async function fetchCollections() {
   //   try {
-  //     // TU API Request
-  //     const response = await productService.getAll();
+  //     const response = await productService.getAllCollections(category);
+  //     const responseData = response.data;
 
-  //     // Access Object Properties to Find Data Array & Save to Variable 
-  //     const data = await response.data;
+  //     setData(responseData);
 
-  //     // SUCCESS: Output needs to override data state
-  //     console.log(data);
-  //     setData(data);
-
-  //   } catch(err) {
+  //     setLoading(false);
+  //   } catch (err) {
   //     console.log(err?.response);
-  //     setError(true); 
+
+  //     setLoading(false);
   //   }
   // }
+  // useEffect(() => {
+  //   if (loading) {
+  //     fetchCollections();
+  //   }
+  // }, [loading, category]);
 
-  // // CONDITIONAL LOAD: ERROR
-  // if (error) {
-  //   return (
-  //     <Container className="text-center mt-4">
-  //       <p>Error page</p>
-  //     </Container>
-  //   )
-  // }
+  // Set SRC according to category id
+  const imageSwitch = (cate) => {
+    switch (cate) {
+      case "acc":
+        return acc_cate;
 
-  // // CONDITIONAL LOAD: LOADING
-  // if (loading) {
-  //   return (
-  //     <Container className="text-center mt-4">
-  //       <TuLoader />
-  //     </Container>
-  //   )
-  // }
+      case "bath":
+        return bath_cate;
+      case "grate":
+        return grate_cate;
 
-//   return (
-//     <Container className="text-center mt-5 py-5">
-//       <h1>All products category</h1>
-//       <p>this is a product category page</p>
-//       <button>category 1</button>
-//       <button>category 1</button>
-//       <button>category 1</button>
+      default:
+        return no_image_available;
+    }
+  };
 
-//       {/* test */}
+  return (
+    <>
+      <div className={styles.imageContainer}>
+        <div className={styles.titleText}>OUR PRODUCTS</div>
+      </div>
+      <Container>
+        <div className={styles.container}>
+          <Row>
+            <Col sm={12}>
+              {" "}
+              <Breadcrumb>
+                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                <Breadcrumb.Item active>Products</Breadcrumb.Item>
+              </Breadcrumb>
+            </Col>
+          </Row>
 
-//       {/* Products Menu */}
+          <Row>
+            <Col sm={12}>
+              {" "}
+              <h1 className={fonts.futuraTitle}>BROWSE BY CATEGORY</h1>
+            </Col>
+          </Row>
+          <Row>
+            <div className="mt-5 "></div>
+            {categories.map((category, index) => (
+              <Col sm={12} md={3} key={index} className="my-3">
+                <Card style={{ width: "18rem" }}>
+                  <Card.Img variant="top" src={imageSwitch(category.id)} />
+                  <Card.Body>
+                    <Card.Title>
+                      {writeUtils.formatCategoryName(category.id)}
+                    </Card.Title>
+                    <Card.Text>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </Card.Text>
+                    {/* <Button variant="primary">Go somewhere</Button> */}
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          <Row>
+            <Col sm={12}>4</Col>
+          </Row>
+        </div>
+      </Container>
+    </>
+  );
+}
 
-//       <BathPage />
-//       {/* {<ProductsList products={data} />} */}
-//     </Container>
-//   );
-// }
-
-// export default ProductsPage
+export default ProductsPage;
