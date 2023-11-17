@@ -8,7 +8,7 @@
     "server": "nodemon src/index",
     "debug": "DEBUG=app* & nodemon src/index",
     "prod": "node src/index",
-    "build": "vite build"
+  "build": "npm run prod" 
   },
   "author": "lei's web dev",
   "license": "MIT",
