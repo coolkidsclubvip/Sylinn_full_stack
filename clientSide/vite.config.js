@@ -8,12 +8,14 @@ export default defineConfig({
   // in production, the proxy may or may not work, thus we need CORS
   server: {
     port: 3000,
-    proxy:{
+    proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://sylinn-full-stack-serverside.onrender.com",
         changeOrigin: true,
-        secure: true
-      }
-    }
+        secure: true,
+      },
+    },
   },
 });
+
+// "http://localhost:5000"
