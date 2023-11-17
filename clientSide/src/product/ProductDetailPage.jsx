@@ -161,7 +161,8 @@ function ProductDetailPage() {
             {" "}
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-              <Breadcrumb.Item href={`/products/${category}`}>
+              <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
+              <Breadcrumb.Item href={`/${category}`}>
                 {writeUtils.formatCategoryName(category)}
               </Breadcrumb.Item>
               <Breadcrumb.Item active>{titleInfo.title}</Breadcrumb.Item>
@@ -265,8 +266,8 @@ function ProductDetailPage() {
           </Col>
         </Row>
       </div>
-      <Row >
-        <Col >
+      <Row>
+        <Col>
           <span className={fonts.futuraTabText}>Related Products:</span>
           <div className={styles.relatedProductsContainer}>
             <RelatedProductsCarousel

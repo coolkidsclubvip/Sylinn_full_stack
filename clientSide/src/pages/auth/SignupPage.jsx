@@ -7,7 +7,7 @@ import SyCard from "../../components/common/SyCard";
 // LOCAL MODULES
 import * as styles from "../../styles/SignupPage.css";
 import useAuth from "../../hooks/useAuth";
-import SyButton from "../../components/common/SyButton";
+ 
 
 function SignupPage() {
   // ACCESS VARIABLES FROM HOOKS

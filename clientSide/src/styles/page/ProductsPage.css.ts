@@ -1,17 +1,9 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "../../styles/global/themes.css";
 
-export const container = style({
-  position: "relative",
-  width: "100%",
-  marginTop: "90px",
-  minHeight: "68vh",
-  textAlign: "center",
-  // backgroundColor: "greenyellow",
-});
-
 export const imageContainer = style({
-  backgroundImage: "url(./images/products_bg.png)",
+  backgroundImage: "url(/images/title_images/products_bg.png)",
+  width: "100vw",
   backgroundSize: "cover",
   position: "relative",
   height: "200px",
@@ -33,7 +25,31 @@ export const titleText = style({
   mixBlendMode: "screen",
 });
 
-
-export const categoriesContainer = style({
-     
+export const container = style({
+  position: "relative",
+  width: "100%",
+  marginTop: "90px",
+  minHeight: "68vh",
+  textAlign: "center",
+  // backgroundColor: "greenyellow",
 });
+
+export const card = style({
+  top: 0,
+  boxShadow: " 0 2px 5px rgba(0, 0, 0, 0.2)",
+  transition: "all 0.5s smooth",
+  ":hover": {
+ 
+    top: "-5px",
+    cursor: "pointer",
+    boxShadow: "0 2px 12px rgba(0, 0, 0, 0.11)",
+  },
+});
+
+export const cardBody = style({
+  ":hover": {
+    backgroundColor: "linear-gradient(to top right, #1c82c7 30%, transparent)",
+  },
+});
+
+ 

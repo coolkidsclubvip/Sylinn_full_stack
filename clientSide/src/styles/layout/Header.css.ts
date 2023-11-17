@@ -37,16 +37,10 @@ export const smallHeader = style({
   left: 0,
   right: 0,
   fontWeight: vars.fontWeights["bold"],
-  // margin: "-8px auto",
-  // fontSize: vars.fontSizes["1x"],
-  // fontWeight: vars.fontWeights["bold"],
   overflow: "hidden",
-  // borderBottom: `1px solid ${vars.colors.brand}`,
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
-  // transform: "scale(0.9)",
-  boxShadow: "1px 1px 8px  rgba(0, 0, 0, 0.5)",
   transition: "all 0.7s ease",
 });
 
@@ -73,56 +67,43 @@ export const navText = style({
   ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
 });
 
-/////////// search bar style//////////////
-// export const headerWrapper = style({
+// export const dropdown = style({
 //   position: "relative",
+//   display: "block",
+//   width: "150px",
 // });
-// export const searchContainer = style({
-//   position: "absolute",
+
+// export const dropdownbtn = style({
 //   width: "200px",
 //   display: "block",
-//   // backgroundColor: "red",
-//   margin: "1rem 12rem",
+//   float: "left",
+//   marginLeft: 0,
 // });
 
-////////////////////////////////
-export const dropdown = style({
-  position: "relative",
-  display: "block",
-  width: "150px",
-});
+// export const dropdownContent = style({
+//   position: "absolute",
+//   height: "auto",
+//   backgroundColor: vars.colors.white,
+//   minWidth: "150px",
+//   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.5)",
+//   zIndex: 99,
+//   marginTop: "1.5rem",
+//   marginLeft: "0px",
+//   lineHeight: "45px",
+//   fontSize: vars.fontSizes["1x"],
+//   fontWeight: vars.fontWeights.bold,
+//   transition: "all 1s ease-out",
+// });
 
-export const dropdownbtn = style({
-  width: "200px",
-  display: "block",
-  float: "left",
-  marginLeft: 0,
-});
-
-export const dropdownContent = style({
-  position: "absolute",
-  height: "auto",
-  backgroundColor: vars.colors.white,
-  minWidth: "150px",
-  boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.5)",
-  zIndex: 99,
-  marginTop: "1.5rem",
-  marginLeft: "0px",
-  lineHeight: "45px",
-  fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights.bold,
-  transition: "all 1s ease-out",
-});
-
-export const dropdownContentLink = style({
-  display: "inline-block",
-  width: "100%",
-  paddingLeft: "4px",
-  ":hover": {
-    backgroundColor: vars.colors.grey,
-    transition: "all 0.5s ease-in-out",
-  },
-});
+// export const dropdownContentLink = style({
+//   display: "inline-block",
+//   width: "100%",
+//   paddingLeft: "4px",
+//   ":hover": {
+//     backgroundColor: vars.colors.grey,
+//     transition: "all 0.5s ease-in-out",
+//   },
+// });
 
 // Search bar fade in effect
 export const fadeInDown = keyframes({
@@ -158,9 +139,4 @@ export const close = style({
   marginLeft: "-20%",
   cursor: "pointer",
   zIndex: "100",
- 
 });
-
-
-
-

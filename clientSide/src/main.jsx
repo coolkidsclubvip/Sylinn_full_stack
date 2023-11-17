@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import ScrollToTop from "./utils/scrollToTop.js";
 
+
 // CSS Reset & Typography
 import "./styles/global/resets.css";
 // Global styling

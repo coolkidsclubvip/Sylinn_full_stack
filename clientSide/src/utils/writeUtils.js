@@ -15,6 +15,14 @@ function capitalizeFirstLetter(text) {
   return text.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function capitalizeAllLetter(text) {
+  if (typeof text !== "string") {
+    return text;
+  }
+
+  return text.replace(/./g, (char) => char.toUpperCase());
+}
+
 function formatCategoryName(category) {
   let categoryText = "";
 
@@ -45,11 +53,11 @@ function formatCategoryName(category) {
   return categoryText;
 }
 
-
 const writeUtils = {
   priceFormatter,
   capitalizeFirstLetter,
   formatCategoryName,
+  capitalizeAllLetter,
 };
 
 export default writeUtils;

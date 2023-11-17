@@ -1,5 +1,5 @@
 import { style, globalStyle } from "@vanilla-extract/css";
-import { vars } from "../styles/global/themes.css"
+import { vars } from "../styles/global/themes.css";
 
 export const signupWrapper = style({
   width: "100vw",
@@ -7,11 +7,10 @@ export const signupWrapper = style({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  backgroundImage: "url(./images/signupBG.png)",
+  backgroundImage: "url(/images/signup_bg.png)",
   backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
-
 });
 
 export const userNav = style({
@@ -37,5 +36,5 @@ export const cardSmallText = style({
   fontSize: vars.fontSizes["1x"],
   fontWeight: vars.fontWeights.normal,
   fontStyle: "italic",
-color: vars.colors.black,
+  color: vars.colors.black,
 });

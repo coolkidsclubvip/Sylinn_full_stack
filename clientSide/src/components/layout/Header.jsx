@@ -65,7 +65,7 @@ function Header({
           className={` ${
             scrollTop < 200 && isHomePage
               ? styles.bigHeader
-              : styles.smallHeader
+              : `${scrollTop>0 ?   `${styles.smallHeader} shadow` :styles.smallHeader}`
           }`}
         >
           <Row className="d-flex align-items-center justify-content-between py-2 ms-5 mb-0">

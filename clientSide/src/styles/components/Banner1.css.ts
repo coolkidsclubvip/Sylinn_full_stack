@@ -19,10 +19,9 @@ export const left = style({
   padding:"8%"
 });
 
-export const right= style({
-width: "50%",
-backgroundImage:"url(./images/banner1.jpg)",
-backgroundSize: "cover",
-backgroundRepeat: "no-repeat",
-
-})
+export const right = style({
+  width: "50%",
+  backgroundImage: "url(/images/banner_images/banner1.jpg)",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+});

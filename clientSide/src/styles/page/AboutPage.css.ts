@@ -3,7 +3,7 @@ import { vars } from "../global/themes.css";
 import * as fonts from "../fonts/fonts.css";
 
 export const imageContainer = style({
-  backgroundImage: "url(./images/about_bg.jpg)",
+  backgroundImage: "url(/images/title_images/about_bg.jpg)",
   backgroundSize: "cover",
   position: "relative",
   height: "200px",

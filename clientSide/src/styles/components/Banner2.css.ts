@@ -20,7 +20,7 @@ export const right = style({
 
 export const left = style({
   width: "50%",
-  backgroundImage: "url(./images/banner2.png)",
+  backgroundImage: "url(/images/banner_images/banner2.png)",
  backgroundSize: "cover",
  backgroundPosition: "center",
  backgroundRepeat: "no-repeat",
