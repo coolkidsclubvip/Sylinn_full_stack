@@ -8,6 +8,7 @@ export default defineConfig({
   // in production, the proxy may or may not work, thus we need CORS
   server: {
     port: 3000,
+    host: "0.0.0.0", // Listen on all available network interfaces
     proxy: {
       "/api": {
         target: "https://sylinn-full-stack-serverside.onrender.com",
