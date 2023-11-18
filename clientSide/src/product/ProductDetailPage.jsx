@@ -162,7 +162,7 @@ function ProductDetailPage() {
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
               <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
-              <Breadcrumb.Item href={`/${category}`}>
+              <Breadcrumb.Item href={`/products/${category}`}>
                 {writeUtils.formatCategoryName(category)}
               </Breadcrumb.Item>
               <Breadcrumb.Item active>{titleInfo.title}</Breadcrumb.Item>

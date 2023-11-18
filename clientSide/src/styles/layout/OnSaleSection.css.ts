@@ -6,7 +6,7 @@ export const NAWrapper = style({
   width: "70vw",
   height: "auto",
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   flexWrap: "wrap",
   margin: "15vh auto",
 });

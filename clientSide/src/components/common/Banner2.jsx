@@ -14,14 +14,14 @@ function Banner2() {
           <Col md={6} sm={12} className={styles.left}></Col>
           <Col md={6} sm={12} className={styles.right}>
             <h2 className={fonts.futuraTitle}> Stay In the Loop</h2>
-            <p className={fonts.normalText}>
+            <p className={`${fonts.normalText} mt-3`}>
               Don't miss out! Sign up now to receive our regular newsletter and
-              enjoy the added convenience of creating a wishlist for your
-              favorite products.
-            </p>{" "}
-            <Link to="/register">
-              <BannerButton>REGISTER</BannerButton>{" "}
-            </Link>
+              enjoy the added convenience of being a registered member.
+            </p>
+             <div className="mt-3"><Link to="/register">
+              <BannerButton>REGISTER</BannerButton> 
+            </Link></div>
+            
           </Col>
         </div>
       </Container>

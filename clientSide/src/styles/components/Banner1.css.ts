@@ -1,26 +1,32 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../global/themes.css";
 
+ 
 
 export const bannerWrapper = style({
   width: "70vw",
-  height: "45vh",
-padding: 0,
+  height: "50vh",
+  padding: 0,
   margin: "15vh auto",
   display: "flex",
-  flexDirection: "row",
-  overflow: "hidden",
+  flexDirection: "column",
+
+  "@media screen and (max-width: 768px)": { marginBottom: "50vh " },
 });
 
 export const left = style({
   backgroundColor: vars.colors.grey,
-  width:"50%",
+ 
+  width: "100%",
   height: "100%",
-  padding:"8%"
+  padding: "8%",
 });
 
 export const right = style({
-  width: "50%",
+  flex: 1,
+  width: "100%" /* 添加宽度 */,
+  height: "50vh" /* 添加高度 */,
+  overflow: "hidden",
   backgroundImage: "url(/images/banner_images/banner1.jpg)",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",

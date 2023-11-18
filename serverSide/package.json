@@ -7,7 +7,7 @@
     "test": "node src/index",
     "server": "nodemon src/index",
     "debug": "DEBUG=app* & nodemon src/index",
-    "prod": "node src/index",
+    "prod": "node src/index"
   
   },
   "author": "lei's web dev",

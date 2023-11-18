@@ -59,14 +59,9 @@ function OnSale() {
   return (
     <Container>
       <div className={styles.NAWrapper}>
-        <p>
-          <span className={fonts.futuraTitle}>Our Best Sellers</span> <br />
-          <span className={fonts.normalText}>
-            New European design that is fresh off the boat
-          </span>
-        </p>
+        <span className={fonts.futuraTitle}>Our Best Sellers</span>
 
-        <div className={styles.tabsContainer}>
+        <div className={`${styles.tabsContainer} mt-3`}>
           <table className={styles.customTable}>
             <tbody>
               {/* Render category names */}
@@ -95,7 +90,6 @@ function OnSale() {
             </tbody>
           </table>
         </div>
-
         {selectedCategory && (
           <div className={`row ${styles.OSList}`}>
             {titleInfos
