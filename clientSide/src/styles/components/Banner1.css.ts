@@ -11,7 +11,7 @@ export const bannerWrapper = style({
   display: "flex",
   flexDirection: "column",
 
-  "@media screen and (max-width: 768px)": { marginBottom: "50vh " },
+  "@media screen and (max-width: 768px)": { marginBottom: "60vh " },
 });
 
 export const left = style({
@@ -19,7 +19,7 @@ export const left = style({
  
   width: "100%",
   height: "100%",
-  padding: "8%",
+  padding: "17%",
 });
 
 export const right = style({

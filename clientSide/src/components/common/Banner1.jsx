@@ -4,18 +4,16 @@ import { Container, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BannerButton from "./BannerButton";
 
-
 function Banner1() {
   return (
     <>
       <div className={styles.bannerWrapper}>
         <Container>
           <Row>
+            
             <Col md={6} sm={12} className="p-0">
               <div className={styles.left}>
-                {" "}
                 <h2 className={fonts.futuraTitle}>
-                  {" "}
                   From a humble beginng at Longkou China
                 </h2>
                 <p className={`${fonts.normalText} mt-3`}>
@@ -31,12 +29,10 @@ function Banner1() {
             </Col>
 
             <Col md={6} sm={12} className="p-0">
-              <div className={styles.right}>
-             
-              </div>
+              <div className={styles.right}></div>
             </Col>
           </Row>
-        </Container>{" "}
+        </Container>
       </div>
     </>
   );
