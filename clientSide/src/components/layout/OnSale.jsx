@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import * as styles from "../../styles/layout/OnSaleSection.css";
 // import * as styles from "../../styles/components/ProductTabs.css";
 import productService from "../../services/productService";
-import { Container, Spinner } from "react-bootstrap";
+import { Container, Spinner, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css";
 import { toast } from "react-toastify";
@@ -58,67 +58,72 @@ function OnSale() {
   // console.log("titleInfos are:", titleInfos);
   return (
     <Container>
-      <div className={styles.NAWrapper}>
+      <div className={styles.OsContainer}>
         <span className={fonts.futuraTitle}>Our Best Sellers</span>
 
         <div className={`${styles.tabsContainer} mt-3`}>
-          <table className={styles.customTable}>
-            <tbody>
-              {/* Render category names */}
-              <tr>
-                {uniqueCategories.length >= 1 &&
-                  uniqueCategories.map((category, index) => (
-                    <td
-                      key={index}
-                      className={`${styles.firstTab} ${
-                        selectedCategory === category
-                          ? styles.activeNavLink
-                          : ""
-                      }`}
-                      onClick={() => handleTabClick(category)}
-                    >
-                      {/* Use predefined formatter to prettier default category names */}
-                      <span className={fonts.futuraTabText}>
-                        {writeUtils.formatCategoryName(category)}
-                      </span>
-                    </td>
-                  ))}
-                {/* <td className={styles.restTab}>
+          {/* Render category names */}
+          <Row>
+            {uniqueCategories.length >= 1 &&
+              uniqueCategories.map((category, index) => (
+                <Col
+                  xs={6}
+                  md={2}
+                  key={index}
+                  className={`${styles.firstTab} ${
+                    selectedCategory === category ? styles.activeNavLink : ""
+                  }`}
+                  onClick={() => handleTabClick(category)}
+                >
+                  {/* Use predefined formatter to prettier default category names */}
+                  <span className={fonts.futuraTabText}>
+                    {writeUtils.formatCategoryName(category)}
+                  </span>
+                </Col>
+              ))}
+            {/* <td className={styles.restTab}>
                   <span></span>
                 </td> */}
-              </tr>
-            </tbody>
-          </table>
+          </Row>
         </div>
-        {selectedCategory && (
-          <div className={`row ${styles.OSList}`}>
-            {titleInfos
-              .filter((data) => data.category === selectedCategory)
-              .map((data, index) => (
-                <div className="col-md-4 col-sm-6" key={index}>
-                  <div className={styles.OSItem}>
-                    <Link to={`/products/${data.category}/${data.collection}`}>
-                      <img
-                        src={data.titleInfo.urls[0]}
-                        alt={data.titleInfo.title}
-                        className={styles.OSItemImage}
-                      />
-                    </Link>
-                    <div className={styles.OSItemText}>
-                      <span className={fonts.futuraGridCardTitles}>
-                        {writeUtils.capitalizeFirstLetter(data.titleInfo.title)}
-                      </span>
-                      <br />
-                      <p className={styles.code}>{data.titleInfo.code}</p>
+
+        <Row>
+          {selectedCategory && (
+            <div className={`${styles.OSList}`}>
+              {titleInfos
+                .filter((data) => data.category === selectedCategory)
+                .map((data, index) => (
+                  <Col xs={12} md={4} key={index} className="px-3">
+                    <div className={styles.OSItem}>
+                      <Link
+                        to={`/products/${data.category}/${data.collection}`}
+                      >
+                        <img
+                          src={data.titleInfo.urls[0]}
+                          alt={data.titleInfo.title}
+                          className={styles.OSItemImage}
+                        />
+                      </Link>
+                      <div className={styles.OSItemText}>
+                        <span className={fonts.futuraGridCardTitles}>
+                          {writeUtils.capitalizeFirstLetter(
+                            data.titleInfo.title
+                          )}
+                        </span>
+                        <br />
+                        <p className={styles.code}>{data.titleInfo.code}</p>
+                      </div>
+                      <Link
+                        to={`/products/${data.category}/${data.collection}`}
+                      >
+                        <button className={styles.button}> DETAILS</button>
+                      </Link>
                     </div>
-                    <Link to={`/products/${data.category}/${data.collection}`}>
-                      <button className={styles.button}> DETAILS</button>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-          </div>
-        )}
+                  </Col>
+                ))}
+            </div>
+          )}
+        </Row>
       </div>
     </Container>
   );

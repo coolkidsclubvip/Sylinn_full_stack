@@ -1,13 +1,14 @@
 import { style, globalStyle, keyframes } from "@vanilla-extract/css";
 import { vars } from "../global/themes.css";
 
-export const container = style({
-  // position: "relative",
-  display: "flex",
-  flexDirection: "column",
-  height: "auto",
-  zIndex: "99",
-});
+// export const container = style({
+//   // position: "absolute",
+//   // width: "100vw",
+//   // display: "flex",
+//   // flexDirection: "column",
+//   // height: "auto",
+//   // zIndex: "99",
+// });
 
 export const bigHeader = style({
   position: "fixed",
@@ -16,7 +17,7 @@ export const bigHeader = style({
   top: 0,
   left: 0,
   right: 0,
-  margin: "0 auto",
+
   paddingTop: "0",
   // fontSize: vars.fontSizes["1x"],
   // fontWeight: vars.fontWeights["bold"],
@@ -26,6 +27,7 @@ export const bigHeader = style({
   color: vars.colors.black,
   backgroundColor: "white",
   transition: "all 0.5s ease",
+  "@media screen and (max-width: 768px)": { height: "150px" },
 });
 
 export const smallHeader = style({
@@ -42,7 +44,13 @@ export const smallHeader = style({
   color: vars.colors.black,
   backgroundColor: "white",
   transition: "all 0.7s ease",
+  "@media screen and (max-width: 768px)": { height: "150px" },
 });
+
+// export const hamburgerAndLogoGroup = style({
+//   backgroundColor: "red",
+//   "@media screen and (max-width: 768px)": { display:"flex", flexDirection: "row", marginLeft: 0,justifyContent:"space-between",  }
+// });
 
 globalStyle(`${bigHeader} a`, {
   textDecoration: "none",
@@ -67,43 +75,9 @@ export const navText = style({
   ":hover": { opacity: 0.5, transition: "opacity 0.7s ease-in-out" },
 });
 
-// export const dropdown = style({
-//   position: "relative",
-//   display: "block",
-//   width: "150px",
-// });
-
-// export const dropdownbtn = style({
-//   width: "200px",
-//   display: "block",
-//   float: "left",
-//   marginLeft: 0,
-// });
-
-// export const dropdownContent = style({
-//   position: "absolute",
-//   height: "auto",
-//   backgroundColor: vars.colors.white,
-//   minWidth: "150px",
-//   boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.5)",
-//   zIndex: 99,
-//   marginTop: "1.5rem",
-//   marginLeft: "0px",
-//   lineHeight: "45px",
-//   fontSize: vars.fontSizes["1x"],
-//   fontWeight: vars.fontWeights.bold,
-//   transition: "all 1s ease-out",
-// });
-
-// export const dropdownContentLink = style({
-//   display: "inline-block",
-//   width: "100%",
-//   paddingLeft: "4px",
-//   ":hover": {
-//     backgroundColor: vars.colors.grey,
-//     transition: "all 0.5s ease-in-out",
-//   },
-// });
+export const buttonsGroup = style({
+  "@media screen and (max-width: 768px)": { paddingTop: "1rem" },
+});
 
 // Search bar fade in effect
 export const fadeInDown = keyframes({
@@ -130,9 +104,11 @@ export const SearchBarDiv = style({
 
 export const top100px = style({
   marginTop: "100px",
+  "@media screen and (max-width: 768px)": { marginTop: "150px" },
 });
 export const top70px = style({
   marginTop: "70px",
+  "@media screen and (max-width: 768px)": { marginTop: "150px" },
 });
 
 export const close = style({

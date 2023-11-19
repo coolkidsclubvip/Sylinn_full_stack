@@ -9,7 +9,7 @@ export const bannerWrapper = style({
   display: "flex",
   flexDirection: "column",
 
-  "@media screen and (max-width: 768px)": { marginBottom: "60vh " },
+  "@media screen and (max-width: 768px)": { marginBottom: "60vh ",width:"100vw" },
 });
 export const right = style({
   backgroundColor: vars.colors.grey,

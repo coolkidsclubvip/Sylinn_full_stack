@@ -8,6 +8,7 @@ export const NAWrapper = style({
   flexDirection: "row",
   flexWrap: "wrap",
   margin: "15vh auto",
+  "@media screen and (max-width: 768px)": { width: "100vw" },
 });
 
 export const NAList = style({

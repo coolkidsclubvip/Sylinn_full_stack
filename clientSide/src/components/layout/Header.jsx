@@ -2,13 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as styles from "../../styles/layout/Header.css";
 import * as fonts from "../../styles/fonts/fonts.css";
-import {
-  Container,
-  Row,
-  Col,
-  Navbar,
-
-} from "react-bootstrap";
+import { Container, Row, Col, Navbar } from "react-bootstrap";
 import Logo_sylinn_big from "../../assets/images/Logo-sylinn-big.png";
 import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
 import useAuth from "../../hooks/useAuth";
@@ -60,18 +54,22 @@ function Header({
 
   return (
     <>
-      <Container fluid className={styles.container}>
+      <Container fluid>
         <div
           className={` ${
             scrollTop < 200 && isHomePage
               ? styles.bigHeader
-              : `${scrollTop>0 ?   `${styles.smallHeader} shadow` :styles.smallHeader}`
+              : `${
+                  scrollTop > 0
+                    ? `${styles.smallHeader} shadow`
+                    : styles.smallHeader
+                }`
           }`}
         >
-          <Row className="d-flex align-items-center justify-content-between py-2 ms-5 mb-0">
+          <Row className="d-flex align-items-center justify-content-between py-2">
             <Col
-              xs={4}
-              sm={4}
+              xs={6}
+              sm={6}
               md={4}
               className="d-flex justify-content-center "
             >
@@ -82,22 +80,26 @@ function Header({
                 direction="right"
               />
             </Col>
-            <Col xs={4} sm={4} md={4} className="d-flex justify-content-center">
-              <Navbar.Brand>
-                <Link to={"/"}>
-                  <img
-                    src={`${
-                      scrollTop < 200 && isHomePage
-                        ? Logo_sylinn_big
-                        : Logo_sylinn_small
-                    }`}
-                    style={{ width: "100%" }}
-                    alt="Logo"
-                  />
-                </Link>
-              </Navbar.Brand>
+            <Col xs={6} sm={6} md={4} className="d-flex justify-content-center">
+              <Link to={"/"}>
+                <img
+                  src={`${
+                    scrollTop < 200 && isHomePage
+                      ? Logo_sylinn_big
+                      : Logo_sylinn_small
+                  }`}
+                  style={{ width: "100%" }}
+                  alt="Logo"
+                />
+              </Link>
             </Col>
-            <Col xs={4} sm={4} md={4} className="d-flex justify-content-center">
+
+            <Col
+              xs={12}
+              sm={12}
+              md={4}
+              className={`d-flex justify-content-center ${styles.buttonsGroup}`}
+            >
               {!user && (
                 <Link to={"/login"}>
                   <TbLogin2 size={30} className="me-4" />
@@ -113,14 +115,9 @@ function Header({
                   <TbUserSquare size={30} className="me-4" />
                 </Link>
               )}
-              {/* wishlist */}
-              <Link
-                // to={user ? "" : "/login"}
-                onClick={() => {
-                  setShowOffcanvas_Wish(!showOffcanvas_Wish);
-                }}
-              ></Link>
+
               {/* logout button */}
+
               {user && (
                 <Link>
                   <TbLogout size={30} onClick={handleClick} className="me-4" />

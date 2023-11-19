@@ -2,28 +2,34 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "../global/themes.css";
 import * as fonts from "../fonts/fonts.css";
 
-export const NAWrapper = style({
+export const OsContainer = style({
   width: "70vw",
   height: "auto",
   display: "flex",
   flexDirection: "column",
-  flexWrap: "wrap",
+
   margin: "15vh auto",
+
 });
 
 export const OSList = style({
   width: "100%",
   padding: "2rem 0",
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+
 });
 
 export const OSItem = style({
   height: "420px",
   overflow: "hidden",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
-  margin: "20px 4px",
+  margin: "20px 0",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  // "@media screen and (max-width: 768px)": { width: "90vw" },
 });
 
 export const OSItemText = style({
@@ -46,11 +52,7 @@ export const code = style({
   fontWeight: vars.fontWeights.normal,
   opacity: 0.7,
 });
-// export const description = style({
-//   fontFamily: vars.fonts.body,
-//   fontSize: vars.fontSizes["1x"],
-//   fontWeight: vars.fontWeights.normal,
-// });
+ 
 
 export const button = style({
   fontFamily: vars.fonts.brand,
@@ -65,7 +67,7 @@ export const button = style({
   textAlign: "center",
   cursor: "pointer",
   width: "80%",
-  marginLeft:"10%",
+  marginLeft: "10%",
   marginTop: "auto",
   marginBottom: "1rem",
   ":hover": { backgroundColor: vars.colors.brandDark },
@@ -75,13 +77,14 @@ export const button = style({
 
 export const tabsContainer = style({
   width: "100%",
-});
-
-export const customTable = style({
-  width: "100%",
-  //   borderCollapse: "collapse",
   borderBottom: "2px solid #ddd",
 });
+
+// export const customTable = style({
+//   width: "100%",
+//   //   borderCollapse: "collapse",
+//   borderBottom: "2px solid #ddd",
+// });
 
 export const firstTab = style({
   width: "10%",
@@ -103,8 +106,6 @@ export const firstTab = style({
 
 export const activeNavLink = style({
   opacity: 1,
-  backgroundColor:vars.colors.grey,
+  backgroundColor: vars.colors.grey,
   borderBottom: "2px solid black",
-  
 });
-

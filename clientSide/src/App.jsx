@@ -9,8 +9,6 @@ import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import Dashboard from "./pages/auth/Dashboard";
 import PrivateRoutes from "./components/layout/PrivateRoutes";
-// import BathPage from "./product/BathPage";
-// import FelicityBathPage from "./product/FelicityBathPage";
 import ProductDetailPage from "./product/ProductDetailPage";
 import CategoryPage from "./product/CategoryPage";
 import SearchPage from "./pages/SearchPage";
