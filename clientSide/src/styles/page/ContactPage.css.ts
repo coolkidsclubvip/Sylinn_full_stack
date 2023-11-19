@@ -8,6 +8,7 @@ export const imageContainer = style({
   position: "relative",
   height: "200px",
   marginTop: "70px",
+  "@media screen and (max-width: 768px)": { marginTop: "150px" },
 });
 
 export const titleText = style({

@@ -18,25 +18,26 @@ export const imageContainer = style({
   // backgroundColor: "green",
   overflow: "visible",
   zIndex: "90",
-  paddingRight:"1rem",
-  borderRight: "2px solid rgba(200, 200, 200,0.9)",
-  "@media": {
-    "(max-width: 1366px)": {
-      marginTop: "20vh", // md and below width margin top
-    },
-  },
+  paddingRight: "1rem",
+  borderRight: `2px solid ${vars.colors.border}`,
+  // "@media": {
+  //   "(max-width: 1366px)": {
+  //     marginTop: "20vh", // md and below width margin top
+  //   },
+  // },
+  "@media screen and (max-width: 768px)": { marginTop: "2rem" },
 });
-
 
 export const infoContainer = style({
   position: "relative",
   width: "auto",
   height: "50vh",
   textAlign: "left",
-  '@media': {
-    '(max-width: 1366px)': {
-      marginTop: "20vh", // md and below width margin top
-    }},
+  // '@media': {
+  //   '(max-width: 1366px)': {
+  //     marginTop: "20vh", // md and below width margin top
+  //   }},
+  "@media screen and (max-width: 768px)": { height: "20vh", marginTop: "2rem" },
 });
 
 export const rrp = style({
@@ -71,12 +72,16 @@ export const tabsContainer = style({
   height: "50vh",
   margin: "5vh auto",
   // backgroundColor: vars.colors.grey,
+  "@media screen and (max-width: 768px)": { marginTop: "2rem" },
 });
 
+export const border = style({
+  borderTop: `2px solid  ${vars.colors.border}`,
+});
 
 export const relatedProductsContainer = style({
   width: "100%",
   height: "auto",
-  borderTop: "2px solid #ddd",
-  
+
+  "@media screen and (max-width: 768px)": { marginTop: "2rem" },
 });

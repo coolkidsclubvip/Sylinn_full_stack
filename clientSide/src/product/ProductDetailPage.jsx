@@ -157,7 +157,7 @@ function ProductDetailPage() {
 
         {/* 1st row */}
         <Row>
-          <Col sm={12}>
+          <Col  >
             {" "}
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -268,13 +268,15 @@ function ProductDetailPage() {
       </div>
       <Row>
         <Col>
-          <span className={fonts.futuraTabText}>Related Products:</span>
+          
           <div className={styles.relatedProductsContainer}>
-            <RelatedProductsCarousel
+            <span className={fonts.futuraTabText}>Related Products:</span>
+            <div className={styles.border}><RelatedProductsCarousel
               relatedProducts={relatedProducts}
               category={category}
               setLoading={setLoading}
-            />
+            /></div>
+            
           </div>
         </Col>
       </Row>

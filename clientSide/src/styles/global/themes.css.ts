@@ -14,6 +14,7 @@ export const root = createGlobalTheme(":root", {
     brand: "#1c82c7",
     gold: "#BF9D5A",
     grey: "#EFEFEF",
+    border:"#dddd",
     brandLight: twColors.sky[500],
     brandDark: twColors.sky[700],
 

@@ -10,7 +10,7 @@ export const tabsContainer = style({
 export const customTable = style({
   width: "100%",
   //   borderCollapse: "collapse",
-  borderBottom: "2px solid #ddd",
+  borderBottom: `2px solid ${vars.colors.border}`,
 });
 
 export const firstTab = style({
