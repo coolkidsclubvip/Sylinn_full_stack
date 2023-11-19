@@ -66,7 +66,7 @@ export const div1 = style({
     height: "30vh",
     margin: "0 auto",
     backgroundPositionY: "60%",
-
+    flexDirection: "row",
   },
 });
 
@@ -88,6 +88,8 @@ export const div2 = style({
     width: "100vw",
     height: "30vh",
     margin: "0 auto",
+        flexDirection: "row",
+
   },
 });
 export const div3 = style({
@@ -109,6 +111,8 @@ export const div3 = style({
     height: "30vh",
     margin: "0 auto",
     backgroundPositionY: "50%",
+    flexDirection: "row",
+    justifyContent: " start",
   },
 });
 

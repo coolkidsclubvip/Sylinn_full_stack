@@ -28,4 +28,6 @@ export const right = style({
   backgroundImage: "url(/images/banner_images/banner1.jpg)",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
+
+  "@media screen and (max-width: 768px)": { backgroundPositionX: "70%" },
 });

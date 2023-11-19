@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css";
 import { toast } from "react-toastify";
 import writeUtils from "../../utils/writeUtils";
+import imagePlaceHolder from "../../assets/images/no_image_available.jpeg"
 
 function OnSale() {
   const [titleInfos, setTitleInfos] = useState([]);
@@ -98,11 +99,12 @@ function OnSale() {
                       <Link
                         to={`/products/${data.category}/${data.collection}`}
                       >
-                        <img
-                          src={data.titleInfo.urls[0]}
+                        <div className={styles.OSItemImage}>  <img
+                          src={data.titleInfo.urls ? data.titleInfo.urls[0]:imagePlaceHolder}
                           alt={data.titleInfo.title}
-                          className={styles.OSItemImage}
-                        />
+                          
+                        /></div>
+                      
                       </Link>
                       <div className={styles.OSItemText}>
                         <span className={fonts.futuraGridCardTitles}>
