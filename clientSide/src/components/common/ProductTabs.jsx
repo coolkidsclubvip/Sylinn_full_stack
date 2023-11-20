@@ -13,36 +13,36 @@ function ProductTabs({ titleInfo }) {
   };
 
   // Split description by *, and render
-    const renderDescriptionContent = () => {
-      // Split the description into paragraphs and list items
-      const paragraphsAndList = titleInfo.description.split(/\n(?=\* )/);
-      return (
-        <Container>
-          <Row>
-            <Col>
-              {paragraphsAndList.map((item, index) => {
-                // Check if the item is a list item (starts with '* ')
-                if (/^\* /.test(item)) {
-                  // Replace '*' with '<li>' and trim the item
-                  const listItem = `<li>${item.substring(2).trim()}</li>`;
-                  return (
-                    <div
-                      key={index}
-                      dangerouslySetInnerHTML={{ __html: listItem }}
-                    />
-                  );
-                } else {
-                  return <p key={index}>{item.trim()}</p>;
-                }
-              })}
-            </Col>
-          </Row>
-        </Container>
-      );
-    };
+  const renderDescriptionContent = () => {
+    // Split the description into paragraphs and list items
+    const paragraphsAndList = titleInfo.description.split(/\n(?=\* )/);
+    return (
+      <Container>
+        <Row>
+          <Col>
+            {paragraphsAndList.map((item, index) => {
+              // Check if the item is a list item (starts with '* ')
+              if (/^\*\s*/.test(item)) {
+                // Replace '*' with '<li>' and trim the item
+                const listItem = `<li>${item
+                  .replace(/^\*\s*/, "")
+                  .trim()}</li>`;
+                return (
+                  <div
+                    key={index}
+                    dangerouslySetInnerHTML={{ __html: listItem }}
+                  />
+                );
+              } else {
+                return <p key={index}>{item.trim()}</p>;
+              }
+            })}
+          </Col>
+        </Row>
+      </Container>
+    );
+  };
 
-
- 
   return (
     <>
       <div className={styles.tabsContainer}>
@@ -78,8 +78,6 @@ function ProductTabs({ titleInfo }) {
         <div className={styles.descriptionContent}>
           {/* Render the Description content here */}
           {renderDescriptionContent()}
-
-          {/* <p>{titleInfo.description}</p> */}
         </div>
       )}
       {selected === "downloads" && (
@@ -92,7 +90,7 @@ function ProductTabs({ titleInfo }) {
               <li
                 key={index}
                 style={{
-                  listStyleType:"none",
+                  listStyleType: "none",
                   // backgroundColor: "red",
                 }}
               >
@@ -104,8 +102,8 @@ function ProductTabs({ titleInfo }) {
                       overflow: "hidden",
                       margin: "1rem 0",
                     }}
-                  /> 
-                  {readUtils.getFileFromUrl(url)}  
+                  />
+                  {readUtils.getFileFromUrl(url)}
                 </a>
               </li>
             ))}
@@ -117,5 +115,3 @@ function ProductTabs({ titleInfo }) {
 }
 
 export default ProductTabs;
-
-

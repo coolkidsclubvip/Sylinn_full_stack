@@ -44,7 +44,7 @@ export const smallHeader = style({
   color: vars.colors.black,
   backgroundColor: "white",
   transition: "all 0.7s ease",
-  "@media screen and (max-width: 768px)": { height: "150px" },
+  "@media screen and (max-width: 768px)": { height: "122px" },
 });
 
 // export const hamburgerAndLogoGroup = style({

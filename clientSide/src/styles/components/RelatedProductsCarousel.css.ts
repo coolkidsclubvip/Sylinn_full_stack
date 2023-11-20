@@ -13,7 +13,7 @@ zIndex:"90"
 });
 export const customDotList = style({
   position: "absolute",
-  top: "80%",
+  top: "90%",
 
 });
 

@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import * as styles from "../../styles/components/RelatedProductsCarousel.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
+import writeUtils from "../../utils/writeUtils";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -70,26 +71,15 @@ function RelatedProductsCarousel({ relatedProducts, category, setLoading }) {
                     />
                   </div>
 
-                  <div className={styles.RPItemText}>
+                  <div className={`${styles.RPItemText} mt-3`}>
                     <span className={fonts.futuraGridCardTitles}>
-                      {item.titleInfo.title}
+                      {writeUtils.capitalizeFirstLetter(item.titleInfo.title)}
                     </span>
                     <br />
                     <p className={styles.code}>{item.titleInfo.code}</p>
                   </div>
-                  {/* <Link to={`/products/${category}/${item.collectionId}`}>
-                  <button
-                    className={styles.button}
-                    type="button"
-                    onClick={() => {
-                      setLoading(true);
-                    }}
-                  >
-                    {" "}
-                    DETAILS
-                  </button>
-                </Link> */}
-                </div>{" "}
+                
+                </div>
               </Link>
             </div>
             // </div>
