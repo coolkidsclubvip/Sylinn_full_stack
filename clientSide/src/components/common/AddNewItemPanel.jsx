@@ -13,6 +13,7 @@ import SyButton from "./SyButton";
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
 import writeUtils from "../../utils/writeUtils";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
   const [loading, setLoading] = useState(false);
@@ -106,16 +107,36 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     setProductData({ ...productData, products: newProducts });
   };
 
-  // To delete files from to-be-deleted files list
-  const removeFile = (index) => {
+  // To remove a File upload field and its corresponding fileField
+  const removeUploadImage = (index) => {
+    // Create a shallow copy of uploadedImages
+    const updatedImages = [...uploadedImages];
+    // Remove the file at the specified index
+    updatedImages.splice(index, 1);
+    // Update the state with the modified array
+    setUploadedImages(updatedImages);
+    // Create a shallow copy of fileFields
+    const updatedImageFields = [...imageFields];
+    // Remove the ImageField at the specified index
+    updatedImageFields.splice(index, 1);
+    // Update the state with the modified array
+    setImageFields(updatedImageFields);
+  };
+
+  // To remove a File upload field and its corresponding fileField
+  const removeUploadFile = (index) => {
+    // Create a shallow copy of uploadedFiles
     const updatedFiles = [...uploadedFiles];
+    // Remove the file at the specified index
     updatedFiles.splice(index, 1);
+    // Update the state with the modified array
     setUploadedFiles(updatedFiles);
-    // Set input in form to " "
-    const fileInputs = document.getElementsByName("downloadUrls");
-    if (fileInputs[index]) {
-      fileInputs[index].value = "";
-    }
+    // Create a shallow copy of fileFields
+    const updatedFileFields = [...fileFields];
+    // Remove the fileField at the specified index
+    updatedFileFields.splice(index, 1);
+    // Update the state with the modified array
+    setFileFields(updatedFileFields);
   };
 
   // Run function when SUBMIT is clicked
@@ -141,11 +162,11 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     }
   };
 
-  console.log("ProductData is:", productData);
+
 
   return (
     <Container>
-      <div className={`${styles.container} shadow`}>
+      <div className={`${styles.container} `}>
         <h1>
           {" "}
           Adding a new product into{" "}
@@ -210,18 +231,34 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
               />
             </Form.Group>
             {/* GROUP 5 & 6: IMAGE UPLOAD & PDF FILE UPLOAD */}
+
             <Row>
               <Col lg={6} md={6} sm={12}>
                 {imageFields.map((field, index) => (
-                  <Form.Group key={index} className="mb-3">
-                    <Form.Label>Product image</Form.Label>
-                    <Form.Control
-                      type="file"
-                      className="mb-4"
-                      name="urls"
-                      onChange={(e) => handleImageChange(e)}
-                    />
-                  </Form.Group>
+                  <Row key={index} className="mb-1">
+                    <Col md={2}>
+                      {imageFields.length>1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeUploadImage(index)}
+                          className="btn btn-warning btn-sm mt-5 "
+                        >
+                          <RiDeleteBinLine />
+                        </button>
+                      )}
+                    </Col>
+                    <Col md={10}>
+                      <Form.Group>
+                        <Form.Label>Product image</Form.Label>
+                        <Form.Control
+                          type="file"
+                          className="mb-4"
+                          name="urls"
+                          onChange={(e) => handleImageChange(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
                 ))}
                 <button
                   type="button"
@@ -231,27 +268,33 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                   Add More Image
                 </button>
               </Col>
+
               <Col lg={6} md={6} sm={12}>
                 {fileFields.map((field, index) => (
-                  <div key={index}>
-                    {" "}
-                    <Form.Group className="mb-3">
-                      <Form.Label>File Upload</Form.Label>
-                      <Form.Control
-                        type="file"
-                        className="mb-4"
-                        name="downloadUrls"
-                        onChange={(e) => handleFileChange(e)}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeFile(index)}
-                        className="btn btn-warning"
-                      >
-                        Remove
-                      </button>
-                    </Form.Group>
-                  </div>
+                  <Row key={index} className="mb-1">
+                    <Col md={10}>
+                      <Form.Group>
+                        <Form.Label>File Upload (Optional)</Form.Label>
+                        <Form.Control
+                          type="file"
+                          className="mb-4"
+                          name="downloadUrls"
+                          onChange={(e) => handleFileChange(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col md={2}>
+                      <Form.Group>
+                        <button
+                          type="button"
+                          onClick={() => removeUploadFile(index)}
+                          className="btn btn-warning btn-sm mt-5"
+                        >
+                          <RiDeleteBinLine />
+                        </button>
+                      </Form.Group>
+                    </Col>
+                  </Row>
                 ))}
                 <button
                   type="button"
@@ -267,7 +310,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
             <Row>
               <Col lg={6} md={6} sm={12}>
                 {" "}
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3 mt-5">
                   <Form.Label>Product sale status</Form.Label>
                   <Form.Check
                     type="radio"
@@ -291,8 +334,9 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
 
             {/***********  GROUP 8: Product Details  *************/}
             {products.map((product, index) => (
-              <div key={index}>
-                <hr style={{ color: "red" }} />
+              <div key={index} className="mt-5">
+                Options (minimum 1):
+                <hr style={{ color: "blue", height: "2px", width: "100%" }} />
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
@@ -367,7 +411,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onClick={addProduct}
                 className="btn btn-primary mt-3"
               >
-                Add More Product(Variant)
+                Add More Option(Variant)
               </button>
             </Form.Group>
             <button className="btn btn-success mt-5">

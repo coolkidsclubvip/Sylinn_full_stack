@@ -27,6 +27,7 @@ export const OSItem = style({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  borderRadius: "5px",
   // "@media screen and (max-width: 768px)": {
   //   width: "90vw",
   //   height: "auto",

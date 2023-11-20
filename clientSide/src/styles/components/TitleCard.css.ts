@@ -23,6 +23,7 @@ export const NAItem = style({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  borderRadius: "5px",
 });
 
 export const NAItemText = style({

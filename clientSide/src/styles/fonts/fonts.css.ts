@@ -17,9 +17,9 @@ export const futuraNav = style({
   fontFamily: futura,
   fontSize: vars.fontSizes["3x"],
   fontWeight: vars.fontWeights.bold,
-opacity: 1,
+opacity: 0.9,
   color: vars.colors.black,
-  ":hover": { opacity: 0.8 },
+  ":hover": { opacity: 1},
 });
 
 export const futuraTabText = style({

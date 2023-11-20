@@ -92,7 +92,7 @@ function EditItemPanel({
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
   };
-  console.log("即时的productData is: ", productData);
+
   // handle text input change
   const handleProductTextChange = (e, index, field) => {
     const { value } = e.target;
@@ -129,29 +129,31 @@ function EditItemPanel({
   };
 
   // To delete files from to-be-deleted files list
-  const removeFile = (index) => {
+  const removeUploadFile = (index) => {
     const updatedFiles = [...uploadedFiles];
     updatedFiles.splice(index, 1);
     setUploadedFiles(updatedFiles);
-    // Set input in form to " "
-    const fileInputs = document.getElementsByName("downloadUrls");
-    if (fileInputs[index]) {
-      fileInputs[index].value = "";
-    }
+    // Create a shallow copy of fileFields
+    const updatedFileFields = [...fileFields];
+    // Remove the fileField at the specified index
+    updatedFileFields.splice(index, 1);
+    // Update the state with the modified array
+    setFileFields(updatedFileFields);
   };
 
 
     // To delete files from to-be-deleted files list
-  const removeImage= (index) => {
+  const removeUploadImage = (index) => {
     const updatedImages = [...uploadedImages];
     updatedImages.splice(index, 1);
     setUploadedImages(updatedImages);
-    // Set input in form to " "
-     const fileInputs = document.getElementsByName("urls");
-     if (fileInputs[index]) {
-       fileInputs[index].value = "";
-     }
-  }
+    // Create a shallow copy of fileFields
+    const updatedImageFields = [...imageFields];
+    // Remove the ImageField at the specified index
+    updatedImageFields.splice(index, 1);
+    // Update the state with the modified array
+    setImageFields(updatedImageFields);
+  };
 
   // Handle button click to DELETE EXISTING IMAGE
   const handleImageDelete = async (e, url) => {
@@ -347,22 +349,33 @@ function EditItemPanel({
             <Row>
               <Col lg={6} md={6} sm={12}>
                 {imageFields.map((field, index) => (
-                  <Form.Group key={index} className="mb-3">
-                    <Form.Label>Image Upload</Form.Label>
-                    <Form.Control
-                      type="file"
-                      className="mb-4"
-                      name="urls"
-                      onChange={(e) => handleImageChange(e)}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeImage(index)}
-                      className="btn btn-warning"
-                    >
-                      Remove
-                    </button>
-                  </Form.Group>
+                  <Row key={index} className="mb-3">
+                    <Col md={10}>
+                      {" "}
+                      <Form.Group>
+                        <Form.Label>Image Upload</Form.Label>
+                        <Form.Control
+                          type="file"
+                          className="mb-4"
+                          name="urls"
+                          onChange={(e) => handleImageChange(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+
+                    <Col md={2}>
+                      {" "}
+                      {imageFields.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeUploadImage(index)}
+                          className="btn btn-warning btn-sm mt-5"
+                        >
+                          <RiDeleteBinLine />
+                        </button>
+                      )}
+                    </Col>
+                  </Row>
                 ))}
 
                 <button
@@ -406,25 +419,30 @@ function EditItemPanel({
 
               <Col lg={6} md={6} sm={12}>
                 {fileFields.map((field, index) => (
-                  <div key={index}>
-                    {" "}
-                    <Form.Group className="mb-3">
-                      <Form.Label>File Upload</Form.Label>
-                      <Form.Control
-                        type="file"
-                        className="mb-4"
-                        name="downloadUrls"
-                        onChange={(e) => handleFileChange(e)}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeFile(index)}
-                        className="btn btn-warning"
-                      >
-                        Remove
-                      </button>
-                    </Form.Group>
-                  </div>
+                  <Row key={index} className="mb-1">
+                    <Col md={10}>
+                      <Form.Group>
+                        <Form.Label>File Upload</Form.Label>
+                        <Form.Control
+                          type="file"
+                          className="mb-4"
+                          name="downloadUrls"
+                          onChange={(e) => handleFileChange(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col md={2}>
+                      <Form.Group>
+                        <button
+                          type="button"
+                          onClick={() => removeUploadFile(index)}
+                          className="btn btn-warning btn-sm mt-5"
+                        >
+                          <RiDeleteBinLine />
+                        </button>
+                      </Form.Group>
+                    </Col>
+                  </Row>
                 ))}
                 <button
                   type="button"
@@ -437,7 +455,7 @@ function EditItemPanel({
             </Row>
 
             {/* GROUP 7: onSale */}
-            <Row>
+            <Row className="mt-5">
               <Col lg={6} md={6} sm={12}>
                 {" "}
                 <Form.Group className="mb-3">

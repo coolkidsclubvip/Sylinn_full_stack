@@ -26,10 +26,10 @@ export const NAItem = style({
 });
 
 export const NAItemText = style({
-  textAlign: "left",
+  textAlign: "center",
   position: "relative",
 
-  padding: "1.1rem",
+  padding: "1.5 rem",
 });
 
 export const NAItemImage = style({
@@ -41,6 +41,7 @@ export const NAItemImage = style({
   padding: 0,
   transition: "all 0.5s ease",
   ":hover": { opacity: 0.8 },
+
 });
 
 export const code = style({
@@ -69,6 +70,6 @@ export const button = style({
   width: "80%",
  marginLeft: "10%",
   marginBottom: "1rem",
-
+marginTop: "1rem",
   ":hover": { opacity: "0.8" },
 });

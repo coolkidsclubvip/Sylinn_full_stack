@@ -145,14 +145,16 @@ function ProductDetailPage() {
     <Container>
       <div className={styles.container}>
         {showEditPanel && (
-          <EditItemPanel
-            setShowEditPanel={setShowEditPanel}
-            data={data}
-            titleInfo={titleInfo}
-            category={category}
-            collection={collection}
-            fetchProduct={fetchProduct}
-          />
+          <div className={styles.editItemBG}>
+            <EditItemPanel
+              setShowEditPanel={setShowEditPanel}
+              data={data}
+              titleInfo={titleInfo}
+              category={category}
+              collection={collection}
+              fetchProduct={fetchProduct}
+            />
+          </div>
         )}
 
         {/* 1st row */}

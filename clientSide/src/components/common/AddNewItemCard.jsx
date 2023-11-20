@@ -5,7 +5,7 @@ import admin from "/images/admin_logo.png";
 
 function AddNewItemCard({ setShowAddNewPanel }) {
   return (
-    <div className="col-md-4 col-sm-6 col-12">
+    <div className="col-md-4 col-sm-6 col-12 ">
       <div className={styles.NAItem}>
         <Link to={""}>
           <div
@@ -17,13 +17,11 @@ function AddNewItemCard({ setShowAddNewPanel }) {
             <img src={admin} alt={"admin"} />
           </div>
         </Link>
-        <div className={styles.NAItemText}>
-          <span className={fonts.futuraGridCardTitles}>{""}</span>
-          <br />
-          <h4>Admin:</h4>
+        <div className={`${styles.NAItemText} bg-info`}>
+
           <p className={fonts.normalText}>
-            make sure you have name, title, description,image and specs PDF file
-            ready
+            <b>Admin:</b><br/> make sure you have name, title, description,image
+            and specs PDF file ready
           </p>
 
           <Link>

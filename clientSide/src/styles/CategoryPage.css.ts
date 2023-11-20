@@ -1,6 +1,9 @@
 import { style, globalStyle } from "@vanilla-extract/css";
 import { vars } from "./global/themes.css";
 
+
+
+
 export const imageContainer = style({
   backgroundImage: "url(/images/title_images/category_bg.png)",
   backgroundSize: "cover",
@@ -32,3 +35,19 @@ export const container = style({
   textAlign: "center",
   // backgroundColor: "greenyellow",
 });
+
+
+export const addItemBG = style({
+  position: "absolute",
+  width: "100vw",
+  height: "auto", // Set height to cover the entire screen
+  
+  backgroundColor: "rgba(200, 200, 200, 0.95)",
+  backgroundSize: "cover", // Change to cover
+  zIndex: 100,
+  left: "50%", // Change to left instead of marginLeft
+  transform: "translateX(-50%)", // Change to transform
+
+  padding: "5rem 2rem",
+});
+

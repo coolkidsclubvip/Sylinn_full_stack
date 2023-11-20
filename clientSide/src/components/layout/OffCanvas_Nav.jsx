@@ -20,7 +20,7 @@ function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
           id="offcanvasScrolling"
           aria-labelledby="offcanvasScrollingLabel"
         >
-          <div className="offcanvas-body d-flex flex-column mt-5 py-5 ">
+          <div className="offcanvas-body d-flex flex-column mt-5 py-5 px-5">
        
 
             <Nav.Link className={styles.navbtn} href="/">
@@ -32,15 +32,15 @@ function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
             <Nav.Link className={styles.navbtn} href="/about">
               <span className={fonts.futuraNav}>About&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="/gallery">
+            {/* <Nav.Link className={styles.navbtn} href="/gallery">
               <span className={fonts.futuraNav}>Gallery&nbsp;&nbsp;</span>
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link className={styles.navbtn} href="/contact">
               <span className={fonts.futuraNav}>Contact&nbsp;&nbsp;</span>
             </Nav.Link>
-            <Nav.Link className={styles.navbtn} href="/retailers_map">
+            {/* <Nav.Link className={styles.navbtn} href="/retailers_map">
               <span className={fonts.futuraNav}>Retailers&nbsp;&nbsp;</span>
-            </Nav.Link>
+            </Nav.Link> */}
           </div>
         </div>{" "}
       </div>

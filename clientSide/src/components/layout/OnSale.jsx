@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css";
 import { toast } from "react-toastify";
 import writeUtils from "../../utils/writeUtils";
-import imagePlaceHolder from "../../assets/images/no_image_available.jpeg"
+import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 
 function OnSale() {
   const [titleInfos, setTitleInfos] = useState([]);
@@ -20,7 +20,8 @@ function OnSale() {
       const response = await productService.getOnSaleCollections();
       // console.log("response.data is: ", response.data);
       setTitleInfos(response.data);
-
+      // Store data in localStorage
+      localStorage.setItem(`onSaleTitleInfos`, JSON.stringify(response.data));
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -29,7 +30,7 @@ function OnSale() {
     }
   }
   // a new function to call 1st available category
-  function fetchFirstCat() {
+  function fetchFirstCate() {
     if (titleInfos.length == 0) {
       console.log("no data");
     } else {
@@ -39,12 +40,20 @@ function OnSale() {
   }
 
   useEffect(() => {
-    if (loading) {
-      FetchOnSaleTitleInfos();
+    // Check if data exists in localStorage
+    const cachedData = localStorage.getItem(`onSaleTitleInfos`);
 
-      // call function to set default category
+    if (cachedData) {
+      // Use cached data if available
+      setTitleInfos(JSON.parse(cachedData));
+      setLoading(false);
+    } else {
+      FetchOnSaleTitleInfos();
     }
-    fetchFirstCat();
+
+    // call function to set default category
+
+    fetchFirstCate();
   }, [loading]);
 
   const handleTabClick = (category) => {
@@ -99,12 +108,17 @@ function OnSale() {
                       <Link
                         to={`/products/${data.category}/${data.collection}`}
                       >
-                        <div className={styles.OSItemImage}>  <img
-                          src={data.titleInfo.urls ? data.titleInfo.urls[0]:imagePlaceHolder}
-                          alt={data.titleInfo.title}
-                          
-                        /></div>
-                      
+                        <div className={styles.OSItemImage}>
+                          {" "}
+                          <img
+                            src={
+                              data.titleInfo.urls
+                                ? data.titleInfo.urls[0]
+                                : imagePlaceHolder
+                            }
+                            alt={data.titleInfo.title}
+                          />
+                        </div>
                       </Link>
                       <div className={styles.OSItemText}>
                         <span className={fonts.futuraGridCardTitles}>

@@ -11,6 +11,8 @@ export const container = style({
   // backgroundColor: "greenyellow",
 });
 
+export const editBg=style({})
+
 
 // export const EditPanelContainer=style({
 //   zIndex: "999"

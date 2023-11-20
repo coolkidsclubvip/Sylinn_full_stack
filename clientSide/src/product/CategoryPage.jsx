@@ -59,13 +59,22 @@ function CategoryPage() {
     }
   }, [loading, category]);
 
-  console.log("data in CategoryPage is:", data);
 
   const formattedCategory = writeUtils.formatCategoryName(category);
 
   return (
     <>
-      {" "}
+      {showAddNewPanel && (
+        <div className={styles.addItemBG}>
+          {" "}
+          <AddNewItemPanel
+            setShowAddNewPanel={setShowAddNewPanel}
+            fetchCollections={fetchCollections}
+            category={category}
+          />
+          <div style={{ marginTop: "20vh" }}></div>
+        </div>
+      )}{" "}
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>
           {writeUtils.capitalizeAllLetter(formattedCategory)}
@@ -86,17 +95,6 @@ function CategoryPage() {
             </Col>
           </Row>
 
-          {showAddNewPanel && (
-            <AddNewItemPanel
-              setShowAddNewPanel={setShowAddNewPanel}
-              fetchCollections={fetchCollections}
-              category={category}
-            />
-          )}
-
-          {/*       
-        <Row>
-          <Col> */}
           <div className={styles.NAWrapper}>
             <div className={`row ${styles.NAList}`}>
               {/* add new item card is the 1st card, only visible to Admin */}
@@ -109,8 +107,6 @@ function CategoryPage() {
               ))}
             </div>
           </div>
-          {/* </Col>
-        </Row> */}
         </div>
       </Container>
     </>

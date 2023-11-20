@@ -43,7 +43,7 @@ export const smallHeader = style({
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
-  transition: "all 0.7s ease",
+  transition: "all 0.5s ease",
   "@media screen and (max-width: 768px)": { height: "122px" },
 });
 
