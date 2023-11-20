@@ -26,7 +26,7 @@ function RelatedProductsCarousel({ relatedProducts, category, setLoading }) {
   console.log("category is", category);
 
   return (
-    <div>
+  
       <Carousel
         centerMode={false}
         swipeable={true}
@@ -96,7 +96,7 @@ function RelatedProductsCarousel({ relatedProducts, category, setLoading }) {
           );
         })}
       </Carousel>
-    </div>
+  
   );
 }
 

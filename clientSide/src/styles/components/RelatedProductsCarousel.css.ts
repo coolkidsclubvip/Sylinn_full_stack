@@ -9,7 +9,7 @@ export const customClass= style({
 
 export const carouselContainer = style({
   paddingTop: "3rem",
-
+zIndex:"90"
 });
 export const customDotList = style({
   position: "absolute",

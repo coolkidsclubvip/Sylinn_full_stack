@@ -16,7 +16,6 @@ function CategoryPage() {
   const { user } = useAuth();
   const { category, collection } = useParams();
   const [showAddNewPanel, setShowAddNewPanel] = useState(false);
-  
 
   async function fetchCollections() {
     try {
@@ -58,8 +57,6 @@ function CategoryPage() {
       // Fetch data from the database if not available in localStorage
       fetchCollections();
     }
-
-     
   }, [loading, category]);
 
   console.log("data in CategoryPage is:", data);

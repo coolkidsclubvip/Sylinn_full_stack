@@ -8,7 +8,12 @@ function AddNewItemCard({ setShowAddNewPanel }) {
     <div className="col-md-4 col-sm-6 col-12">
       <div className={styles.NAItem}>
         <Link to={""}>
-          <div className={styles.NAItemImage}>
+          <div
+            className={styles.NAItemImage}
+            onClick={() => {
+              setShowAddNewPanel(true);
+            }}
+          >
             <img src={admin} alt={"admin"} />
           </div>
         </Link>

@@ -157,7 +157,7 @@ function ProductDetailPage() {
 
         {/* 1st row */}
         <Row>
-          <Col  >
+          <Col>
             {" "}
             <Breadcrumb>
               <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -165,7 +165,10 @@ function ProductDetailPage() {
               <Breadcrumb.Item href={`/products/${category}`}>
                 {writeUtils.formatCategoryName(category)}
               </Breadcrumb.Item>
-              <Breadcrumb.Item active>{titleInfo.title}</Breadcrumb.Item>
+              <Breadcrumb.Item active>
+                {" "}
+                {writeUtils.capitalizeFirstLetter(titleInfo.title)}
+              </Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </Row>
@@ -266,17 +269,19 @@ function ProductDetailPage() {
           </Col>
         </Row>
       </div>
+      {/* Amateur way to avoid overlapping */}
+      <div style={{ marginTop: "20px" }} />
       <Row>
         <Col>
-          
           <div className={styles.relatedProductsContainer}>
             <span className={fonts.futuraTabText}>Related Products:</span>
-            <div className={styles.border}><RelatedProductsCarousel
-              relatedProducts={relatedProducts}
-              category={category}
-              setLoading={setLoading}
-            /></div>
-            
+            <div className={styles.border}>
+              <RelatedProductsCarousel
+                relatedProducts={relatedProducts}
+                category={category}
+                setLoading={setLoading}
+              />
+            </div>
           </div>
         </Col>
       </Row>

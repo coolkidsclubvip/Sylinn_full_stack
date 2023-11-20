@@ -6,7 +6,7 @@ export const container = style({
   position: "absolute",
   width: "110vw",
   height: "auto",
-  backgroundColor: "rgba(200, 200, 200, 0.9)",
+  backgroundColor: "rgba(200, 200, 200, 0.95)",
   zIndex: 99,
   marginLeft: "50%",
   translate: "-50%",

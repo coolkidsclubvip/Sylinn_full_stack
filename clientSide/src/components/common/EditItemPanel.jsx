@@ -293,6 +293,7 @@ function EditItemPanel({
               <Form.Control
                 type="text"
                 as="textarea"
+                rows={10}
                 placeholder="Enter product description"
                 name="description"
                 value={description}
@@ -319,8 +320,8 @@ function EditItemPanel({
                       src={url}
                       id={url}
                       style={{
-                        minWidth: "25%",
-                        maxWidth: "50%",
+                        // minWidth: "25%",
+                        // maxWidth: "50%",
                         height: "5rem",
                         overflow: "hidden",
                         margin: "1rem auto",
@@ -391,7 +392,7 @@ function EditItemPanel({
                       <button
                         id={"btn" + `${url}`}
                         type="button"
-                        className="btn btn-danger btn-sm"
+                        className="btn btn-danger btn-sm ms-3"
                         onClick={(e) => {
                           handleFileDelete(e, url);
                         }}
@@ -532,14 +533,16 @@ function EditItemPanel({
                     </Form.Group>
                   </Col>
                 </Row>
-               {products.length>1&& <button
-                  onClick={(e) => {
-                    handleDeleteProduct(e, `${products[index].id}`);
-                  }}
-                  className="btn btn-danger btn-sm"
-                >
-                  <RiDeleteBinLine />
-                </button>}
+                {products.length > 1 && (
+                  <button
+                    onClick={(e) => {
+                      handleDeleteProduct(e, `${products[index].id}`);
+                    }}
+                    className="btn btn-danger btn-sm"
+                  >
+                    <RiDeleteBinLine />
+                  </button>
+                )}
               </div>
             ))}
             <Form.Group className="mb-3">

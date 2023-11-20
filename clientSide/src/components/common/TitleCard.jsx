@@ -2,7 +2,7 @@ import * as styles from "../../styles/components/TitleCard.css";
 import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css.ts";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg"
-
+import writeUtils from "../../utils/writeUtils";
 function TitleCard({data}) {
 
 const {collectionId,titleInfo}=data
@@ -19,7 +19,7 @@ const {collectionId,titleInfo}=data
           </div>
         </Link>
         <div className={styles.NAItemText}>
-          <span className={fonts.futuraGridCardTitles}>{titleInfo.title}</span>
+          <span className={fonts.futuraGridCardTitles}>{writeUtils.capitalizeFirstLetter(titleInfo.title) }</span>
           <br />
           <p className={styles.code}>{titleInfo.code}</p>
         </div>

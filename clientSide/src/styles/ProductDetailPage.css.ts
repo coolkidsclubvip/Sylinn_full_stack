@@ -11,6 +11,11 @@ export const container = style({
   // backgroundColor: "greenyellow",
 });
 
+
+// export const EditPanelContainer=style({
+//   zIndex: "999"
+// })
+
 export const imageContainer = style({
   position: "relative",
   width: "100%",
