@@ -1,5 +1,12 @@
 import { useState, useEffect, useAuth, useParams } from "react";
-import { Container, Row, Col, Breadcrumb, Card } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Breadcrumb,
+  Card,
+  Spinner,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import productService from "../services/productService";
 import * as styles from "../styles/page/ProductsPage.css";
@@ -24,6 +31,7 @@ function ProductsPage() {
       const response = await productService.getAllCategories();
 
       setCategories(response.data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -55,6 +63,16 @@ function ProductsPage() {
         return no_image_available;
     }
   };
+
+  if (loading) {
+    return (
+      <Container>
+        <div className={`${styles.container}`} style={{ paddingTop: "25%" }}>
+          <Spinner />
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <>
@@ -93,7 +111,7 @@ function ProductsPage() {
                           {writeUtils.formatCategoryName(category.id)}
                         </span>
                       </Card.Title>
-                      <Card.Text  >
+                      <Card.Text>
                         Some quick example text to build on the card title and
                         make up the bulk of the card's content.
                       </Card.Text>
@@ -104,9 +122,9 @@ function ProductsPage() {
               </Col>
             ))}
           </Row>
-          <Row>
+          {/* <Row>
             <Col sm={12}>4</Col>
-          </Row>
+          </Row> */}
         </div>
       </Container>
     </>
