@@ -30,6 +30,11 @@ export const row = style({
   },
 });
 
+export const underLine = style({
+  ":hover":{textDecoration: "underline"},
+});
+
+
 // Create four equal columns that sit next to each other
 export const column = style({
   flex: "1",

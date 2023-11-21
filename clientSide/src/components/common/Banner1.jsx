@@ -10,11 +10,10 @@ function Banner1() {
       <div className={styles.bannerWrapper}>
         <Container>
           <Row>
-            
             <Col md={6} sm={12} className="p-0">
               <div className={styles.left}>
                 <h2 className={fonts.futuraTitle}>
-                  From a humble beginng at Longkou China
+                  From a humble beginning in Longkou China
                 </h2>
                 <p className={`${fonts.normalText} mt-3`}>
                   Our cherished bathware craftsmanship finds a poetic home in

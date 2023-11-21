@@ -68,8 +68,8 @@ function Header({
         >
           <Row className="d-flex align-items-center justify-content-between py-2">
             <Col
-              xs={6}
-              sm={6}
+              xs={1}
+              sm={1}
               md={4}
               className="d-flex justify-content-center "
             >
@@ -80,7 +80,12 @@ function Header({
                 direction="right"
               />
             </Col>
-            <Col xs={6} sm={6} md={4} className="d-flex justify-content-center">
+            <Col
+              xs={11}
+              sm={11}
+              md={4}
+              className="d-flex justify-content-center"
+            >
               <Link to={"/"}>
                 <img
                   src={`${

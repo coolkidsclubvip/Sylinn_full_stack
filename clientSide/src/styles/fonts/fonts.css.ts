@@ -27,8 +27,10 @@ export const futuraTabText = style({
   fontSize: vars.fontSizes["2x"],
   fontWeight: vars.fontWeights.bold,
   color: vars.colors.black,
- 
+  
 });
+
+
 
 export const futuraGridCardTitles = style({
   fontFamily: futura,

@@ -99,7 +99,7 @@ export const SearchBarDiv = style({
   backgroundColor: "#EEEEEE",
   width: "100vw",
   textAlign: "center",
-  animation: `${fadeInDown} 0.4s ease`, // Search bar fade in effect
+  animation: `${fadeInDown} 0.5s ease`, // Search bar fade in effect
 });
 
 export const top100px = style({
@@ -108,7 +108,7 @@ export const top100px = style({
 });
 export const top70px = style({
   marginTop: "70px",
-  "@media screen and (max-width: 768px)": { marginTop: "150px" },
+  "@media screen and (max-width: 768px)": { marginTop: "122px" },
 });
 
 export const close = style({

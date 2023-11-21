@@ -66,12 +66,25 @@ function OnSale() {
   // Put all unique categories in order alphabetically
   uniqueCategories.sort();
   // console.log("titleInfos are:", titleInfos);
+
+
+
   return (
     <Container>
       <div className={styles.OsContainer}>
         <span className={fonts.futuraTitle}>Our Best Sellers</span>
 
         <div className={`${styles.tabsContainer} mt-3`}>
+
+          {loading && (
+            <div
+              className={styles.OsContainer}
+              style={{ paddingTop: "0", paddingLeft: "50%"}}
+            >
+              <Spinner />
+            </div>
+          )}
+
           {/* Render category names */}
           <Row>
             {uniqueCategories.length >= 1 &&

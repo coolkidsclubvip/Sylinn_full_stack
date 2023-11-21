@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as styles from "../styles/CategoryPage.css";
-import { Container, Row, Col, Breadcrumb } from "react-bootstrap";
+import { Container, Row, Col, Breadcrumb, Spinner } from "react-bootstrap";
 import productService from "../services/productService";
 import TitleCard from "../components/common/TitleCard";
 import AddNewItemCard from "../components/common/AddNewItemCard";
@@ -59,8 +59,20 @@ function CategoryPage() {
     }
   }, [loading, category]);
 
-
   const formattedCategory = writeUtils.formatCategoryName(category);
+
+  if (loading) {
+    return (
+      <Container>
+        <div
+          className={`${styles.NAWrapper}}`}
+          style={{ paddingTop: "50vh", paddingLeft: "50%" }}
+        >
+          <Spinner />
+        </div>
+      </Container>
+    );
+  }
 
   return (
     <>
