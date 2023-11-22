@@ -4,13 +4,17 @@ import { vars } from "../../styles/global/themes.css";
 
 export const customClass= style({
      padding: "0 2rem",
+
 // backgroundColor:"green"
 })
 
 export const carouselContainer = style({
   paddingTop: "3rem",
-zIndex:"90"
+zIndex:"1"
 });
+
+
+
 export const customDotList = style({
   position: "absolute",
   top: "90%",
@@ -25,7 +29,7 @@ export const RPItem = style({
   margin: "20px 4px",
   display: "flex",
   flexDirection: "column",
- 
+
 });
 
 export const RPItemText = style({
@@ -42,6 +46,7 @@ export const RPItemImage = style({
   padding: 0,
   transition: "all 0.5s ease",
   ":hover": { opacity: 0.8 },
+  
 });
 
 export const code = style({

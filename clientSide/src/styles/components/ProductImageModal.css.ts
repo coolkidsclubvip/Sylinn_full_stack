@@ -4,6 +4,7 @@ import { vars } from "../global/themes.css";
 export const modalContainer = style({
   display: "flex",
   flexDirection: "column",
+ 
 });
 
 export const bigImgContainer = style({
@@ -30,6 +31,7 @@ export const modal = style({
   height: "100%",
   overflow: "auto",
   backgroundColor: "rgba(0, 0, 0, 0.9)",
+
 });
 
 export const modalContent = style({
