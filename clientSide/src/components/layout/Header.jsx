@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as styles from "../../styles/layout/Header.css";
 import * as fonts from "../../styles/fonts/fonts.css";
-import { Container, Row, Col, Navbar } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Logo_sylinn_big from "../../assets/images/Logo-sylinn-big.png";
 import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
 import useAuth from "../../hooks/useAuth";
