@@ -1,7 +1,8 @@
 module.exports = {
   // port env
   port: process.env.PORT,
-env: process.env.NODE_ENV,
+  env: process.env.NODE_ENV,
+
   // database env
   db: {
     serviceAccountKey: process.env.GOOGLE_APPLICATION_CREDENTIALS,
@@ -14,8 +15,8 @@ env: process.env.NODE_ENV,
   },
 
   // cor whitelist
-  corsAllowedOptions:[
+  corsAllowedOptions: [
     process.env.CORS_ALLOWED_OPTION_1,
     process.env.CORS_ALLOWED_OPTION_2,
-  ]
+  ],
 };
