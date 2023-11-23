@@ -17,15 +17,17 @@ try {
   const bucket = admin.storage().bucket();
 
   // DB Ping function test (only works when there is 1 collection or more)
-  const dbPing = db.listCollections().then((collections) => {
-    dbStartup("Connected to Cloud Firestore");
-    for (let collection of collections) {
-      dbStartup(`Found db collection: ${collection.id}`);
-    }
-  }).catch((error) => {console.error("DB Ping failed:", error)});
+  // const dbPing = db.listCollections().then((collections) => {
+  //   dbStartup("Connected to Cloud Firestore");
+  //   for (let collection of collections) {
+  //     dbStartup(`Found db collection: ${collection.id}`);
+  //   }
+  // }).catch((error) => {console.error("DB Ping failed:", error)});
 
   // export the DB methods
-  module.exports = { db, bucket, dbPing };
+  module.exports = { db, bucket, 
+    // dbPing 
+  };
 } catch (err) {
   debugError500(err);
 }

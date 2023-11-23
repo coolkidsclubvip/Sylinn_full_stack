@@ -50,8 +50,8 @@ app.use((req, res, next) => {
 app.use(apiErrorHandler);
 
 // Ping DB & Set Port
-dbPing.then(() => {
+// dbPing.then(() => {
   app.listen(config.port, () =>
     console.log(`Server is running on port: ${config.port}`)
   );
-});
+// });

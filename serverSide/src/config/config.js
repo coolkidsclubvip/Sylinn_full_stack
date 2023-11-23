@@ -1,7 +1,7 @@
 module.exports = {
   // port env
   port: process.env.PORT,
-
+env: process.env.NODE_ENV,
   // database env
   db: {
     serviceAccountKey: process.env.GOOGLE_APPLICATION_CREDENTIALS,
