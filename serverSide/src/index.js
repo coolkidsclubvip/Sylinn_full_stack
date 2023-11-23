@@ -9,7 +9,7 @@ require("dotenv").config();
 //  import internal libraries
 const config = require("./config/config");
 const routes = require("./routes/routes");
-const { dbPing } = require("./config/db");
+const { db  } = require("./config/db");
 const ApiError = require("./utils/ApiError");
 const apiErrorHandler = require("./middleware/apiErrorHandler");
 const corsOptions = require("./config/corsOptions");
@@ -49,9 +49,28 @@ app.use((req, res, next) => {
 });
 app.use(apiErrorHandler);
 
-// Ping DB & Set Port
-// dbPing.then(() => {
-  app.listen(config.port, () =>
-    console.log(`Server is running on port: ${config.port}`)
-  );
-// });
+ 
+// // dbPing.then(() => {
+//   app.listen(config.port, () =>
+//     console.log(`Server is running on port: ${config.port}`)
+//   );
+// // });
+
+// SETTING PORT IN DEV (tests db on boot)
+if(config.env === "development"){
+  // DB Ping function (dev testing)
+  db.listCollections()
+  .then(collections => {
+    debugStartup("Connected to Cloud Firestore");
+    for (let collection of collections) {
+      debugStartup(`DB collection: ${collection.id}`);
+    }
+  })
+  .then(() => {
+    app.listen(config.port, () => console.log(`Server is running on port: ${config.port}`))
+  })
+
+// SETTING PORT IN PREVIEW/PROD
+} else {
+  app.listen(config.port, () => console.log(`Server is running on port: ${config.port}`))
+}
