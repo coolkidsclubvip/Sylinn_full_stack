@@ -21,7 +21,7 @@ const debugStartup = require("debug")("app:startup");
 const app = express();
 // CORS & HTTP HEADER SETTER
 app.use(helmet());
-app.use(cors({ origin: "*" })); // default origin, available to any visitor
+app.use(cors(corsOptions)); // default origin, available to any visitor
 // app.use(cors(corsOptions))
 
 // express middleware
