@@ -23,15 +23,13 @@ globalStyle("body", {
   lineHeight: 1.5,
   fontFamily: vars.fonts.body,
   overflowX: "hidden",
-   
 });
 
 // Set core anchor settings
-globalStyle("a", {
+globalStyle("body a", {
   textDecoration: "none",
   color: "inherit",
 });
-
 // Make images easier to work with
 globalStyle("img, picture", {
   maxWidth: "100%",

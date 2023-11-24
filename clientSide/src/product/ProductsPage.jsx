@@ -118,7 +118,7 @@ function ProductsPage() {
             {categories.map((category, index) => (
               <Col sm={6} md={4} lg={3} key={index} className="my-3">
                 <Link to={`/products/${category.id}`}>
-                  <Card className={styles.card} style={{textDecoration:"none"}}>
+                  <Card className={styles.card}>
                     <Card.Img variant="top" src={imageSwitch(category.id)} />
                     <Card.Body className={styles.cardBody}>
                       <Card.Title>

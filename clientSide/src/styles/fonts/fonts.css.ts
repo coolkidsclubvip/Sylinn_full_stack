@@ -9,19 +9,17 @@ globalFontFace(futura, {
 
 export const futuraTitle = style({
   fontFamily: futura,
-  fontSize: vars.fontSizes["4x"],
-  fontWeight: vars.fontWeights.bolder,
-  textDecoration: "none",
+  fontSize:vars.fontSizes["4x"],
+  fontWeight:vars.fontWeights.bolder
 });
 
 export const futuraNav = style({
   fontFamily: futura,
   fontSize: vars.fontSizes["3x"],
   fontWeight: vars.fontWeights.bold,
-  opacity: 0.9,
+opacity: 0.9,
   color: vars.colors.black,
-  textDecoration: "none",
-  ":hover": { opacity: 1 },
+  ":hover": { opacity: 1},
 });
 
 export const futuraTabText = style({
@@ -29,8 +27,10 @@ export const futuraTabText = style({
   fontSize: vars.fontSizes["2x"],
   fontWeight: vars.fontWeights.bold,
   color: vars.colors.black,
-  textDecoration: "none",
+  
 });
+
+
 
 export const futuraGridCardTitles = style({
   fontFamily: futura,
@@ -40,7 +40,6 @@ export const futuraGridCardTitles = style({
 
 export const normalText = style({
   fontFamily: vars.fonts.body,
-  fontWeight: vars.fontWeights.normal,
-  fontSize: vars.fontSizes["1x"],
-  textDecoration: "none",
-});
+  fontWeight:vars.fontWeights.normal,
+  fontSize: vars.fontSizes["1x"]
+})
