@@ -17,6 +17,6 @@ module.exports = {
   // cor whitelist
   corsAllowedOptions: [
     process.env.CORS_ALLOWED_OPTION_1,
-    process.env.CORS_ALLOWED_OPTION_2,
+    process.env.CORS_ALLOWED_OPTION_2
   ],
 };

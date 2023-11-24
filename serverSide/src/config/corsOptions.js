@@ -1,15 +1,16 @@
 const config = require('./config')
 
 const whitelist = config.corsAllowedOptions;
-console.log("whitelist is: ", whitelist);
+ console.log("whitelist", whitelist);
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
+  optionsSuccessStatus: 200,
 };
 
 module.exports = corsOptions;

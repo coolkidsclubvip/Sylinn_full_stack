@@ -95,7 +95,7 @@ module.exports = {
   ////// [1C]  A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
   async getCollection(req, res, next) {
     try {
-      console.log("req.params is:", req.params); //req.params is: { category: 'bath', collection: 'felicity' }
+    
       const category = req.params.category;
       const collection = req.params.collection;
 
@@ -231,13 +231,8 @@ module.exports = {
     // save to cloud storage
     let imageUrls = [];
     let pdfUrls = [];
-    console.log("res.locals.imageNames is:", res.locals.imageNames);
-    console.log("*********res.locals.pdfNames is:", res.locals.pdfNames);
-
-    // //////////////////delete this!!!!after postman ok
-    // req.body= JSON.parse(req.body.data);
-
-    // /////////////////////delete this!!!!after postman
+ 
+  
 
     try {
       for (const imageName of res.locals.imageNames) {
@@ -278,12 +273,7 @@ module.exports = {
       const titleInfoDoc = collectionRef.doc("titleInfo");
       const response1 = await titleInfoDoc.set(titleInfoData);
 
-      console.log(
-        "req.body.products in controller is:",
-        req.body.products,
-        Array.isArray(req.body.products),
-        typeof req.body.products
-      );
+    
       // Handle multiple product variants:
       if (req.body.products.length > 1) {
         const products = req.body.products;
@@ -338,7 +328,7 @@ module.exports = {
           id: doc.id, //  只显示： [{"id":"acc"},{"id":"bath"},{"id":"grate"},{"id":"htr"},{"id":"led"},{"id":"sink"}]
         });
       });
-      console.log("categories are: ", categories);
+    
 
       // Get all titleInfos from all collections//
 
@@ -360,7 +350,7 @@ module.exports = {
           }
           // Filter for all collections with keywords
           const keyword = req.params.keyword;
-          console.log("req.params.keywords: ", req.params.keyword);
+       
           // Convert the keyword to a case-insensitive regex
           const keywordRegex = new RegExp(`\\b${keyword}\\b`, "i");
           filteredTitleInfoDocs = titleInfoDocs.filter((item) => {
@@ -375,17 +365,17 @@ module.exports = {
         ApiError.badRequest("Failed to search a product with keyword", err)
       );
     }
-    console.log("filteredTitleInfoDocs are:", filteredTitleInfoDocs);
+
     // If no yields no product,move on to the next Search By Code
     if (filteredTitleInfoDocs.length == 0) {
       ////[3.5]GET Product BY code
 
       try {
-        console.log("titleInfoDocs are:", titleInfoDocs);
+     
 
         // Filter for all collections with possible code
         const keyword = req.params.keyword;
-        console.log("req.params.keywords: ", req.params.keyword);
+     
         // Convert the keyword to a case-insensitive regex
         const keywordRegex = new RegExp(keyword, "i");
        await Promise.all( filteredTitleInfoDocsByCode = titleInfoDocs.filter((item) => {
@@ -487,12 +477,10 @@ module.exports = {
           newProducts.push(product);
         }
       }
-      console.log("^^^^^^^^^ REQ PRODUCT IS: ", reqProducts);
-      console.log("########## exisingproducts:", existingProducts);
-      console.log("$$$$$$$$$$$$ newProducts:", newProducts);
+     
       // Merge new and existing products into a common array
       const allProducts = [...existingProducts, ...newProducts];
-      console.log("allProducts ARE:", allProducts);
+     
 
       // Delete products that are in the database but not in reqProducts
 
@@ -502,7 +490,7 @@ module.exports = {
             !reqProducts.some((product) => product.id === existingProduct.id)
         ) //如果 !allProducts.some(product => product.id === existingProduct.id) 返回 true，表示这个 existingProduct 不在 allProducts 中。
         .map(async (product) => {
-          console.log("########product to be deleted is:", product);
+          
           const productDoc = collectionRef.doc(product.id);
           try {
             await productDoc.delete();
@@ -672,7 +660,7 @@ module.exports = {
 
       const deletePromises = titleInfo.urls.map(async (url) => {
         const uploadedFile = getFileFromUrl(url); // Replace with your logic to get the file
-        console.log("uploadedFile for image: ", uploadedFile);
+      
         return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
       });
 

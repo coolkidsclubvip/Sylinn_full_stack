@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import * as styles from "../styles/CategoryPage.css";
 import { Container, Row, Col, Breadcrumb, Spinner } from "react-bootstrap";
 import productService from "../services/productService";
@@ -98,9 +98,14 @@ function CategoryPage() {
             <Col sm={12}>
               {" "}
               <Breadcrumb>
-                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-                <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
-                <Breadcrumb.Item href={`/products/${category}`} active>
+                <Breadcrumb.Item>
+                  <Link to={"/"}>Home</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  {" "}
+                  <Link to={"/products"}>Products</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>
                   {writeUtils.formatCategoryName(category)}
                 </Breadcrumb.Item>
               </Breadcrumb>

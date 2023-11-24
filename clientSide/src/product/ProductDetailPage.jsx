@@ -13,7 +13,7 @@ import Loader from "../components/common/Loader";
 import ProductImageModal from "../components/common/ProductImageModal";
 import ProductOptions from "../components/common/ProductOptions";
 import ProductTabs from "../components/common/ProductTabs";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate,Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import EditItemPanel from "../components/common/EditItemPanel";
@@ -162,10 +162,17 @@ function ProductDetailPage() {
           <Col>
             {" "}
             <Breadcrumb>
-              <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-              <Breadcrumb.Item href="/products">Products</Breadcrumb.Item>
-              <Breadcrumb.Item href={`/products/${category}`}>
-                {writeUtils.formatCategoryName(category)}
+              <Breadcrumb.Item>
+                <Link to={"/"}>Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={"/products"}>Products</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={`/products/${category}`}>
+                  {" "}
+                  {writeUtils.formatCategoryName(category)}
+                </Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item active>
                 {" "}
