@@ -39,8 +39,8 @@ export const card = style({
   top: 0,
   boxShadow: " 0 2px 5px rgba(0, 0, 0, 0.2)",
   transition: "all 0.5s smooth",
+  textDecoration: "none",
   ":hover": {
- 
     top: "-5px",
     cursor: "pointer",
     boxShadow: "0 2px 12px rgba(0, 0, 0, 0.11)",
@@ -51,7 +51,7 @@ export const cardBody = style({
   ":hover": {
     backgroundColor: "linear-gradient(to top right, #1c82c7 30%, transparent)",
   },
-  textDecoration:"none"
+  
 });
 
  

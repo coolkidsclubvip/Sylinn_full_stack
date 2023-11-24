@@ -37,27 +37,23 @@ function ProductsPage() {
 
       setLoading(false);
     } catch (err) {
-         console.log(err?.response);
-       setLoading(false);
+      console.log(err?.response);
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     // Check if data exists in localStorage
     const cachedData = localStorage.getItem("products");
-        if (cachedData) {
+    if (cachedData) {
       // Use cached data if available
       setCategories(JSON.parse(cachedData));
       setLoading(false);
     } else {
-   
-
       // Fetch data from the database if not available in localStorage
-        getAllCategories();
+      getAllCategories();
     }
   }, [loading]);
- 
-
 
   // Set SRC according to category id
   const imageSwitch = (cate) => {
@@ -103,7 +99,9 @@ function ProductsPage() {
             <Col sm={12}>
               {" "}
               <Breadcrumb>
-                <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link to={"/"}>Home</Link>
+                </Breadcrumb.Item>
                 <Breadcrumb.Item active>Products</Breadcrumb.Item>
               </Breadcrumb>
             </Col>
@@ -120,7 +118,7 @@ function ProductsPage() {
             {categories.map((category, index) => (
               <Col sm={6} md={4} lg={3} key={index} className="my-3">
                 <Link to={`/products/${category.id}`}>
-                  <Card className={styles.card}>
+                  <Card className={styles.card} >
                     <Card.Img variant="top" src={imageSwitch(category.id)} />
                     <Card.Body className={styles.cardBody}>
                       <Card.Title>
