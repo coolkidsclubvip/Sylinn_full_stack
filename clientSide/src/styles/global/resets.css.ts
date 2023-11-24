@@ -28,8 +28,8 @@ globalStyle("body", {
 
 // Set core anchor settings
 globalStyle("a", {
-  textDecoration: "none",
-  color: "inherit",
+  textDecoration: "none"!,
+  color: "transparent",
 });
 
 // Make images easier to work with

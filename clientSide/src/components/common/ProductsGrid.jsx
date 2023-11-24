@@ -10,7 +10,7 @@ function ProductsGrid() {
         <div className={styles.gridWrapper}>
           <Row>
             <Col className="d-flex justify-content-end mb-3 " >
-              {" "}
+             
               <Link to={'/products'}><span className={`${fonts.futuraTabText} ${styles.underLine}`}  >  View All Products</span></Link>
             </Col>
           </Row>
