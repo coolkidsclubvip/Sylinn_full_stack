@@ -40,13 +40,6 @@ app.use(
 app.use(morgan("dev"));
 
 
-// 静态资源（React应用构建后的文件）
-app.use(express.static(path.join(__dirname, 'build')));
-
-// 处理所有其他请求，返回主页
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-})
 
 
 // route handlers
