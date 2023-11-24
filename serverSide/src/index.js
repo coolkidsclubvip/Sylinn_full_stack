@@ -5,7 +5,7 @@ const fileUpload = require("express-fileupload"); // it detect any file upload a
 const cors = require("cors");
 const helmet = require("helmet");
 require("dotenv").config();
-
+const path = require("path");
 //  import internal libraries
 const config = require("./config/config");
 const routes = require("./routes/routes");
