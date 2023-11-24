@@ -31,15 +31,33 @@ function ProductsPage() {
       const response = await productService.getAllCategories();
 
       setCategories(response.data);
+
+      // Store data in localStorage
+      localStorage.setItem("products", JSON.stringify(response.data));
+
       setLoading(false);
     } catch (err) {
-      console.log(err);
+         console.log(err?.response);
+       setLoading(false);
     }
   }
 
   useEffect(() => {
-    getAllCategories();
-  }, []);
+    // Check if data exists in localStorage
+    const cachedData = localStorage.getItem("products");
+        if (cachedData) {
+      // Use cached data if available
+      setCategories(JSON.parse(cachedData));
+      setLoading(false);
+    } else {
+   
+
+      // Fetch data from the database if not available in localStorage
+        getAllCategories();
+    }
+  }, [loading]);
+ 
+
 
   // Set SRC according to category id
   const imageSwitch = (cate) => {

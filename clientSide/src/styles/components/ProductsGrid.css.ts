@@ -10,37 +10,34 @@ export const gridWrapper = style({
   overflow: "hidden",
   transition: "all 1s ease",
 
-
   "@media screen and (max-width: 768px)": {
- 
-    width:"100%",
- 
+    width: "100%",
+
     padding: 0,
   },
 });
 
 export const row = style({
   display: "flex",
- 
+
   // padding: "0 4px",
   justifyContent: "center",
   "@media screen and (max-width: 768px)": {
-    flexDirection:"column",
+    flexDirection: "column",
     width: "100vw",
   },
 });
 
 export const underLine = style({
-  ":hover":{textDecoration: "underline"},
+  textDecoration: "none",
+  ":hover": { textDecoration: "underline" },
 });
-
 
 // Create four equal columns that sit next to each other
 export const column = style({
   flex: "1",
   maxWidth: "35%",
   padding: "0 4px",
- 
 
   "@media screen and (max-width: 768px)": {
     maxWidth: "100%", // 设置最大宽度为 100%
@@ -93,8 +90,7 @@ export const div2 = style({
     width: "100vw",
     height: "30vh",
     margin: "0 auto",
-        flexDirection: "row",
-
+    flexDirection: "row",
   },
 });
 export const div3 = style({
@@ -139,7 +135,6 @@ export const div4 = style({
     width: "100vw",
     height: "30vh",
     margin: "0 auto",
-  
   },
 });
 export const div5 = style({
@@ -196,4 +191,3 @@ export const gridText = style({
     padding: "0px",
   },
 });
-

@@ -51,6 +51,7 @@ export const cardBody = style({
   ":hover": {
     backgroundColor: "linear-gradient(to top right, #1c82c7 30%, transparent)",
   },
+  textDecoration:"none"
 });
 
  
