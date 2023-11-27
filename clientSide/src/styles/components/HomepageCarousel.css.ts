@@ -12,10 +12,11 @@ export const carouselContainer = style({
 export const image1 = style({
   width: "100vw",
   height: "100vh",
-  backgroundImage: "url(/images/carousel_images/s001.jpeg)",
+  backgroundImage: "url(/images/carousel_images/s000.jpeg)",
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
   // backgroundPositionY:"10%",
+
   "@media screen and (max-width: 768px)": { backgroundPositionX: "50%" },
 });
 

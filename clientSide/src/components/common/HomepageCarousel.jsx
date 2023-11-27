@@ -18,7 +18,7 @@ function HomepageCarousel() {
           <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <div className={styles.image2}>
+          <div className={styles.image1}>
             {" "}
             {/* <img src={s002} /> */}
           </div>
@@ -26,7 +26,7 @@ function HomepageCarousel() {
           <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <div className={styles.image3}>
+          <div className={styles.image1}>
             {" "}
             {/* <img src={s003} /> */}
           </div>
