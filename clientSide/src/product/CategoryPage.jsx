@@ -9,6 +9,7 @@ import * as fonts from "../styles/fonts/fonts.css.ts";
 import writeUtils from "../utils/writeUtils";
 import useAuth from "../hooks/useAuth";
 import AddNewItemPanel from "../components/common/AddNewItemPanel";
+import { Helmet } from "react-helmet";
 
 function CategoryPage() {
   const [data, setData] = useState([]);
@@ -76,6 +77,9 @@ function CategoryPage() {
 
   return (
     <>
+      <Helmet>
+        <title>product category</title>
+      </Helmet>
       {showAddNewPanel && (
         <div className={styles.addItemBG}>
           {" "}

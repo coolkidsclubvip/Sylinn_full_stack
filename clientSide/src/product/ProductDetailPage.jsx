@@ -20,6 +20,7 @@ import EditItemPanel from "../components/common/EditItemPanel";
 import writeUtils from "../utils/writeUtils";
 import * as fonts from "../styles/fonts/fonts.css";
 import RelatedProductsCarousel from "../components/common/RelatedProductsCarousel";
+import { Helmet } from "react-helmet";
 
 function ProductDetailPage() {
   // Initialize product detail data
@@ -68,7 +69,7 @@ function ProductDetailPage() {
       );
       // If in initial state, no selected option, stock should be " "
       if (selectedOption === "") {
-        setStock();
+        setStock("");
       }
 
       if (selectedProduct) {
@@ -141,8 +142,19 @@ function ProductDetailPage() {
     }
   };
 
+  console.log("data in detail is:",data);
+  // Sort data in ascending order of RRP
+  const sortedData=data.sort((a, b) => a.rrp - b.rrp);
+console.log("Sorted data is:", sortedData);
+ 
+// Pass an initial product ID to Big image display
+const initialProductId=sortedData[0].id
+
   return (
     <Container>
+      <Helmet>
+        <title>product detail</title>
+      </Helmet>
       <div className={styles.container}>
         {showEditPanel && (
           <div className={styles.editItemBG}>
@@ -190,6 +202,7 @@ function ProductDetailPage() {
               <ProductImageModal
                 titleInfo={titleInfo}
                 selectedOption={selectedOption}
+                initialProductId={initialProductId}
               />
             </div>{" "}
           </Col>

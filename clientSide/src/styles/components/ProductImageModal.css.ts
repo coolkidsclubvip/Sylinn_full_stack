@@ -4,7 +4,6 @@ import { vars } from "../global/themes.css";
 export const modalContainer = style({
   display: "flex",
   flexDirection: "column",
- 
 });
 
 export const bigImgContainer = style({
@@ -12,6 +11,7 @@ export const bigImgContainer = style({
   height: "auto",
   position: "relative",
   overflow: "hidden",
+
 });
 
 // export const bigImg = style({
@@ -31,7 +31,6 @@ export const modal = style({
   height: "100%",
   overflow: "auto",
   backgroundColor: "rgba(0, 0, 0, 0.9)",
-
 });
 
 export const modalContent = style({
@@ -103,15 +102,12 @@ export const prevLeft = style({
   left: "10%",
 });
 
-// export const active1 = style({
-//   // background: "#1c82c7",
-//   /* color: #fff; */
-// });
-
 export const smallImg = style({
-  width: "80px",
+  width: "120px",
   height: "auto",
-  marginTop: "1rem",
+  padding: 0,
+
+  // padding: "1rem"
   // transition: "all 0.6s ease",
   // ":hover": {
   //   cursor: "default",
@@ -125,18 +121,19 @@ export const borderedImg = style({
 
 export const ul = style({
   listStyle: "none",
-  overflow: "hidden",
-  display: "flex",
-  flexDirection: "row",
+  // overflow: "hidden",
+  padding: 0,
   // backgroundColor: "red"
 });
 
 export const li = style({
-  float: "left",
+  // backgroundColor: "green",
   width: "120px",
   height: "auto",
-  marginLeft: "10px",
-  marginTop: "10px",
+  //  marginRight: "200rem",
+
+  // marginTop: "10px",
+  // paddingLeft: "10px",
   // border: "2px solid #19191a1f",
   overflow: "hidden",
 });

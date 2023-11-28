@@ -24,7 +24,7 @@ const responsive = {
 };
 
 function RelatedProductsCarousel({ relatedProducts, category, setLoading }) {
-  console.log("category is", category);
+  
 
   return (
   

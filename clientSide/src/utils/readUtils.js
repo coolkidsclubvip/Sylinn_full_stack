@@ -13,6 +13,15 @@ function getFileFromUrl(downloadURL) {
   return fileGlob;
 }
 
-const readUtils = {   getFileFromUrl };
+
+  // A function to get rid of timestamp from imageName
+  const deleteTimestampFromName = (imageName) => {
+    const indexOfUnderscore = imageName.indexOf("_");
+    return indexOfUnderscore !== -1
+      ? imageName.slice(indexOfUnderscore + 1)
+      : imageName;
+  };
+
+const readUtils = {   getFileFromUrl,deleteTimestampFromName  };
 
 export default readUtils;

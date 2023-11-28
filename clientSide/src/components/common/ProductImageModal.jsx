@@ -12,8 +12,13 @@ import {
 } from "react-bootstrap";
 import readUtils from "../../utils/readUtils";
 
-function ProductImageModal({ titleInfo, selectedOption }) {
-  const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
+function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
+  // const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
+  // 根据 initialProductId 设置初始大图 URL
+  const isBigImageUrl =
+    titleInfo.urls.find((url) =>
+      readUtils.getFileFromUrl(url).includes(initialProductId)
+    ) || imagePlaceHolder;
 
   const [slideIndex, setSlideIndex] = useState(0);
   const [bigImageUrl, setBigImageUrl] = useState(isBigImageUrl); // Initialize with the first image URL
@@ -25,13 +30,15 @@ function ProductImageModal({ titleInfo, selectedOption }) {
   const captionTextRef = useRef(null);
   const closeBtnRef = useRef(null);
   const slidesRef = useRef(null);
+  const [smallImages, setSmallImages] = useState(titleInfo.urls);
 
   let modal;
   let bigImg;
   let modalImg;
   let captionText;
   let closeBtn;
-
+  console.log("titleInfo in modal:", titleInfo);
+  console.log("selected option in modal:", selectedOption);
   useEffect(() => {
     // 使用 ref 获取 DOM 元素
     modal = modalRef.current;
@@ -39,7 +46,12 @@ function ProductImageModal({ titleInfo, selectedOption }) {
     modalImg = modalImgRef.current;
     captionText = captionTextRef.current;
     closeBtn = closeBtnRef.current;
-    setSlides(slidesRef.current.querySelectorAll("li"));
+
+    setSlides(
+      Array.from(slidesRef.current.querySelectorAll("li")).map(
+        (li) => li.querySelector("img").src
+      )
+    );
 
     if (modal && bigImg && modalImg && captionText && closeBtn && slides) {
       bigImg.onclick = function () {
@@ -70,59 +82,42 @@ function ProductImageModal({ titleInfo, selectedOption }) {
 
   function showSlides(n) {
     if (slides && n >= 1 && n <= slides.length) {
-      modalImgRef.current.src = titleInfo.urls[n - 1];
-
-      // slides.forEach((slide) => {
-      //   slide.classList.remove(styles.active1);
-      // });
-
-      // slides[n - 1].classList.add(styles.active1);
-
-      bigImgRef.current.setAttribute("src", titleInfo.urls[n - 1]);
+      modalImgRef.current.src = slides[n - 1];
+      bigImgRef.current.setAttribute("src", slides[n - 1]);
     }
   }
 
   // When mouse hover on small images, set big image url accordingly
-  // const handleOnMouseEnter = (url, index) => {
-  //   setBigImageUrl(url);
-  //   showSlides(index + 1);
-  //   setHoveredIndex(index); // 更新被悬停的小图索引
-  // };
-const handleOnMouseEnter = (url, index) => {
-  if (selectedOption) {
-    // 如果有 selectedOption，找到当前小图对应的 titleInfo.urls 中的索引
-    const currentSmallImageIndex = titleInfo.urls.findIndex((u) => u === url);
+  const handleOnMouseEnter = (url, index) => {
+    if (selectedOption) {
+      // 如果有 selectedOption，找到当前小图对应的 titleInfo.urls 中的索引
+      const currentSmallImageIndex = titleInfo.urls.findIndex((u) => u === url);
 
-    // 根据索引找到对应的 imageNames 中的索引
-    const selectedIndex =
-      currentSmallImageIndex !== -1 ? currentSmallImageIndex : 0;
+      // 根据索引找到对应的 imageNames 中的索引
+      const selectedIndex =
+        currentSmallImageIndex !== -1 ? currentSmallImageIndex : 0;
 
-    if (selectedIndex !== -1) {
-      setBigImageUrl(titleInfo.urls[selectedIndex]);
-      showSlides(selectedIndex + 1);
+      if (selectedIndex !== -1) {
+        setBigImageUrl(titleInfo.urls[selectedIndex]);
+        showSlides(selectedIndex + 1);
+      }
+    } else {
+      // 否则，使用当前小图的 URL
+      setBigImageUrl(url);
+      showSlides(index + 1);
     }
-  } else {
-    // 否则，使用当前小图的 URL
-    setBigImageUrl(url);
-    showSlides(index + 1);
-  }
 
-  setHoveredIndex(index); // 更新被悬停的小图索引
-};
+    setHoveredIndex(index); // 更新被悬停的小图索引
+  };
 
   // Set the big image URL according to selected option
   //1. Get image names from urls
   const imageNames = [];
-  // 2.A function to get rid of timestamp from imageName
-  const deleteTimestampFromName = (imageName) => {
-    const indexOfUnderscore = imageName.indexOf("_");
-    return indexOfUnderscore !== -1
-      ? imageName.slice(indexOfUnderscore + 1)
-      : imageName;
-  };
+
   titleInfo.urls.map((url) => {
     const imageName = readUtils.getFileFromUrl(url);
-    const imageNamesWithoutTimestamp = deleteTimestampFromName(imageName);
+    const imageNamesWithoutTimestamp =
+      readUtils.deleteTimestampFromName(imageName);
     imageNames.push(imageNamesWithoutTimestamp);
   });
 
@@ -147,9 +142,7 @@ const handleOnMouseEnter = (url, index) => {
     }
   }, [selectedOption]);
 
-
-//
-const [smallImages, setSmallImages] = useState(titleInfo.urls);
+  console.log("@@##slides in modal:", slides);
 
   useEffect(() => {
     if (selectedOption) {
@@ -164,18 +157,25 @@ const [smallImages, setSmallImages] = useState(titleInfo.urls);
         (index) => titleInfo.urls[index]
       );
       setSmallImages(updatedSmallImages);
+      // At the same time,update Modal slides with selected products' small images
+      setSlides(updatedSmallImages);
     } else {
       // 否则，保持默认的小图数组
       setSmallImages(titleInfo.urls);
     }
   }, [selectedOption, titleInfo.urls]);
 
+  useEffect(() => {
+    // 更新 slides
+    setSlides(smallImages);
+  }, [smallImages]);
 
+  console.log("initialProductId IN MODAL:", initialProductId);
 
   return (
     <Container className={styles.modalContainer}>
       <Row>
-        <Col sm={12}>
+        <Col sm={12} className="mb-3">
           {/* Big modal image */}
           <div id="productImageSwitch">
             {titleInfo && (
@@ -223,30 +223,39 @@ const [smallImages, setSmallImages] = useState(titleInfo.urls);
           {/* Small images */}
           <div>
             <ul className={styles.ul} ref={slidesRef}>
-              {smallImages?.map((url, index) => (
-                <li
-                  key={index}
-                  className={`${styles.li}${
-                    index === slideIndex - 1 ? " " + styles.active : ""
-                  }`}
-                >
-                  <Link to="">
-                    <img
-                      src={url}
-                      className={`${styles.smallImg} ${
-                        hoveredIndex === index ? styles.borderedImg : ""
-                      } `}
-                      alt={url}
-                      onError={(e) => {
-                        e.target.src = imagePlaceHolder; //
-                      }}
-                      onMouseEnter={() => {
-                        handleOnMouseEnter(url, index);
-                      }}
-                    />
-                  </Link>
-                </li>
-              ))}
+              <Row className="">
+                {smallImages?.map((url, index) => (
+                  <Col
+                    key={index}
+                    xs={6}
+                    sm={4}
+                    md={3}
+                    lg={2}
+                    className="py-3"
+                  >
+                    {" "}
+                    <li
+                      className={` ${styles.li}${
+                        index === slideIndex - 1 ? " " + styles.active : ""
+                      } px-1`}
+                    >
+                      <img
+                        src={url}
+                        className={`${styles.smallImg} ${
+                          hoveredIndex === index ? styles.borderedImg : ""
+                        } `}
+                        alt={url}
+                        onError={(e) => {
+                          e.target.src = imagePlaceHolder; //
+                        }}
+                        onMouseEnter={() => {
+                          handleOnMouseEnter(url, index);
+                        }}
+                      />
+                    </li>
+                  </Col>
+                ))}{" "}
+              </Row>
             </ul>
           </div>
         </Col>
@@ -256,5 +265,3 @@ const [smallImages, setSmallImages] = useState(titleInfo.urls);
 }
 
 export default ProductImageModal;
-
-

@@ -1,10 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap";
 import * as styles from "../styles/page/AboutPage.css";
 import * as fonts from "../../src/styles/fonts/fonts.css";
+import { Helmet } from "react-helmet";
 
 function AboutPage() {
   return (
     <>
+      <Helmet>
+        <title>about us</title>
+      </Helmet>
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>SYLINN STORY</div>
       </div>

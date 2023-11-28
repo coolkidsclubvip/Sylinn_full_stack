@@ -19,10 +19,11 @@ import htr_cate from "../assets/images/cate_images/htr_cate.png";
 import led_cate from "../assets/images/cate_images/led_cate.png";
 import sink_cate from "../assets/images/cate_images/sink_cate.png";
 import no_image_available from "../assets/images//no_image_available.jpeg";
+import { Helmet } from "react-helmet";
 
 function ProductsPage() {
   const [categories, setCategories] = useState([]);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   //Get all categories
@@ -90,6 +91,9 @@ function ProductsPage() {
 
   return (
     <>
+      <Helmet>
+        <title>product categories</title>
+      </Helmet>
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>OUR PRODUCTS</div>
       </div>

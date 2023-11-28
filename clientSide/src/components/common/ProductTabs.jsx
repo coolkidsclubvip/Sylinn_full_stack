@@ -43,6 +43,15 @@ function ProductTabs({ titleInfo }) {
     );
   };
 
+// Get download file name
+const GetDownloadFileName=(url)=>{
+const fileNameWithTimeStamp=readUtils.getFileFromUrl(url);
+
+const downloadFileName = readUtils.deleteTimestampFromName(
+  fileNameWithTimeStamp
+);
+return downloadFileName;
+}
   return (
     <>
       <div className={styles.tabsContainer}>
@@ -103,7 +112,7 @@ function ProductTabs({ titleInfo }) {
                       margin: "1rem 0",
                     }}
                   />
-                  {readUtils.getFileFromUrl(url)}
+                  {(GetDownloadFileName( url))}
                 </a>
               </li>
             ))}

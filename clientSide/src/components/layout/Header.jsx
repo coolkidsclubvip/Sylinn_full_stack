@@ -88,12 +88,12 @@ function Header({
             >
               <Link to={"/"}>
                 <img
-                  src={`${
+                  src={Logo_sylinn_big}
+                  style={
                     scrollTop < 200 && isHomePage
-                      ? Logo_sylinn_big
-                      : Logo_sylinn_small
-                  }`}
-                  style={{ width: "100%" }}
+                      ? { width: "100%", transition: "width,0.5s,smooth" }
+                      : { width: "70%", transition: "width,0.5s,smooth" }
+                  }
                   alt="Logo"
                 />
               </Link>

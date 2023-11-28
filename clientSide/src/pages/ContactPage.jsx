@@ -5,10 +5,14 @@ import clock from "/images/clock.png";
 import email from "/images/email.png";
 import phone from "/images/phone.png";
 import whouse from "/images/whouse.png";
+import { Helmet } from "react-helmet";
 
 function ContactPage() {
   return (
     <>
+      <Helmet>
+        <title>contact us</title>
+      </Helmet>
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>CONTACT US</div>
       </div>
