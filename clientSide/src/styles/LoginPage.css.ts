@@ -7,7 +7,7 @@ export const LoginWrapper = style({
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
-  backgroundImage: "url(./images/login_bg.png)",
+  backgroundImage: "url(/images/login_bg.png)",
   backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
