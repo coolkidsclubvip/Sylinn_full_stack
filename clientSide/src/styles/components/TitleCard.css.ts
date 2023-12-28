@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { vars } from "../../styles/global/themes.css";
 
-export const NAWrapper = style({
+export const Wrapper = style({
   width: "70vw",
   height: "auto",
   display: "flex",
@@ -11,11 +11,11 @@ export const NAWrapper = style({
   "@media screen and (max-width: 768px)": { width: "100vw" },
 });
 
-export const NAList = style({
+export const List = style({
   width: "100%",
 });
 
-export const NAItem = style({
+export const Item = style({
   height: "420px",
   overflow: "hidden",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
@@ -26,13 +26,13 @@ export const NAItem = style({
   borderRadius: "5px",
 });
 
-export const NAItemText = style({
+export const ItemText = style({
   textAlign: "left",
   position: "relative",
   padding: "1.1rem",
 });
 
-export const NAItemImage = style({
+export const ItemImage = style({
   opacity: 1,
   width: "100%",
   height: "230px",

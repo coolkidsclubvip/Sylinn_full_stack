@@ -90,7 +90,7 @@ function CategoryPage() {
           />
           <div style={{ marginTop: "20vh" }}></div>
         </div>
-      )}{" "}
+      )}
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>
           {writeUtils.capitalizeAllLetter(formattedCategory)}
@@ -117,7 +117,7 @@ function CategoryPage() {
           </Row>
 
           <div className={styles.NAWrapper}>
-            <div className={`row ${styles.NAList}`}>
+            <div className={"row"}>
               {/* add new item card is the 1st card, only visible to Admin */}
               {user && user.isAdmin === "true" && (
                 <AddNewItemCard setShowAddNewPanel={setShowAddNewPanel} />
@@ -128,7 +128,7 @@ function CategoryPage() {
               ))}
             </div>
           </div>
-        </div>
+        </div> 
       </Container>
     </>
   );

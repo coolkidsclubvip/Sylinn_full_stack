@@ -33,17 +33,19 @@ function SearchPage() {
       setLoading(false);
     }
   }
- 
 
   useEffect(() => {
     // if (loading) {
-      FetchSearchResults();
+    FetchSearchResults();
     // }
-  }, [ keyword]);
+  }, [keyword]);
 
   if (loading) {
     return (
-      <div className={styles.container}>
+      <div
+        className={styles.container}
+        style={{ paddingTop: "25vh", paddingLeft: "50%" }}
+      >
         <Spinner animation="border" variant="info" size="xl" />
       </div>
     );
@@ -53,7 +55,7 @@ function SearchPage() {
     <div className={styles.container}>
       <Container>
         {/* If result is empty array */}
-        <div className={`row ${styles.OSList}`}>
+        <div className={`row ${styles.List}`}>
           {searchResults.length == 0 && (
             <div>
               {" "}
@@ -65,32 +67,25 @@ function SearchPage() {
           {!loading &&
             searchResults.length > 0 &&
             searchResults.map((data, index) => (
-              <div className="col-md-4 col-sm-6" key={index}>
-                <div className={styles.OSItem}>
+              <div className="col-md-4 col-sm-6  col-12" key={index}>
+                <div className={styles.Item}>
                   <Link to={`/products/${data.category}/${data.collectionId}`}>
                     <img
                       src={data.titleInfo.urls[0]}
                       alt={data.titleInfo.title}
-                      className={styles.OSItemImage}
+                      className={styles.ItemImage}
                     />
                   </Link>
-                  <div className={styles.OSItemText}>
+                  <div className={styles.ItemText}>
                     <span className={fonts.futuraGridCardTitles}>
                       {data.titleInfo.title}
                     </span>
                     <br />
                     <p className={styles.code}>{data.titleInfo.code}</p>
-                    {/* <p className={styles.description}>
-                        {data.titleInfo.description}
-                      </p> */}
-
-                    <Link
-                      to={`/products/${data.category}/${data.collectionId}`}
-                      className={styles.button}
-                    >
-                      DETAILS
-                    </Link>
                   </div>
+                  <Link to={`/products/${data.category}/${data.collectionId}`}>
+                    <button className={styles.button}>DETAILS</button>
+                  </Link>
                 </div>
               </div>
             ))}
