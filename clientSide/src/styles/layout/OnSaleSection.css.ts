@@ -35,12 +35,6 @@ export const OSItem = style({
   // },
 });
 
-export const OSItemText = style({
-  textAlign: "left",
-  position: "relative",
-  padding: "1.1rem",
-});
-
 export const OSItemImage = style({
   opacity: 1,
   width: "100%",
@@ -49,6 +43,15 @@ export const OSItemImage = style({
   padding: 0,
   transition: "all 0.5s ease",
   ":hover": { opacity: 0.9 },
+  // when viewport less than 1200, move text higher a bit
+  "@media screen and (max-width: 1200px)": { height: "200px" },
+});
+
+export const OSItemText = style({
+  textAlign: "left",
+  position: "relative",
+  padding: "1.1rem",
+  paddingTop: 0,
 });
 
 export const code = style({

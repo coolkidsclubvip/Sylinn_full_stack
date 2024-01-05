@@ -1,7 +1,6 @@
 import { useState } from "react";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import * as styles from "../../styles/layout/SearchBar.css"
 

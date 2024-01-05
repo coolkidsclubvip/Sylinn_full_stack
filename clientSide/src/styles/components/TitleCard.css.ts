@@ -30,6 +30,7 @@ export const ItemText = style({
   textAlign: "left",
   position: "relative",
   padding: "1.1rem",
+  paddingTop: 0,
 });
 
 export const ItemImage = style({
@@ -40,6 +41,8 @@ export const ItemImage = style({
   padding: 0,
   transition: "all 0.5s ease",
   ":hover": { opacity: 0.9 },
+  // when viewport less than 1200, move text higher a bit
+  "@media screen and (max-width: 1200px)": { height: "200px" },
 });
 
 export const code = style({
