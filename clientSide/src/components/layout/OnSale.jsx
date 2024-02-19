@@ -8,6 +8,7 @@ import * as fonts from "../../styles/fonts/fonts.css";
 import { toast } from "react-toastify";
 import writeUtils from "../../utils/writeUtils";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
+import LoaderSpinner from "./LoaderSpinner";
 
 function OnSale() {
   const [titleInfos, setTitleInfos] = useState([]);
@@ -81,7 +82,7 @@ function OnSale() {
               className={styles.OsContainer}
               style={{ paddingTop: "0", paddingLeft: "50%"}}
             >
-              <Spinner />
+              <LoaderSpinner />
             </div>
           )}
 

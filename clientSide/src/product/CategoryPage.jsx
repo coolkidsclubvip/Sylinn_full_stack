@@ -10,6 +10,7 @@ import writeUtils from "../utils/writeUtils";
 import useAuth from "../hooks/useAuth";
 import AddNewItemPanel from "../components/common/AddNewItemPanel";
 import { Helmet } from "react-helmet";
+import LoaderSpinner from "../components/layout/LoaderSpinner";
 
 function CategoryPage() {
   const [data, setData] = useState([]);
@@ -69,7 +70,7 @@ function CategoryPage() {
           className={`${styles.NAWrapper}}`}
           style={{ paddingTop: "50vh", paddingLeft: "50%" }}
         >
-          <Spinner />
+          <LoaderSpinner />
         </div>
       </Container>
     );

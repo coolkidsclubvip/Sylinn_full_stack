@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import * as styles from "../styles/ProductDetailPage.css";
 import productService from "../services/productService";
-import Loader from "../components/common/Loader";
+import LoaderSpinner from "../components/layout/LoaderSpinner";
 import ProductImageModal from "../components/common/ProductImageModal";
 import ProductOptions from "../components/common/ProductOptions";
 import ProductTabs from "../components/common/ProductTabs";
@@ -113,7 +113,11 @@ function ProductDetailPage() {
   }
 
   if (loading) {
-    return <Loader />;
+    return (
+      <div className="行内样式 mt-50%">
+        <LoaderSpinner />
+      </div>
+    );
   }
 
   // Handle delete collection request

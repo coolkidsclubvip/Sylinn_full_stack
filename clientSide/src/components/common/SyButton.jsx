@@ -1,6 +1,6 @@
 
 import { Button,Spinner } from "react-bootstrap";
-import Loader from "./Loader";
+ 
 
 function SyButton({loading,children,onClick}) {
   return (

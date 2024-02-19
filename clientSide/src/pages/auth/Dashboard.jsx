@@ -17,12 +17,13 @@ function Dashboard() {
 const fetchAllUsers=async()=>{
   const response= await api.get('/auth/users')
   setUsersData(response.data)
+  setLoading(false);
 }
   // Function to hide/show view all users section
  function handleViewUsers() {
 setShowViewAllUsers(true)
 fetchAllUsers()
-setLoading(false)
+
 }
 
 
@@ -47,7 +48,7 @@ setLoading(false)
             {user.isAdmin == "true" ? (
               <div>
                 <div>
-                  <button type="button" onClick={handleViewUsers} className='btn btn-primary mb-3 mt-3'>View All Users</button>
+                  <button type="button" onClick={handleViewUsers} className='btn btn-primary mb-3 mt-3'>View registered users</button>
               { showViewAllUsers &&  <ViewAllUsers usersData={usersData} loading={loading}/>}
                 </div>
               </div>
@@ -55,7 +56,7 @@ setLoading(false)
               <div>
                 {" "}
                 <ul style={{ textAlign: "center", margin: "5rem" }}>
-                  what's in my wishlist:
+                  Thank you for registering your email with us. You will receive new products release notification and other product/brand updates.
                   <li></li>
                   <li></li>
                   <li></li>
