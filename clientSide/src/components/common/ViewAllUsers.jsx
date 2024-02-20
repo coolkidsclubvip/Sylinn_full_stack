@@ -1,4 +1,4 @@
-import LoaderSpinner from "../layout/LoaderSpinner";
+import DelayedLoaderSpinner from "../layout/DelayedLoaderSpinner";
 
 function ViewAllUsers({ usersData, loading }) {
   // console.log("usersData are:", usersData);
@@ -8,7 +8,7 @@ function ViewAllUsers({ usersData, loading }) {
       <h4>All Registered Users Details:</h4>
 
       {loading ? (
-        <LoaderSpinner />
+        <DelayedLoaderSpinner />
       ) : (
         <div className=" mt-5">
           <table className="table table-striped">

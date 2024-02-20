@@ -37,8 +37,8 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
   let modalImg;
   let captionText;
   let closeBtn;
-  console.log("titleInfo in modal:", titleInfo);
-  console.log("selected option in modal:", selectedOption);
+  // console.log("titleInfo in modal:", titleInfo);
+  // console.log("selected option in modal:", selectedOption);
   useEffect(() => {
     // 使用 ref 获取 DOM 元素
     modal = modalRef.current;
@@ -142,7 +142,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
     }
   }, [selectedOption]);
 
-  console.log("@@##slides in modal:", slides);
+  // console.log("@@##slides in modal:", slides);
 
   useEffect(() => {
     if (selectedOption) {
@@ -170,7 +170,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
     setSlides(smallImages);
   }, [smallImages]);
 
-  console.log("initialProductId IN MODAL:", initialProductId);
+  // console.log("initialProductId IN MODAL:", initialProductId);
 
   return (
     <Container className={styles.modalContainer}>

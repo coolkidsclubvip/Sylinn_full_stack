@@ -19,6 +19,7 @@ import htr_cate from "../assets/images/cate_images/htr_cate.png";
 import led_cate from "../assets/images/cate_images/led_cate.png";
 import sink_cate from "../assets/images/cate_images/sink_cate.png";
 import no_image_available from "../assets/images//no_image_available.jpeg";
+import DelayedLoaderSpinner from "../components/layout/DelayedLoaderSpinner";
 import { Helmet } from "react-helmet";
 
 function ProductsPage() {
@@ -79,15 +80,10 @@ function ProductsPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <Container>
-        <div className={`${styles.container}`} style={{ paddingTop: "25%" }}>
-          <Spinner />
-        </div>
-      </Container>
-    );
-  }
+    if (loading) {
+      return <DelayedLoaderSpinner />;
+    }
+
 
   return (
     <>

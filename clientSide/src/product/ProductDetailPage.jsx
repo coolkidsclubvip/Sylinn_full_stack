@@ -9,11 +9,11 @@ import {
 } from "react-bootstrap";
 import * as styles from "../styles/ProductDetailPage.css";
 import productService from "../services/productService";
-import LoaderSpinner from "../components/layout/LoaderSpinner";
+import DelayedLoaderSpinner from "../components/layout/DelayedLoaderSpinner";
 import ProductImageModal from "../components/common/ProductImageModal";
 import ProductOptions from "../components/common/ProductOptions";
 import ProductTabs from "../components/common/ProductTabs";
-import { useParams, useNavigate,Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import EditItemPanel from "../components/common/EditItemPanel";
@@ -102,8 +102,6 @@ function ProductDetailPage() {
     fetchCollections();
   }, [category, loading]);
 
-  console.log("related products are:", relatedProducts);
-
   if (error) {
     return (
       <Container className="text-center mt-4">
@@ -111,11 +109,12 @@ function ProductDetailPage() {
       </Container>
     );
   }
+  console.log("loading is :", loading);
 
   if (loading) {
     return (
-      <div className="行内样式 mt-50%">
-        <LoaderSpinner />
+      <div>
+        <DelayedLoaderSpinner />
       </div>
     );
   }
@@ -146,13 +145,11 @@ function ProductDetailPage() {
     }
   };
 
-  console.log("data in detail is:",data);
   // Sort data in ascending order of RRP
-  const sortedData=data.sort((a, b) => a.rrp - b.rrp);
-console.log("Sorted data is:", sortedData);
- 
-// Pass an initial product ID to Big image display
-const initialProductId=sortedData[0].id
+  const sortedData = data.sort((a, b) => a.rrp - b.rrp);
+
+  // Pass an initial product ID to Big image display
+  const initialProductId = sortedData[0].id;
 
   return (
     <Container>

@@ -10,7 +10,7 @@ import writeUtils from "../utils/writeUtils";
 import useAuth from "../hooks/useAuth";
 import AddNewItemPanel from "../components/common/AddNewItemPanel";
 import { Helmet } from "react-helmet";
-import LoaderSpinner from "../components/layout/LoaderSpinner";
+import DelayedLoaderSpinner from "../components/layout/DelayedLoaderSpinner";
 
 function CategoryPage() {
   const [data, setData] = useState([]);
@@ -64,16 +64,7 @@ function CategoryPage() {
   const formattedCategory = writeUtils.formatCategoryName(category);
 
   if (loading) {
-    return (
-      <Container>
-        <div
-          className={`${styles.NAWrapper}}`}
-          style={{ paddingTop: "50vh", paddingLeft: "50%" }}
-        >
-          <LoaderSpinner />
-        </div>
-      </Container>
-    );
+    return <DelayedLoaderSpinner />;
   }
 
   return (
@@ -129,7 +120,7 @@ function CategoryPage() {
               ))}
             </div>
           </div>
-        </div> 
+        </div>
       </Container>
     </>
   );
