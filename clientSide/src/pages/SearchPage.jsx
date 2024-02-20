@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 // import * as styles from "../styles/SearchPage.css";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import productService from "../services/productService";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as fonts from "../../src/styles/fonts/fonts.css";
 import * as styles from "../styles/page/SearchPage.css";
+import DelayedLoaderSpinner from "../components/layout/DelayedLoaderSpinner";
 
 // import SearchBar from "../components/common/SearchBar";
 
@@ -41,14 +42,7 @@ function SearchPage() {
   }, [keyword]);
 
   if (loading) {
-    return (
-      <div
-        className={styles.container}
-        style={{ paddingTop: "25vh", paddingLeft: "50%" }}
-      >
-        <Spinner animation="border" variant="info" size="xl" />
-      </div>
-    );
+    return <DelayedLoaderSpinner />;
   }
 
   return (

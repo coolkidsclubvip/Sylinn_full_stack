@@ -1,14 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import * as styles from "../../styles/components/ProductImageModal.css";
-import { Link } from "react-router-dom";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 import {
   Container,
   Row,
   Col,
-  Button,
-  Spinner,
-  Breadcrumb,
 } from "react-bootstrap";
 import readUtils from "../../utils/readUtils";
 

@@ -53,7 +53,7 @@ export const copyrightText = style({
   display: "flex",
   flex: 1,
   fontSize: vars.fontSizes["1x"],
-  fontWeight: vars.fontWeights["normal"],
+  fontWeight: vars.fontWeights["bold"],
   justifyContent: "center",
   paddingTop: "2rem",
 });
