@@ -302,6 +302,8 @@ function ProductDetailPage() {
           </Col>
         </Row>
         {/* 3rd row */}
+        {/* Amateur way to avoid overlapping */}
+        <div className={styles.marginTop} />
 
         <Row>
           <Col>
@@ -312,7 +314,7 @@ function ProductDetailPage() {
         </Row>
       </div>
       {/* Amateur way to avoid overlapping */}
-      <div style={{ marginTop: "20px" }} />
+      {/* <div style={{ marginTop: "3rem" }} /> */}
       <Row>
         <Col>
           <div className={styles.relatedProductsContainer}>

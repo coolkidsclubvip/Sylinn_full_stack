@@ -11,13 +11,6 @@ export const container = style({
   // backgroundColor: "greenyellow",
 });
 
-export const editBg=style({})
-
-
-// export const EditPanelContainer=style({
-//   zIndex: "999"
-// })
-
 export const imageContainer = style({
   position: "relative",
   width: "100%",
@@ -50,7 +43,7 @@ export const infoContainer = style({
 export const code = style({
   textAlign: "left",
   marginTop: "1rem",
-  color: "grey"
+  color: "grey",
 });
 
 export const rrp = style({
@@ -75,17 +68,20 @@ export const noStock = style({
   color: "red",
 });
 
-
-
 export const options = style({
   textAlign: "center",
   marginTop: "5rem",
 });
 
-
 export const buttonsGroups = style({
   textAlign: "center",
   marginTop: "5rem",
+});
+
+export const marginTop = style({
+  width: "100%",
+  marginTop: "0",
+  "@media screen and (max-width: 768px)": { marginTop: "15rem" },
 });
 
 export const tabsContainer = style({
@@ -94,7 +90,7 @@ export const tabsContainer = style({
   height: "50vh",
   margin: "5vh auto",
   // backgroundColor: vars.colors.grey,
-  "@media screen and (max-width: 768px)": { marginTop: "2rem" },
+  "@media screen and (max-width: 768px)": { marginTop: "15rem" },
 });
 
 export const border = style({
@@ -105,5 +101,5 @@ export const relatedProductsContainer = style({
   width: "100%",
   height: "auto",
 
-  "@media screen and (max-width: 768px)": { marginTop: "2rem" },
+  "@media screen and (max-width: 768px)": { marginTop: "15rem" },
 });
