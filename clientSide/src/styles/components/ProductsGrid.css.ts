@@ -9,6 +9,7 @@ export const gridWrapper = style({
   height: "auto",
   overflow: "hidden",
   transition: "all 1s ease",
+  margin: "0 auto",
 
   "@media screen and (max-width: 768px)": {
     width: "100%",
