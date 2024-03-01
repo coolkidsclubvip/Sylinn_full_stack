@@ -47,14 +47,20 @@ export const infoContainer = style({
   "@media screen and (max-width: 768px)": { height: "20vh", marginTop: "2rem" },
 });
 
+export const code = style({
+  textAlign: "left",
+  marginTop: "1rem",
+  color: "grey"
+});
+
 export const rrp = style({
   textAlign: "center",
-  marginTop: "2rem",
+  marginTop: "5rem",
 });
 export const stock = style({
   height: "25px",
   textAlign: "center",
-  marginTop: "2rem",
+  marginTop: "5rem",
 });
 
 export const inStock = style({
@@ -69,8 +75,17 @@ export const noStock = style({
   color: "red",
 });
 
+
+
+export const options = style({
+  textAlign: "center",
+  marginTop: "5rem",
+});
+
+
 export const buttonsGroups = style({
   textAlign: "center",
+  marginTop: "5rem",
 });
 
 export const tabsContainer = style({

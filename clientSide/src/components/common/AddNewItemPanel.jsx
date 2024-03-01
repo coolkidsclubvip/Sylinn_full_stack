@@ -186,7 +186,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
           <Form onSubmit={handleSubmit}>
             {/* GROUP 1 New Collection */}
             <Form.Group className="mb-3 mt-3">
-              <Form.Label>New Collection</Form.Label>
+              <Form.Label>Collection URL(Unique)</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter new collection name"

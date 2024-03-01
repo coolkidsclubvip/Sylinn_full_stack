@@ -13,8 +13,8 @@ export const root = createGlobalTheme(":root", {
     black: twColors.slate[950],
     brand: "#1c82c7",
     gold: "#BF9D5A",
-    grey: "#EFEFEF",
-    border:"#dddd",
+    grey: "#E2E2E2",
+    border: "#dddd",
     brandLight: twColors.sky[500],
     brandDark: twColors.sky[700],
 

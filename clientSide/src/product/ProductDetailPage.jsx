@@ -21,6 +21,9 @@ import writeUtils from "../utils/writeUtils";
 import * as fonts from "../styles/fonts/fonts.css";
 import RelatedProductsCarousel from "../components/common/RelatedProductsCarousel";
 import { Helmet } from "react-helmet";
+import { BsExclamationSquare } from "react-icons/bs";
+import { BsCheckSquare } from "react-icons/bs";
+import { BsXSquare } from "react-icons/bs";
 
 function ProductDetailPage() {
   // Initialize product detail data
@@ -109,7 +112,6 @@ function ProductDetailPage() {
       </Container>
     );
   }
-  console.log("loading is :", loading);
 
   if (loading) {
     return (
@@ -133,7 +135,7 @@ function ProductDetailPage() {
         // onSuccess - Redirect
         setLoading(false);
         toast.success(
-          `Product ${titleInfo.title} has been deleted successfully`
+          `Product ${titleInfo.code} has been deleted successfully`
         );
         navigate(`/products/${category}`);
       } catch (error) {
@@ -214,11 +216,12 @@ function ProductDetailPage() {
               <div className={fonts.futuraTitle}>
                 <h1>{writeUtils.capitalizeFirstLetter(titleInfo.title)}</h1>
               </div>
-              <div className={styles.code}>Product Code: {titleInfo.code}</div>
+              <div className={styles.code}>
+                <h4>Product Code: {titleInfo.code}</h4>
+              </div>
               <div className={styles.rrp}>
-                RRP:{" "}
                 <h2>
-                  $ <span id="rrp">{RRP ? RRP : `${data[0].rrp}`}</span>
+                  RRP: $ <span id="rrp">{RRP ? RRP : `${data[0].rrp}`}</span>
                 </h2>
               </div>
 
@@ -229,27 +232,40 @@ function ProductDetailPage() {
                   " "
                 ) : stock === "" ? (
                   data[0].stock >= 10 ? (
-                    <span className={styles.inStock}>In Stock</span>
+                    <h4 className={styles.inStock}>
+                      <BsCheckSquare /> In Stock
+                    </h4>
                   ) : data[0].stock < 10 && data[0].stock >= 1 ? (
-                    <span className={styles.lowStock}>Low Stock</span>
+                    <h4 className={styles.lowStock}>
+                      <BsExclamationSquare /> Low Stock
+                    </h4>
                   ) : data[0].stock == 0 ? (
-                    <span className={styles.noStock}>No Stock</span>
+                    <h4 className={styles.noStock}>
+                      <BsXSquare />
+                      No Stock
+                    </h4>
                   ) : (
                     "Please call us to check stock availability"
                   )
                 ) : // When there are more product variant
                 stock >= 10 ? (
-                  <span className={styles.inStock}>In Stock</span>
+                  <h4 className={styles.inStock}>
+                    <BsCheckSquare /> In Stock
+                  </h4>
                 ) : stock < 10 && stock >= 1 ? (
-                  <span className={styles.lowStock}>Low Stock</span>
+                  <h4 className={styles.lowStock}>
+                    <BsExclamationSquare /> Low Stock
+                  </h4>
                 ) : stock == 0 ? (
-                  <span className={styles.noStock}>No Stock</span>
+                  <h4 className={styles.noStock}>
+                    <BsXSquare /> No Stock
+                  </h4>
                 ) : (
                   "Please call us to check stock availability"
                 )}
               </div>
               {/* Only show option field when variant quantity is more than 1 */}
-              <div className={styles.option}>
+              <div className={styles.options}>
                 {data.length > 1 && (
                   <ProductOptions
                     setSelectedOption={setSelectedOption}

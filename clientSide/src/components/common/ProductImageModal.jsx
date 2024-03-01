@@ -239,7 +239,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
                         src={url}
                         className={`${styles.smallImg} ${
                           hoveredIndex === index ? styles.borderedImg : ""
-                        } `}
+                        }`}
                         alt={url}
                         onError={(e) => {
                           e.target.src = imagePlaceHolder; //

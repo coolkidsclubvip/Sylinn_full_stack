@@ -106,7 +106,7 @@ export const smallImg = style({
   width: "120px",
   height: "auto",
   padding: 0,
-
+  border: `2px solid ${vars.colors.grey}`,
   // padding: "1rem"
   // transition: "all 0.6s ease",
   // ":hover": {
