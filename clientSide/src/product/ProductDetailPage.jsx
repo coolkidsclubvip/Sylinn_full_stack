@@ -137,6 +137,9 @@ function ProductDetailPage() {
         toast.success(
           `Product ${titleInfo.code} has been deleted successfully`
         );
+        // Clear localStorage cache for the current category
+        localStorage.removeItem(`categoryData_${category}`);
+
         navigate(`/products/${category}`);
       } catch (error) {
         window.scroll({ top: 0, left: 0, behavior: "smooth" });

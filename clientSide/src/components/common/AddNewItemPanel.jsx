@@ -149,7 +149,11 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
       const response = await productService.post(productData);
       console.log("response is:", response);
       toast.success(`${productData.title} has been created successfully`);
-      // setLoading(false);
+      setLoading(false);
+
+      // Clear localStorage cache for the current category
+      localStorage.removeItem(`categoryData_${category}`);
+
       await fetchCollections();
       window.scroll({ top: 0, left: 0, behavior: "smooth" });
       setShowAddNewPanel(false);

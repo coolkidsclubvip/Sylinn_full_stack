@@ -227,6 +227,8 @@ function EditItemPanel({
       // Close edit panel
       setShowEditPanel(false);
       toast.success(`${productData.title} has been updated successfully`);
+      // Clear localStorage cache for the current category
+      localStorage.removeItem(`categoryData_${category}`);
     } catch (err) {
       //   console.log("Error: " + err);
       //   toast.error(`${err}`);
