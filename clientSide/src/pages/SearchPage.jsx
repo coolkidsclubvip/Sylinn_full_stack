@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 // import * as styles from "../styles/SearchPage.css";
-import { Container, Row, Col} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import productService from "../services/productService";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as fonts from "../../src/styles/fonts/fonts.css";
 import * as styles from "../styles/page/SearchPage.css";
 import DelayedLoaderSpinner from "../components/layout/DelayedLoaderSpinner";
-
-// import SearchBar from "../components/common/SearchBar";
+import sortImages from "../utils/sortImages";
 
 function SearchPage() {
   const [searchResults, setSearchResults] = useState(null);
@@ -65,7 +64,7 @@ function SearchPage() {
                 <div className={styles.Item}>
                   <Link to={`/products/${data.category}/${data.collectionId}`}>
                     <img
-                      src={data.titleInfo.urls[0]}
+                      src={sortImages(data.titleInfo.urls)[0]}
                       alt={data.titleInfo.title}
                       className={styles.ItemImage}
                     />

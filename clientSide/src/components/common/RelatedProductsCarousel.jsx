@@ -5,6 +5,8 @@ import * as styles from "../../styles/components/RelatedProductsCarousel.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 import writeUtils from "../../utils/writeUtils";
+import sortImages from "../../utils/sortImages";
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -64,7 +66,7 @@ function RelatedProductsCarousel({ relatedProducts, category, setLoading }) {
                     <img
                       src={
                         item.titleInfo.urls
-                          ? item.titleInfo.urls[0]
+                          ? sortImages(item.titleInfo.urls)[0]
                           : imagePlaceHolder
                       }
                       alt={item.titleInfo.title}
