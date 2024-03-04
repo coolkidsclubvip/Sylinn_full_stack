@@ -90,7 +90,7 @@ function OnSale() {
                   uniqueCategories.map((category, index) => (
                     <td
                       key={index}
-                      className={`${styles.firstTab} ${
+                      className={`${styles.responsiveCell} ${styles.firstTab} ${
                         selectedCategory === category
                           ? styles.activeNavLink
                           : ""

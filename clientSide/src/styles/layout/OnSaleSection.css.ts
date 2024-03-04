@@ -89,6 +89,7 @@ export const tabsContainer = style({
 export const customTable = style({
   width: "100%",
   borderBottom: `3px solid ${vars.colors.border}`,
+  "@media screen and (max-width: 576px)": { borderBottom: "none" },
 });
 
 export const firstTab = style({
@@ -113,4 +114,41 @@ export const activeNavLink = style({
   opacity: 1,
   // backgroundColor: vars.colors.grey,
   borderBottom: "3px solid black",
+});
+
+
+// 定义媒体查询
+const smallScreen = '@media screen and (max-width: 576px)';
+const mediumScreen = '@media screen and (min-width: 577px) and (max-width: 992px)';
+const largeScreen = '@media screen and (min-width: 993px)';
+
+// 响应式样式
+export const responsiveCell = style({
+  marginBottom: '-3px', // 设置默认下边距
+
+
+  // 小屏幕样式
+  [smallScreen]: {
+    width: '100%', // 每个单元格独占一行
+    display: 'block',
+    marginBottom: '10px', // 调整间距
+    marginRight: '0', // 清除右边距
+  },
+
+  // 中等屏幕样式
+  [mediumScreen]: {
+    width: 'calc(33.33% - 20px)', // 每行显示3个单元格
+    display: 'inline-block',
+  },
+
+  // 大屏幕样式
+  [largeScreen]: {
+    width: 'calc(16.66% - 20px)', // 每行显示6个单元格
+    display: 'inline-block',
+
+    // 清除每行最后一个单元格的右边距
+    ':nth-child(6n)': {
+      marginRight: '0',
+    },
+  },
 });
