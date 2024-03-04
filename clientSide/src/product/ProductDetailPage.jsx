@@ -24,6 +24,7 @@ import { Helmet } from "react-helmet";
 import { BsExclamationSquare } from "react-icons/bs";
 import { BsCheckSquare } from "react-icons/bs";
 import { BsXSquare } from "react-icons/bs";
+import sortImages from "../utils/sortImages";
 
 function ProductDetailPage() {
   // Initialize product detail data
@@ -206,7 +207,7 @@ function ProductDetailPage() {
           <Col sm={12} md={7}>
             <div className={styles.imageContainer}>
               <ProductImageModal
-                titleInfo={titleInfo}
+                titleInfo={{ urls: sortImages(titleInfo.urls) }}
                 selectedOption={selectedOption}
                 initialProductId={initialProductId}
               />
