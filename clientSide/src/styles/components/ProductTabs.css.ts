@@ -32,7 +32,7 @@ export const restTab = style({
 export const activeNavLink = style({
   opacity: 1,
   borderBottom: "2px solid black",
-  backgroundColor: vars.colors.grey,
+  // backgroundColor: vars.colors.grey,
 });
 
 export const descriptionContent = style({

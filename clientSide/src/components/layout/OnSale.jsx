@@ -68,47 +68,44 @@ function OnSale() {
   uniqueCategories.sort();
   // console.log("titleInfos are:", titleInfos);
 
-
-
   return (
     <Container>
       <div className={styles.OsContainer}>
         <span className={fonts.futuraTitle}>Our Best Sellers</span>
 
         <div className={`${styles.tabsContainer} mt-3`}>
-
           {loading && (
             <div
               className={styles.OsContainer}
-              style={{ paddingTop: "0", paddingLeft: "50%"}}
+              style={{ paddingTop: "0", paddingLeft: "50%" }}
             >
               <LoaderSpinner />
             </div>
           )}
 
-          {/* Render category names */}
-          <Row>
-            {uniqueCategories.length >= 1 &&
-              uniqueCategories.map((category, index) => (
-                <Col
-                  xs={6}
-                  md={2}
-                  key={index}
-                  className={`${styles.firstTab} ${
-                    selectedCategory === category ? styles.activeNavLink : ""
-                  }`}
-                  onClick={() => handleTabClick(category)}
-                >
-                  {/* Use predefined formatter to prettier default category names */}
-                  <span className={fonts.futuraTabText}>
-                    {writeUtils.formatCategoryName(category)}
-                  </span>
-                </Col>
-              ))}
-            {/* <td className={styles.restTab}>
-                  <span></span>
-                </td> */}
-          </Row>
+          <table className={styles.customTable}>
+            <tbody>
+              <tr>
+                {uniqueCategories.length >= 1 &&
+                  uniqueCategories.map((category, index) => (
+                    <td
+                      key={index}
+                      className={`${styles.firstTab} ${
+                        selectedCategory === category
+                          ? styles.activeNavLink
+                          : ""
+                      }`}
+                      onClick={() => handleTabClick(category)}
+                    >
+                      <span className={fonts.futuraTabText}>
+                        {writeUtils.formatCategoryName(category)}
+                      </span>
+                    </td>
+                  ))}
+                <td className={styles.restTab}></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <Row>
@@ -123,7 +120,6 @@ function OnSale() {
                         to={`/products/${data.category}/${data.collection}`}
                       >
                         <div className={styles.OSItemImage}>
-                          {" "}
                           <img
                             src={
                               data.titleInfo.urls
@@ -158,5 +154,6 @@ function OnSale() {
     </Container>
   );
 }
+
 
 export default OnSale;

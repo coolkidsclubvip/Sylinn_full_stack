@@ -83,17 +83,16 @@ export const button = style({
 
 export const tabsContainer = style({
   width: "100%",
-  borderBottom: "2px solid #ddd",
+  // borderBottom: "2px solid #ddd",
 });
 
-// export const customTable = style({
-//   width: "100%",
-//   //   borderCollapse: "collapse",
-//   borderBottom: "2px solid #ddd",
-// });
+export const customTable = style({
+  width: "100%",
+  borderBottom: `3px solid ${vars.colors.border}`,
+});
 
 export const firstTab = style({
-  width: "10%",
+  // width: "20%",
   padding: "5px",
   textAlign: "center",
   textDecoration: "none",
@@ -112,6 +111,6 @@ export const firstTab = style({
 
 export const activeNavLink = style({
   opacity: 1,
-  backgroundColor: vars.colors.grey,
-  borderBottom: "2px solid black",
+  // backgroundColor: vars.colors.grey,
+  borderBottom: "3px solid black",
 });

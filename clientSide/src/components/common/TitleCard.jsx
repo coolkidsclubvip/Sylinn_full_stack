@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import * as fonts from "../../styles/fonts/fonts.css.ts";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg"
 import writeUtils from "../../utils/writeUtils";
+import sortImages from "../../utils/sortImages";
+
 function TitleCard({data}) {
 
 const {collectionId,titleInfo}=data
@@ -13,7 +15,7 @@ const {collectionId,titleInfo}=data
         <Link to={`${collectionId}`}>
           <div className={styles.ItemImage}>
             <img
-              src={titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder}
+              src={titleInfo.urls ? sortImages(titleInfo.urls)[0] : imagePlaceHolder}
               alt={titleInfo.title}
             />
           </div>

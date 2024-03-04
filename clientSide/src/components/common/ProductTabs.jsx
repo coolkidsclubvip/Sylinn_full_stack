@@ -76,7 +76,7 @@ return downloadFileName;
                 <span className={fonts.futuraTabText}>Downloads</span>
               </td>
               <td className={styles.restTab}>
-                <span></span>
+                 
               </td>
             </tr>
           </tbody>
