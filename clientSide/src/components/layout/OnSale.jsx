@@ -129,16 +129,17 @@ function OnSale() {
                             alt={data.titleInfo.title}
                           />
                         </div>
+
+                        <div className={styles.OSItemText}>
+                          <span className={fonts.futuraGridCardTitles}>
+                            {writeUtils.capitalizeFirstLetter(
+                              data.titleInfo.title
+                            )}
+                          </span>
+                          <br />
+                          <p className={styles.code}>{data.titleInfo.code}</p>
+                        </div>
                       </Link>
-                      <div className={styles.OSItemText}>
-                        <span className={fonts.futuraGridCardTitles}>
-                          {writeUtils.capitalizeFirstLetter(
-                            data.titleInfo.title
-                          )}
-                        </span>
-                        <br />
-                        <p className={styles.code}>{data.titleInfo.code}</p>
-                      </div>
                       <Link
                         to={`/products/${data.category}/${data.collection}`}
                       >
