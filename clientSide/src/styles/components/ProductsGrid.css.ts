@@ -5,16 +5,16 @@ export const gridWrapper = style({
   width: "70vw",
   display: "flex",
   flexDirection: "column",
+  margin: "0 auto",
   marginTop: "20vh",
   height: "auto",
   overflow: "hidden",
   transition: "all 1s ease",
-  margin: "0 auto",
 
   "@media screen and (max-width: 768px)": {
     width: "100%",
-
     padding: 0,
+    margin: "0 auto",
   },
 });
 

@@ -9,13 +9,16 @@ export const bannerWrapper = style({
   display: "flex",
   flexDirection: "column",
 
-  "@media screen and (max-width: 768px)": { marginBottom: "60vh ",width:"100vw" },
+  "@media screen and (max-width: 768px)": {
+    marginBottom: "60vh ",
+    width: "100vw",
+  },
 });
 
 export const left = style({
   // backgroundColor: vars.colors.grey,
   backgroundImage: "url(/images/banner_images/waterWave.webp)",
-  backgroundSize:"cover",
+  backgroundSize: "cover",
   width: "100%",
   height: "100%",
   padding: "17%",

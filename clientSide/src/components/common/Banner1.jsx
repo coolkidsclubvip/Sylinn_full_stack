@@ -7,8 +7,9 @@ import BannerButton from "./BannerButton";
 function Banner1() {
   return (
     <>
-      <div className={styles.bannerWrapper}>
-        <Container>
+      {" "}
+      <Container>
+        <div className={styles.bannerWrapper}>
           <Row>
             <Col md={6} sm={12} className="p-0">
               <div className={styles.left}>
@@ -31,8 +32,8 @@ function Banner1() {
               <div className={styles.right}></div>
             </Col>
           </Row>
-        </Container>
-      </div>
+        </div>{" "}
+      </Container>
     </>
   );
 }
