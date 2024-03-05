@@ -13,8 +13,9 @@ export const bannerWrapper = style({
 });
 
 export const left = style({
-  backgroundColor: vars.colors.grey,
-
+  // backgroundColor: vars.colors.grey,
+  backgroundImage: "url(/images/banner_images/waterWave.webp)",
+  backgroundSize:"cover",
   width: "100%",
   height: "100%",
   padding: "17%",
