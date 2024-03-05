@@ -4,7 +4,7 @@ import * as styles from "../../styles/layout/Header.css";
 import * as fonts from "../../styles/fonts/fonts.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Logo_sylinn_big from "../../assets/images/Logo-sylinn-big.png";
-import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
+// import Logo_sylinn_small from "../../assets/images/Logo-sylinn-small.png";
 import useAuth from "../../hooks/useAuth";
 import { Turn as Hamburger } from "hamburger-react";
 import { TbSearch, TbLogout, TbUserSquare, TbLogin2 } from "react-icons/tb";
@@ -107,36 +107,39 @@ function Header({
             >
               {!user && (
                 <Link to={"/login"}>
-                  <TbLogin2 size={30} className="me-4" />
+                  <TbLogin2 size={30} />
+                  <span className="me-4 fs-5">Login</span>
                 </Link>
               )}
               {!user && (
                 <Link to={"/register"}>
-                  <LuUserPlus size={30} className="me-4" />
+                  <LuUserPlus size={30} />
+                  <span className="me-4 fs-5">Register</span>
                 </Link>
               )}
               {user && (
                 <Link to={"/dashboard"}>
-                  <TbUserSquare size={30} className="me-4" />
+                  <TbUserSquare size={30} />
+                  <span className="me-4 fs-5">{user.username}</span>
                 </Link>
               )}
 
               {/* logout button */}
 
               {user && (
-                <Link>
-                  <TbLogout size={30} onClick={handleClick} className="me-4" />
+                <Link onClick={handleClick}>
+                  <TbLogout size={30} />
+                  <span className="me-4 fs-5">Logout</span>
                 </Link>
               )}
-              <Link>
+              <Link
+                onClick={() => {
+                  setShowSearch(!showSearch);
+                }}
+              >
                 {" "}
-                <TbSearch
-                  size={30}
-                  className="me-4"
-                  onClick={() => {
-                    setShowSearch(!showSearch);
-                  }}
-                />
+                <TbSearch size={30} />
+                <span className="me-4 fs-5">Search</span>
               </Link>
             </Col>
           </Row>

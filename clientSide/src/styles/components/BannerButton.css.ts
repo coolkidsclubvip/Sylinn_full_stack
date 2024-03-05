@@ -11,7 +11,7 @@ export const button = style({
   outline: 0,
   //   display: "inline-block",
   color: vars.colors.black,
-  backgroundColor: vars.colors.grey,
+  backgroundColor: "transparent",
   textAlign: "center",
   cursor: "pointer",
   width: "9rem",
@@ -19,6 +19,7 @@ export const button = style({
   borderRadius: "3px",
   left: "10%",
   transition: "all 0.5s ease-out",
+
   ":hover": {
     backgroundColor: vars.colors.brand,
     border: "none",
