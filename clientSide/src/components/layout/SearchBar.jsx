@@ -28,15 +28,15 @@ const SearchBar = ( ) => {
       <Form onSubmit={handleSubmit}>
         <FloatingLabel
           controlId="Input"
-          label="Search Keyword"
-          className="w-100 mt-1 "
+          label="Search Product Name or Code"
+          className="w-100 mt-1 text-muted"
         >
           <Form.Control
             type="text"
-            placeholder="Enter your search keywords"
+            placeholder=" "
             value={keyword}
             onChange={onChange}
-            style={{ outline: "none",boxShadow: "none",height:"60px" }   }
+            style={{ outline: "none", boxShadow: "none", height: "60px" }}
           />
 
           {/* <Button

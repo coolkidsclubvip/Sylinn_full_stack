@@ -22,7 +22,7 @@ export const bigHeader = style({
   // fontSize: vars.fontSizes["1x"],
   // fontWeight: vars.fontWeights["bold"],
   overflow: "hidden",
-  // borderBottom: `1px solid ${vars.colors.brand}`,
+  borderBottom: `1px solid ${vars.colors.grey}`,
   zIndex: 99,
   color: vars.colors.black,
   backgroundColor: "white",
@@ -96,7 +96,7 @@ export const SearchBarDiv = style({
   // position: "absolute",
   position: "fixed",
   zIndex: "99",
-  backgroundColor: "#EEEEEE",
+   background: "linear-gradient(#f2f2f2, #d3d3d3 )",
   width: "100vw",
   textAlign: "center",
   animation: `${fadeInDown} 0.5s ease`, // Search bar fade in effect

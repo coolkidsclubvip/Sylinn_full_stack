@@ -8,7 +8,6 @@ export const bannerWrapper = style({
   margin: "15vh auto",
   display: "flex",
   flexDirection: "column",
-
   "@media screen and (max-width: 768px)": {
     marginBottom: "60vh ",
     width: "100vw",

@@ -22,7 +22,11 @@ function CategoryPage() {
   async function fetchCollections() {
     try {
       const response = await productService.getAllCollections(category);
-      const responseData = response.data;
+     // Add category param to each item in data (for title card Link url.)
+ const responseData = response.data.map((item) => ({
+   ...item,
+   category: category,
+ }));
 
       setData(responseData);
 
@@ -67,6 +71,7 @@ function CategoryPage() {
     return <DelayedLoaderSpinner />;
   }
 
+  console.log("data is:",data);
   return (
     <>
       <Helmet>

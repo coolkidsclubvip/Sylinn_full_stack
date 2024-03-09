@@ -8,6 +8,8 @@ globalFontFace(futura, {
 });
 
 export const futuraTitle = style({
+  width: "110%",
+  // backgroundColor: "red",
   fontFamily: futura,
   fontSize:vars.fontSizes["4x"],
   fontWeight:vars.fontWeights.bolder

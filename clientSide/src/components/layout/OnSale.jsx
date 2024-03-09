@@ -33,7 +33,7 @@ function OnSale() {
   // a new function to call 1st available category
   function fetchFirstCate() {
     if (titleInfos.length == 0) {
-      console.log("no data");
+      // console.log("no data");
     } else {
       const firstCat = titleInfos[0].category;
       setSelectedCategory(firstCat);

@@ -108,19 +108,19 @@ function Header({
               {!user && (
                 <Link to={"/login"}>
                   <TbLogin2 size={30} />
-                  <span className="me-4 fs-5">Login</span>
+                  <span className="me-4 fs-6">Login</span>
                 </Link>
               )}
               {!user && (
                 <Link to={"/register"}>
                   <LuUserPlus size={30} />
-                  <span className="me-4 fs-5">Register</span>
+                  <span className="me-4 fs-6">Register</span>
                 </Link>
               )}
               {user && (
                 <Link to={"/dashboard"}>
                   <TbUserSquare size={30} />
-                  <span className="me-4 fs-5">{user.username}</span>
+                  <span className="me-4 fs-6">{user.username}</span>
                 </Link>
               )}
 
@@ -129,7 +129,7 @@ function Header({
               {user && (
                 <Link onClick={handleClick}>
                   <TbLogout size={30} />
-                  <span className="me-4 fs-5">Logout</span>
+                  <span className="me-4 fs-6">Logout</span>
                 </Link>
               )}
               <Link
@@ -139,7 +139,7 @@ function Header({
               >
                 {" "}
                 <TbSearch size={30} />
-                <span className="me-4 fs-5">Search</span>
+                <span className="me-4 fs-6">Search</span>
               </Link>
             </Col>
           </Row>

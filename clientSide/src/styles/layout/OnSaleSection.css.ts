@@ -8,7 +8,10 @@ export const OsContainer = style({
   display: "flex",
   flexDirection: "column",
   margin: "15vh auto",
-  "@media screen and (max-width: 768px)": { width: "100vw" },
+  "@media screen and (max-width: 768px)": { width: "100vw",
+  marginTop:"70vh",
+
+},
 });
 
 export const OSList = style({

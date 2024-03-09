@@ -19,6 +19,15 @@ export const List = style({
   padding: "5rem 0",
 });
 
+export const warnText = style({
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "20vh",
+  fontFamily: fonts.futuraTabText,
+  
+});
+
+
 export const Item = style({
   // height: "400px",
   // overflow: "hidden",

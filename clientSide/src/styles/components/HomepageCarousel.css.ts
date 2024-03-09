@@ -58,21 +58,26 @@ export const carouselCaption = style({
   // },
   "@media screen and (max-width: 576px)": {
     width: "100vw",
-    bottom: "50%",
+    bottom: "55%",
     left: "50%",
     transform: "translateX(-50%)",
+    fontSize: vars.fontSizes["4x"],
+    fontWeight: vars.fontWeights.normal,
   },
 
   "@media screen and (min-width: 576px) and (max-width: 768px)": {
     bottom: "60%", // 视口变小时调整位置
     left: "50%",
     transform: "translateX(-50%)",
-    fontSize: vars.fonts["x1"], // 可能需要调整字体大小
+    fontSize: vars.fontSizes["4x"],
+    fontWeight: vars.fontWeights.normal,
   },
   "@media screen and (min-width: 768px) and (max-width: 992px)": {
     left: "50%",
     transform: "translateX(-50%)",
     bottom: "60%",
+    fontSize: vars.fontSizes["5x"],
+    fontWeight: vars.fontWeights.bold,
   },
 
   "@media screen and (min-width: 992px) and (max-width: 1200px)": {
@@ -100,32 +105,38 @@ export const carouselText = style({
   fontWeight: vars.fontWeights.bold,
 
   "@media screen and (max-width: 576px)": {
-    width: "100vw",
-    bottom: "20%",
+    width: "90vw",
+    bottom: "30%",
     left: "50%",
     transform: "translateX(-50%)",
     fontSize: vars.fontSizes["2x"],
+    fontWeight: vars.fontWeights.normal,
   },
 
   "@media screen and (min-width: 576px) and (max-width: 768px)": {
-    bottom: "30%", // 视口变小时调整位置
+    width: "80vw",
+    bottom: "35%",
     left: "50%",
     transform: "translateX(-50%)",
-    width: "90%",
-    fontSize: vars.fonts["x1"],
+    fontSize: vars.fontSizes["2x"],
+    fontWeight: vars.fontWeights.normal,
   },
   "@media screen and (min-width: 768px) and (max-width: 992px)": {
     width: "70vw",
     left: "50%",
     transform: "translateX(-50%)",
     bottom: "40%",
+    fontSize: vars.fontSizes["2x"],
+    fontWeight: vars.fontWeights.normal,
   },
 
   "@media screen and (min-width: 992px) and (max-width: 1200px)": {
-    width: "70vw",
+    width: "60vw",
     left: "50%",
     transform: "translateX(-50%)",
     top: "50%",
+    fontSize: vars.fontSizes["2x"],
+    fontWeight: vars.fontWeights.normal,
   },
 
   "@media screen and (min-width: 1200px)": {

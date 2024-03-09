@@ -14,7 +14,7 @@ function Banner1() {
             <Col md={6} sm={12} className="p-0">
               <div className={styles.left}>
                 <h2 className={fonts.futuraTitle}>
-                  From a humble beginning in Longkou China
+                  From a humble beginning, <br/>now a leading bathware provider.
                 </h2>
                 <p className={`${fonts.normalText} mt-3`}>
                   Our cherished bathware craftsmanship finds a poetic home in

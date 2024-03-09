@@ -62,7 +62,7 @@ export const button = style({
   fontWeight: vars.fontWeights.normal,
   border: "none",
   outline: 0,
-  display: "inline-block",
+  // display: "inline-block",
   padding: "4px",
   color: "white",
   backgroundColor: vars.colors.brand,
@@ -71,5 +71,7 @@ export const button = style({
   width: "80%",
   marginTop: "auto",
   marginBottom: "1rem",
+  marginLeft: "50%",
+  transform: "translateX(-50%)",
   ":hover": { backgroundColor: vars.colors.brandDark },
 });
