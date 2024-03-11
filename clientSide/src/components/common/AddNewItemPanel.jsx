@@ -166,8 +166,6 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
     }
   };
 
-
-
   return (
     <Container>
       <div className={`${styles.container} `}>
@@ -210,7 +208,18 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/*GROUP 3 Product Description */}
+            {/* GROUP 3 Product Title */}
+            <Form.Group className="mb-3">
+              <Form.Label>Product Title</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter product title"
+                name="title"
+                value={title}
+                onChange={handleTextChange}
+              />
+            </Form.Group>
+            {/*GROUP 4 Product Description */}
             <Form.Group className="mb-3">
               <Form.Label>Product Description</Form.Label>
               <Form.Control
@@ -223,17 +232,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 onChange={handleTextChange}
               />
             </Form.Group>
-            {/* GROUP 4 Product Title */}
-            <Form.Group className="mb-3">
-              <Form.Label>Product Title</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter product title"
-                name="title"
-                value={title}
-                onChange={handleTextChange}
-              />
-            </Form.Group>
+
             {/* GROUP 5 & 6: IMAGE UPLOAD & PDF FILE UPLOAD */}
 
             <Row>
@@ -241,7 +240,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 {imageFields.map((field, index) => (
                   <Row key={index} className="mb-1">
                     <Col md={2}>
-                      {imageFields.length>1 && (
+                      {imageFields.length > 1 && (
                         <button
                           type="button"
                           onClick={() => removeUploadImage(index)}

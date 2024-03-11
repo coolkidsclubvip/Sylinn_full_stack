@@ -109,6 +109,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
   // Set the big image URL according to selected option
   //1. Get image names from urls
   const imageNames = [];
+console.log("titleInfo.urls in modal:", titleInfo.urls);
 
   titleInfo.urls.map((url) => {
     const imageName = readUtils.getFileFromUrl(url);
@@ -134,6 +135,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
   // 在 useEffect 中监听 selectedOption 的变化，并调用 handleOptionChange
   useEffect(() => {
     if (selectedOption) {
+      console.log("selectedOption in modal:", selectedOption);
       handleOptionChange(selectedOption);
     }
   }, [selectedOption]);

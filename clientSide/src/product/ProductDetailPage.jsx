@@ -66,6 +66,7 @@ function ProductDetailPage() {
 
   // When option is selected, update the RRP and Stock accordingly
   useEffect(() => {
+    console.log("selectedOption in detailpage is:", selectedOption);
     // find the product with the selectedOption(id) passed in
     if (selectedOption !== "") {
       const selectedProduct = data.find(
@@ -75,7 +76,7 @@ function ProductDetailPage() {
       if (selectedOption === "") {
         setStock("");
       }
-
+       console.log("selectedProduct in detailpage is:", selectedProduct);
       if (selectedProduct) {
         // Update rRP and Stock state
         setRRP(selectedProduct.rrp);

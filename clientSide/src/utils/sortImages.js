@@ -13,8 +13,8 @@ import readUtils from "./readUtils";
       readUtils.getFileFromUrl(b)
     );
     // 判断是否为 spec 或者 specs 图片
-    const isSpecA = nameA.endsWith("_spec.png") || nameA.endsWith("_specs.png");
-    const isSpecB = nameB.endsWith("_spec.png") || nameB.endsWith("_specs.png");
+    const isSpecA = nameA.endsWith("-spec.png") || nameA.endsWith("-specs.png");
+    const isSpecB = nameB.endsWith("-spec.png") || nameB.endsWith("-specs.png");
 
     // 如果其中一个是 spec 或者 specs 图片，则将其排在最后
     if (isSpecA && !isSpecB) {
