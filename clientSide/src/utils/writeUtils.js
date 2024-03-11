@@ -14,6 +14,10 @@ function capitalizeFirstLetter(text) {
 
   return text.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
 }
+function capitalizeStringLED(text) {
+   return text.replace(/led/gi, "LED");
+}
+
 
 function capitalizeAllLetter(text) {
   if (typeof text !== "string") {
@@ -58,6 +62,7 @@ const writeUtils = {
   capitalizeFirstLetter,
   formatCategoryName,
   capitalizeAllLetter,
+  capitalizeStringLED
 };
 
 export default writeUtils;

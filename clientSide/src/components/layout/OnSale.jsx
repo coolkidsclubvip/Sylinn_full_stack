@@ -132,8 +132,10 @@ function OnSale() {
 
                         <div className={styles.OSItemText}>
                           <span className={fonts.futuraGridCardTitles}>
-                            {writeUtils.capitalizeFirstLetter(
-                              data.titleInfo.title
+                            {writeUtils.capitalizeStringLED(
+                              writeUtils.capitalizeFirstLetter(
+                                data.titleInfo.title
+                              )
                             )}
                           </span>
                           <br />
@@ -155,6 +157,5 @@ function OnSale() {
     </Container>
   );
 }
-
 
 export default OnSale;

@@ -27,7 +27,7 @@ function TitleCard({data}) {
         </Link>
         <div className={styles.ItemText}>
           <span className={fonts.futuraGridCardTitles}>
-            {writeUtils.capitalizeFirstLetter(titleInfo.title)}
+            {writeUtils.capitalizeStringLED(writeUtils.capitalizeFirstLetter(titleInfo.title))}
           </span>
           <br />
           <p className={styles.code}>{titleInfo.code}</p>
