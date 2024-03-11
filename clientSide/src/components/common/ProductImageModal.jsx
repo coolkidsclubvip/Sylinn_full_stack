@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as styles from "../../styles/components/ProductImageModal.css";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
-import {
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import readUtils from "../../utils/readUtils";
 
 function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
@@ -109,7 +105,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
   // Set the big image URL according to selected option
   //1. Get image names from urls
   const imageNames = [];
-console.log("titleInfo.urls in modal:", titleInfo.urls);
+  console.log("titleInfo.urls in modal:", titleInfo.urls);
 
   titleInfo.urls.map((url) => {
     const imageName = readUtils.getFileFromUrl(url);
@@ -135,12 +131,10 @@ console.log("titleInfo.urls in modal:", titleInfo.urls);
   // 在 useEffect 中监听 selectedOption 的变化，并调用 handleOptionChange
   useEffect(() => {
     if (selectedOption) {
-      console.log("selectedOption in modal:", selectedOption);
+      // console.log("selectedOption in modal:", selectedOption);
       handleOptionChange(selectedOption);
     }
   }, [selectedOption]);
-
-  // console.log("@@##slides in modal:", slides);
 
   useEffect(() => {
     if (selectedOption) {
@@ -170,6 +164,13 @@ console.log("titleInfo.urls in modal:", titleInfo.urls);
 
   // console.log("initialProductId IN MODAL:", initialProductId);
 
+  //Hover mouse on big image will change mouse look
+  const handleOnMouseEnter2 = () => {
+    document.body.style.cursor = "pointer";
+  };
+  const handleOnMouseLeave = () => {
+    document.body.style.cursor = "auto";
+  };
   return (
     <Container className={styles.modalContainer}>
       <Row>
@@ -177,7 +178,11 @@ console.log("titleInfo.urls in modal:", titleInfo.urls);
           {/* Big modal image */}
           <div id="productImageSwitch">
             {titleInfo && (
-              <div className={styles.bigImgContainer}>
+              <div
+                className={styles.bigImgContainer}
+                onMouseEnter={handleOnMouseEnter2}
+                onMouseLeave={handleOnMouseLeave}
+              >
                 <img
                   src={bigImageUrl}
                   id="bigImg"
@@ -223,14 +228,7 @@ console.log("titleInfo.urls in modal:", titleInfo.urls);
             <ul className={styles.ul} ref={slidesRef}>
               <Row className="">
                 {smallImages?.map((url, index) => (
-                  <Col
-                    key={index}
-                    xs={6}
-                    sm={4}
-                    md={3}
-                    lg={2}
-                    className="py-3"
-                  >
+                  <Col key={index} xs={6} sm={4} md={3} lg={2} className="py-3">
                     {" "}
                     <li
                       className={` ${styles.li}${

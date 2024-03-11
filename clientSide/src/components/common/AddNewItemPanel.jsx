@@ -225,7 +225,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
               <Form.Control
                 type="text"
                 as="textarea"
-                row={10}
+                rows={10}
                 placeholder="Enter product description"
                 name="description"
                 value={description}

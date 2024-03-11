@@ -110,7 +110,7 @@ function ProductDetailPage() {
   if (error) {
     return (
       <Container className="text-center mt-4">
-        <p>Error page</p>
+        <p>Error </p>
       </Container>
     );
   }
@@ -161,7 +161,7 @@ function ProductDetailPage() {
   return (
     <Container>
       <Helmet>
-        <title>product detail</title>
+        <title> {titleInfo.title}</title>
       </Helmet>
       <div className={styles.container}>
         {showEditPanel && (

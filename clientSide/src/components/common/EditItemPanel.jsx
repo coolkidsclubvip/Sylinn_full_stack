@@ -20,7 +20,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 function EditItemPanel({
   setShowEditPanel,
   titleInfo,
-  data,//data are products(variant)
+  data, //data are products(variant)
   category,
   collection,
   fetchProduct,
@@ -141,8 +141,7 @@ function EditItemPanel({
     setFileFields(updatedFileFields);
   };
 
-
-    // To delete files from to-be-deleted files list
+  // To delete files from to-be-deleted files list
   const removeUploadImage = (index) => {
     const updatedImages = [...uploadedImages];
     updatedImages.splice(index, 1);
@@ -199,9 +198,7 @@ function EditItemPanel({
     e.preventDefault();
     console.log("id is", id);
     id; // 要删除的产品的ID
-    const filteredProducts = data.filter(
-      (product) => product.id !== id
-    );
+    const filteredProducts = data.filter((product) => product.id !== id);
     console.log("filteredProducts are:", filteredProducts);
     // setProductsData(filteredProducts);
 
@@ -241,9 +238,7 @@ function EditItemPanel({
   if (error) {
     return (
       <Container>
-        <Spinner animation="border" variant="primary" size="lg">
-          Loading
-        </Spinner>
+        <Spinner animation="border" variant="danger"></Spinner>
       </Container>
     );
   }
@@ -354,11 +349,11 @@ function EditItemPanel({
                   <Row key={index} className="mb-3">
                     <Col md={10}>
                       {" "}
-                      <Form.Group>
+                      <Form.Group className="mt-3">
                         <Form.Label>Image Upload</Form.Label>
                         <Form.Control
                           type="file"
-                          className="mb-4"
+                          className="mb-4 "
                           name="urls"
                           onChange={(e) => handleImageChange(e)}
                         />
@@ -421,7 +416,7 @@ function EditItemPanel({
 
               <Col lg={6} md={6} sm={12}>
                 {fileFields.map((field, index) => (
-                  <Row key={index} className="mb-1">
+                  <Row key={index} className="mb-1 mt-5">
                     <Col md={10}>
                       <Form.Group>
                         <Form.Label>File Upload</Form.Label>
@@ -460,7 +455,7 @@ function EditItemPanel({
             <Row className="mt-5">
               <Col lg={6} md={6} sm={12}>
                 {" "}
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3 mt-5">
                   <Form.Label>Product sale status</Form.Label>
                   <Form.Check
                     type="radio"

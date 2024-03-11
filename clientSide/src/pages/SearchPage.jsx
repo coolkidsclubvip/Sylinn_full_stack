@@ -9,6 +9,7 @@ import * as styles from "../styles/page/SearchPage.css";
 import DelayedLoaderSpinner from "../components/layout/DelayedLoaderSpinner";
 import sortImages from "../utils/sortImages";
 import TitleCard from "../components/common/TitleCard";
+import { Helmet } from "react-helmet";
 
 function SearchPage() {
   const [searchResults, setSearchResults] = useState(null);
@@ -42,50 +43,33 @@ function SearchPage() {
     return <DelayedLoaderSpinner />;
   }
 
-
   return (
-    <div className={styles.container}>
-      <Container>
-        {/* If result is empty array */}
-        <div className={`row ${styles.List}`}>
-          {searchResults.length == 0 && (
-            <div className={styles.warnText}>
-              <span className={fonts.futuraTabText}>
-                No product matches your search, please revise your input and try
-                again...
-              </span>
-            </div>
-          )}
-          {/* If loading is finished, and results is not empty, map it */}
-          {!loading &&
-            searchResults.length > 0 &&
-            searchResults.map((data, index) => (
-              // <div className="col-md-4 col-sm-6 col-12" key={index}>
-                //  <div className={styles.Item}>
-                //   <Link to={`/products/${data.category}/${data.collectionId}`}>
-                //     <img
-                //       src={sortImages(data.titleInfo.urls)[0]}
-                //       alt={data.titleInfo.title}
-                //       className={styles.ItemImage}
-                //     />
-                //   </Link>
-                //   <div className={styles.ItemText}>
-                //     <span className={fonts.futuraGridCardTitles}>
-                //       {data.titleInfo.title}
-                //     </span>
-                //     <br />
-                //     <p className={styles.code}>{data.titleInfo.code}</p>
-                //   </div>
-                //   <Link to={`/products/${data.category}/${data.collectionId}`}>
-                //     <button className={styles.button}>DETAILS</button>
-                //   </Link>
-                // </div> 
+    <>
+      <Helmet>
+        <title> {searchResults?searchResults[0].titleInfo.title:" "}</title>
+      </Helmet>
+      <div className={styles.container}>
+        <Container>
+          {/* If result is empty array */}
+          <div className={`row ${styles.List}`}>
+            {searchResults.length == 0 && (
+              <div className={styles.warnText}>
+                <span className={fonts.futuraTabText}>
+                  No product matches your search, please revise your input and
+                  try again...
+                </span>
+              </div>
+            )}
+            {/* If loading is finished, and results is not empty, map it */}
+            {!loading &&
+              searchResults.length > 0 &&
+              searchResults.map((data, index) => (
                 <TitleCard key={index} data={data} />
-              // </div>
-            ))}
-        </div>
-      </Container>
-    </div>
+              ))}
+          </div>
+        </Container>
+      </div>
+    </>
   );
 }
 

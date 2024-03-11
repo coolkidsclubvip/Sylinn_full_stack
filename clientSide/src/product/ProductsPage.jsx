@@ -88,7 +88,7 @@ function ProductsPage() {
   return (
     <>
       <Helmet>
-        <title>product categories</title>
+        <title>Product Categories</title>
       </Helmet>
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>OUR PRODUCTS</div>

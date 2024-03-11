@@ -39,7 +39,7 @@ function HomepageCarousel() {
               versatility and style.
             </div>
             <div className={styles.carouselButton}>
-              <Link to="/products/bath/felicity">
+              <Link to="/products/bath/BTU-FELICITY">
                 <BannerButton>EXPLORE</BannerButton>
               </Link>
             </div>
@@ -48,7 +48,7 @@ function HomepageCarousel() {
         <Carousel.Item>
           <div className={styles.image3}>
             <div className={styles.carouselCaption}>
-              Multi Colours Towel Rack Range
+              Lucia Towel Rack Multi Colours
             </div>
             <div className={styles.carouselText}>
               Discover our Australian Standard Heated Towel Rack, featuring 6

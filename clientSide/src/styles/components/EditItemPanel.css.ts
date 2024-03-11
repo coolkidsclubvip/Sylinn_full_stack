@@ -15,6 +15,7 @@ export const container = style({
 });
 
 export const card = style({
+  width: "100vw",
   position: "relative",
 });
 

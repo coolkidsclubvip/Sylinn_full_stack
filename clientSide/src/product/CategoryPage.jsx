@@ -75,7 +75,7 @@ function CategoryPage() {
   return (
     <>
       <Helmet>
-        <title>product category</title>
+        <title>{writeUtils.formatCategoryName(category)}</title>
       </Helmet>
       {showAddNewPanel && (
         <div className={styles.addItemBG}>
