@@ -29,13 +29,13 @@ function Dashboard() {
     <Container>
       <div className={styles.container}>
         {!user && (
-          <SyCard title="User Profile" authform>
+          <SyCard title="User Profile" >
             <div>Can Not Retrieve User</div>{" "}
           </SyCard>
         )}
 
         {user && (
-          <SyCard title="User Profile" authform>
+          <SyCard title="User Profile">
             <div>
               <p>Welcome, {user.username}</p>
               <p>{user.email}</p>

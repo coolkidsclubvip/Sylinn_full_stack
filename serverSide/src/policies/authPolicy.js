@@ -12,18 +12,18 @@ module.exports = {
       email: Joi.string()
         .email({
           minDomainSegments: 2,
-          tlds: { allow: ["com", "net"] },
+          tlds: { allow: ["com", "net", "au"] },
         })
         .required(),
       password: Joi.string()
         .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
         .required(),
-        isAdmin: Joi.boolean(),
+      isAdmin: Joi.boolean(),
     });
 
     // 2. call Joi validation method on req.body
     const { error, value } = schema.validate(req.body);
-    console.log("error is: ",error);
+    console.log("error is: ", error);
     // 3. when error, test the error type
     if (error) {
       debugJoi(error.details[0]);
@@ -55,7 +55,7 @@ module.exports = {
       email: Joi.string()
         .email({
           minDomainSegments: 2,
-          tlds: { allow: ["com", "net"] },
+          tlds: { allow: ["com", "net", "au"] },
         })
         .required(),
       password: Joi.string()

@@ -2,7 +2,7 @@ import DelayedLoaderSpinner from "../layout/DelayedLoaderSpinner";
 
 function ViewAllUsers({ usersData, loading }) {
   // console.log("usersData are:", usersData);
-  console.log("loading is:", loading);
+
   return (
     <div className=" mt-5">
       <h4>All Registered Users Details:</h4>
