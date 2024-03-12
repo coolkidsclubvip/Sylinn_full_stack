@@ -7,8 +7,8 @@ function SyCard({ title, authform, children }) {
     <Container>
       <div className={styles.container}>
         <div
-          className={`${styles.leadCard} ${
-            authform ? styles.authForm : styles.generalForm
+          className={` ${
+            authform ? styles.authForm : styles.leadCard
           }`}
         >
           <span className={`${futuraTitle} ${styles.cardTitle}`}>{title}</span>

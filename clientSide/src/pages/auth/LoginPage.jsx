@@ -58,7 +58,7 @@ function LoginPage() {
   };
   return (
     <div className={styles.LoginWrapper}>
-      <SyCard title="Login" loginform>
+      <SyCard title="Login" authform>
         <div className={styles.userNav}>
           {/* Form starts */}
           <Form onSubmit={handleSubmit}>

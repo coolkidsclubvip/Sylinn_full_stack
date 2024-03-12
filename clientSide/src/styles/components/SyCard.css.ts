@@ -12,7 +12,7 @@ export const container = style({
 
 export const leadCard = style({
   background: vars.colors.white,
-  width: "90%",
+  width: "80%",
   color: vars.colors.brandDark,
   margin: "0 auto",
   padding: "2rem",
@@ -21,11 +21,19 @@ export const leadCard = style({
 });
 
 export const generalForm = style({
-  minWidth: "25vw",
+  maxWidth: "30vw",
+  
 });
 
 export const authForm = style({
-  minWidth: "30vw",
+  maxWidth: "30vw",
+  background: vars.colors.white,
+  width: "100%",
+  color: vars.colors.brandDark,
+  margin: "0 auto",
+  padding: "2rem",
+  boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
+  textAlign: "center",
 });
 
 export const cardTitle = style({
