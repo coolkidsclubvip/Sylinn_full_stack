@@ -63,8 +63,6 @@ function del(category, id) {
   return api.delete(`/products/${category}/${id}`);
 }
 
-// get all products under /bath/felicity
-
 // get a certain product collection
 function getProduct(category, collection) {
   return api.get(`/products/${category}/${collection}`);

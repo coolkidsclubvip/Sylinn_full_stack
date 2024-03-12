@@ -95,7 +95,6 @@ module.exports = {
   ////// [1C]  A generic getProduct function: receive "category" and "collections" as parameters, and return an array of products and a Object of titleInfo(general info)
   async getCollection(req, res, next) {
     try {
-    
       const category = req.params.category;
       const collection = req.params.collection;
 
@@ -231,8 +230,6 @@ module.exports = {
     // save to cloud storage
     let imageUrls = [];
     let pdfUrls = [];
- 
-  
 
     try {
       for (const imageName of res.locals.imageNames) {
@@ -273,7 +270,6 @@ module.exports = {
       const titleInfoDoc = collectionRef.doc("titleInfo");
       const response1 = await titleInfoDoc.set(titleInfoData);
 
-    
       // Handle multiple product variants:
       if (req.body.products.length > 1) {
         const products = req.body.products;
@@ -315,7 +311,7 @@ module.exports = {
     // What we need to fill up with filtered titleInfos
     let titleInfoDocs = [];
     let filteredTitleInfoDocs = [];
-    let filteredTitleInfoDocsByCode=[]
+    let filteredTitleInfoDocsByCode = [];
     try {
       // Get all categories
       const productRef = db.collection("products");
@@ -328,7 +324,6 @@ module.exports = {
           id: doc.id, //  只显示： [{"id":"acc"},{"id":"bath"},{"id":"grate"},{"id":"htr"},{"id":"led"},{"id":"sink"}]
         });
       });
-    
 
       // Get all titleInfos from all collections//
 
@@ -350,7 +345,7 @@ module.exports = {
           }
           // Filter for all collections with keywords
           const keyword = req.params.keyword;
-       
+
           // Convert the keyword to a case-insensitive regex
           const keywordRegex = new RegExp(`\\b${keyword}\\b`, "i");
           filteredTitleInfoDocs = titleInfoDocs.filter((item) => {
@@ -371,17 +366,17 @@ module.exports = {
       ////[3.5]GET Product BY code
 
       try {
-     
-
         // Filter for all collections with possible code
         const keyword = req.params.keyword;
-     
+
         // Convert the keyword to a case-insensitive regex
         const keywordRegex = new RegExp(keyword, "i");
-       await Promise.all( filteredTitleInfoDocsByCode = titleInfoDocs.filter((item) => {
-          //  item.collectionId.titleInfo.includes(keywordRegex);
-          return keywordRegex.test(item.titleInfo.code);
-        }))
+        await Promise.all(
+          (filteredTitleInfoDocsByCode = titleInfoDocs.filter((item) => {
+            //  item.collectionId.titleInfo.includes(keywordRegex);
+            return keywordRegex.test(item.titleInfo.code);
+          }))
+        );
       } catch (err) {
         console.log(err);
       }
@@ -477,10 +472,9 @@ module.exports = {
           newProducts.push(product);
         }
       }
-     
+
       // Merge new and existing products into a common array
       const allProducts = [...existingProducts, ...newProducts];
-     
 
       // Delete products that are in the database but not in reqProducts
 
@@ -490,7 +484,6 @@ module.exports = {
             !reqProducts.some((product) => product.id === existingProduct.id)
         ) //如果 !allProducts.some(product => product.id === existingProduct.id) 返回 true，表示这个 existingProduct 不在 allProducts 中。
         .map(async (product) => {
-          
           const productDoc = collectionRef.doc(product.id);
           try {
             await productDoc.delete();
@@ -532,106 +525,84 @@ module.exports = {
   // [4.1.1] Delete product image by ID
   async deleteProductImage(req, res, next) {
     try {
-      // Get name from URL
       const imageName = await bucketServices.getFileFromUrl(req.body.imageUrl);
-
-      // Delete image URL from Firestore titleInfo urls array
-      const category = req.body.category;
-      const collection = req.body.collection;
-      const docPath = `products/${category}`;
-      const urlToDelete = req.body.imageUrl;
-      const admin = require("firebase-admin");
+      const { category, collection } = req.body;
       const productRef = db.collection("products");
 
       const snapshot = await productRef
         .doc(category)
         .collection(collection)
         .get();
-      snapshot.forEach((doc) => {
-        // Get data from collection
-        const data = doc.data();
+
+      snapshot.forEach(async (doc) => {
         if (doc.id === "titleInfo") {
           const titleInfo = doc.data();
-          const urls = titleInfo.urls || []; // Get the urls array, or an empty array if it does not exist
+          const urls = titleInfo.urls || [];
 
-          // Find and delete matching url
-          const updatedUrls = urls.filter((url) => url !== urlToDelete);
+          const updatedUrls = urls.filter((url) => url !== req.body.imageUrl);
 
-          // Update the titleInfo.urls field using the update method
-          productRef
+          await productRef
             .doc(category)
             .collection(collection)
             .doc("titleInfo")
-            .update({
-              urls: updatedUrls,
-            })
-            .then(() => {
-              console.log(
-                `URL ${urlToDelete} has been deleted from cloud storage`
-              );
-            })
-            .catch((error) => {
-              console.error(error);
-              res.status(500).send("Error occurs when deleting image");
-            });
+            .update({ urls: updatedUrls });
+
+          // Delete the image from cloud storage
+          await bucketServices.deleteFileFromBucket(imageName);
+
+          console.log(
+            `URL ${req.body.imageUrl} has been deleted from cloud storage`
+          );
         }
       });
+
       res.send(`Image ${imageName} has been deleted successfully`);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error("Error deleting product image:", error);
+      res
+        .status(500)
+        .send("An error occurred while deleting the product image");
     }
   },
 
   // [4.1.2] Delete product file by ID
   async deleteProductFile(req, res, next) {
     try {
-      // Get name from URL
-      const imageName = await bucketServices.getFileFromUrl(req.body.fileUrl);
-
-      // Delete image URL from Firestore titleInfo urls array
-      const category = req.body.category;
-      const collection = req.body.collection;
-      const docPath = `products/${category}`;
-      const urlToDelete = req.body.fileUrl;
-      const admin = require("firebase-admin");
+      const fileName = await bucketServices.getFileFromUrl(req.body.fileUrl);
+      const { category, collection } = req.body;
       const productRef = db.collection("products");
 
       const snapshot = await productRef
         .doc(category)
         .collection(collection)
         .get();
-      snapshot.forEach((doc) => {
-        // Get data from collection
-        const data = doc.data();
+
+      snapshot.forEach(async (doc) => {
         if (doc.id === "titleInfo") {
           const titleInfo = doc.data();
-          const urls = titleInfo.downloadUrls || []; // Get the urls array, or an empty array if it does not exist
+          const urls = titleInfo.downloadUrls || [];
 
-          // Find and delete matching url
-          const updatedUrls = urls.filter((url) => url !== urlToDelete);
+          const updatedUrls = urls.filter((url) => url !== req.body.fileUrl);
 
-          // Update the titleInfo.urls field using the update method
-          productRef
+          await productRef
             .doc(category)
             .collection(collection)
             .doc("titleInfo")
-            .update({
-              downloadUrls: updatedUrls,
-            })
-            .then(() => {
-              console.log(
-                `URL ${urlToDelete} has been deleted from cloud storage`
-              );
-            })
-            .catch((error) => {
-              console.error(error);
-              res.status(500).send("Error occurs when deleting image");
-            });
+            .update({ downloadUrls: updatedUrls });
+
+          // Delete the file from cloud storage
+          await bucketServices.deleteFileFromBucket(fileName);
+
+          console.log(
+            `URL ${req.body.fileUrl} has been deleted from cloud storage`
+          );
         }
       });
-      res.send(`Image ${imageName} has been deleted successfully`);
-    } catch (err) {
-      console.log(err);
+
+      res.send(`File ${fileName} has been deleted successfully`);
+    } catch (error) {
+      console.error("Error deleting product file:", error);
+      res.status(500).send("An error occurred while deleting the product file");
     }
   },
 
@@ -659,9 +630,9 @@ module.exports = {
       });
 
       const deletePromises = titleInfo.urls.map(async (url) => {
-        const uploadedFile = getFileFromUrl(url); // Replace with your logic to get the file
-      
-        return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
+        const uploadedFile = getFileFromUrl(url);
+
+        return await deleteFileFromBucket(uploadedFile);
       });
 
       await Promise.all(deletePromises);
@@ -669,9 +640,9 @@ module.exports = {
 
       const deleteDownloadPromises = titleInfo.downloadUrls.map(
         async (downloadUrl) => {
-          const uploadedFile = getFileFromUrl(downloadUrl); // Replace with your logic to get the file
+          const uploadedFile = getFileFromUrl(downloadUrl);
 
-          return await deleteFileFromBucket(uploadedFile); // Replace with your logic to delete the file
+          return await deleteFileFromBucket(uploadedFile);
         }
       );
 

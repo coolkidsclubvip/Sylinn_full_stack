@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import * as styles from "../../styles/components/AddNewItemPanel.css";
 import SyCard from "./SyCard";
-import SyButton from "./SyButton";
+
 import productService from "../../services/productService";
 import { toast } from "react-toastify";
 import writeUtils from "../../utils/writeUtils";

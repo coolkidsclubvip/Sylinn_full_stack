@@ -112,7 +112,7 @@ console.log("downloadURL from DB:", downloadURL);
       console.log(`File deleted from Storage Bucket: ${oldFileName}`);
 
       // Return API response to controller
-      return data[0];
+      return fileChecker[0];
     }
   },
 };
