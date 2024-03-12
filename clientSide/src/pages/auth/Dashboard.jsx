@@ -6,6 +6,8 @@ import SyCard from "../../components/common/SyCard";
 // import authServices from "../../../../serverSide/src/utils/authServices";
 import api from "../../services/api";
 import ViewAllUsers from "../../components/common/ViewAllUsers";
+import { PiDogDuotone } from "react-icons/pi";
+import { PiFishSimpleDuotone } from "react-icons/pi";
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -29,15 +31,24 @@ function Dashboard() {
     <Container>
       <div className={styles.container}>
         {!user && (
-          <SyCard title="User Profile" >
+          <SyCard title="Dashboard">
             <div>Can Not Retrieve User</div>{" "}
           </SyCard>
         )}
 
         {user && (
-          <SyCard title="User Profile">
+          <SyCard
+            title={`Hello,  ${user.username} `}
+            icon={
+              user.username === "Ying" ? (
+                <PiDogDuotone />
+              ) : user.username === "Din" ? (
+                <PiFishSimpleDuotone />
+              ) : null 
+            }
+          >
             <div>
-              <p>Welcome, {user.username}</p>
+              {/* <p>Welcome, {user.username}</p> */}
               <p>{user.email}</p>
             </div>
 

@@ -12,6 +12,8 @@ import { LuUserPlus } from "react-icons/lu";
 import { GrClose } from "react-icons/gr";
 import { toast } from "react-toastify";
 import SearchBar from "./SearchBar";
+import { PiDogDuotone } from "react-icons/pi";
+import { PiFishSimpleDuotone } from "react-icons/pi";
 
 function Header({
   showOffcanvas_Nav,
@@ -119,7 +121,13 @@ function Header({
               )}
               {user && (
                 <Link to={"/dashboard"}>
-                  <TbUserSquare size={30} />
+                  {user.username === "Ying" ? (
+                    <PiDogDuotone size={30} />
+                  ) : user.username === "Din" ? (
+                    <PiFishSimpleDuotone size={30} />
+                  ) : (
+                    <TbUserSquare size={30} />
+                  )}
                   <span className="me-4 fs-6">{user.username}</span>
                 </Link>
               )}
