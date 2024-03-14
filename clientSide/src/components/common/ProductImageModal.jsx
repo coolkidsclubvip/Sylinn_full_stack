@@ -152,8 +152,9 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
       // At the same time,update Modal slides with selected products' small images
       setSlides(updatedSmallImages);
     } else {
-      // 否则，保持默认的小图数组
+      // 否则，保持默认的小图数组,大图也为所有图片的第一张
       setSmallImages(titleInfo.urls);
+      setBigImageUrl(titleInfo.urls[0]);
     }
   }, [selectedOption, titleInfo.urls]);
 

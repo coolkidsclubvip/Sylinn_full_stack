@@ -45,7 +45,6 @@ function SearchPage() {
 
   return (
     <>
- 
       <div className={styles.container}>
         <Container>
           {/* If result is empty array */}

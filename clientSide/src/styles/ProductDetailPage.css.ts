@@ -75,13 +75,13 @@ export const options = style({
 
 export const buttonsGroups = style({
   textAlign: "center",
-  marginTop: "5rem",
+  marginTop: "3rem",
 });
 
 export const marginTop = style({
   width: "100%",
   marginTop: "0",
-  "@media screen and (max-width: 768px)": { marginTop: "15rem" },
+  "@media screen and (max-width: 768px)": { marginTop: "20rem" },
 });
 
 export const tabsContainer = style({

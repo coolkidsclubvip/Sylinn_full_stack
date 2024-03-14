@@ -25,8 +25,8 @@ function EditItemPanel({
   collection,
   fetchProduct,
 }) {
-  console.log("  title info in EditItemPanel are:", titleInfo);
-  console.log("data in EditItemPanel are:", data);
+  // console.log("  title info in EditItemPanel are:", titleInfo);
+  // console.log("data in EditItemPanel are:", data);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
