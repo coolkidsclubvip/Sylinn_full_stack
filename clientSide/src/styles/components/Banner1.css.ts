@@ -24,13 +24,13 @@ export const left = style({
 });
 
 export const right = style({
-  flex: 1,
-  width: "100%" /* 添加宽度 */,
-  height: "50vh" /* 添加高度 */,
+  // flex: 1,
+  width: "100%",
+  height: "50vh",
   overflow: "hidden",
-  backgroundImage: "url(/images/banner_images/banner1.jpg)",
+  backgroundImage: "url(/images/banner_images/banner1.webp)",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-
+  backgroundPositionY: "50%",
   "@media screen and (max-width: 768px)": { backgroundPositionX: "70%" },
 });
