@@ -20,11 +20,7 @@ export const leadCard = style({
   textAlign: "center",
 });
 
-export const generalForm = style({
-  maxWidth: "30vw",
-  
-});
-
+ 
 export const authForm = style({
   maxWidth: "30vw",
   background: vars.colors.white,
@@ -34,6 +30,16 @@ export const authForm = style({
   padding: "2rem",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   textAlign: "center",
+
+  "@media screen and (max-width: 992px)": {
+    maxWidth: "90vw",
+  },
+
+  "@media screen and (min-width: 992px) and (max-width: 1200px)": {
+    maxWidth: "50vw",
+  },
+
+
 });
 
 export const cardTitle = style({
