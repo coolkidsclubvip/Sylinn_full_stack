@@ -45,9 +45,7 @@ function SearchPage() {
 
   return (
     <>
-      <Helmet>
-        <title> {searchResults?searchResults[0].titleInfo.title:" "}</title>
-      </Helmet>
+ 
       <div className={styles.container}>
         <Container>
           {/* If result is empty array */}
