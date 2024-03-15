@@ -96,7 +96,7 @@ function CategoryPage() {
       <Container>
         <div className={styles.container}>
           <Row>
-            <Col sm={12}>
+            <Col sm={12} className="mb-3">
               {" "}
               <Breadcrumb>
                 <Breadcrumb.Item>

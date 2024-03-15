@@ -178,7 +178,7 @@ function ProductDetailPage() {
         )}
 
         {/* 1st row */}
-        <Row>
+        <Row className="mb-3">
           <Col>
             {" "}
             <Breadcrumb>
