@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as styles from "../../styles/components/ProductImageModal.css";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
-import { Container, Row, Col,Spinner } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import readUtils from "../../utils/readUtils";
 
 function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
@@ -12,9 +12,8 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
       readUtils.getFileFromUrl(url).includes(initialProductId)
     ) || imagePlaceHolder;
 
-    console.log("isBigImageUrl is:", isBigImageUrl);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [bigImageUrl, setBigImageUrl] = useState(titleInfo.urls[0]); // Initialize with the first image URL
+  const [bigImageUrl, setBigImageUrl] = useState(isBigImageUrl); // Initialize with the first image URL
   const [slides, setSlides] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const modalRef = useRef(null);
@@ -173,9 +172,6 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
   const handleOnMouseLeave = () => {
     document.body.style.cursor = "auto";
   };
-
-
- 
   return (
     <Container className={styles.modalContainer}>
       <Row>
@@ -231,7 +227,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
           {/* Small images */}
           <div>
             <ul className={styles.ul} ref={slidesRef}>
-              <Row >
+              <Row className="">
                 {smallImages?.map((url, index) => (
                   <Col key={index} xs={6} sm={4} md={3} lg={2} className="py-3">
                     {" "}
