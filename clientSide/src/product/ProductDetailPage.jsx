@@ -76,7 +76,7 @@ function ProductDetailPage() {
       if (selectedOption === "") {
         setStock("");
       }
-       console.log("selectedProduct in detailpage is:", selectedProduct);
+
       if (selectedProduct) {
         // Update rRP and Stock state
         setRRP(selectedProduct.rrp);
