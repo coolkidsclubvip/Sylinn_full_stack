@@ -343,7 +343,7 @@ function AddNewItemPanel({ setShowAddNewPanel, category, fetchCollections }) {
                 <Row>
                   <Col md={6}>
                     <Form.Group className="mb-3">
-                      <Form.Label>Product ID</Form.Label>
+                      <Form.Label>SKU</Form.Label>
                       <Form.Control
                         type="text"
                         placeholder="Enter variant ID"

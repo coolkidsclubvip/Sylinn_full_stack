@@ -75,7 +75,7 @@ export const options = style({
 
 export const buttonsGroups = style({
   textAlign: "center",
-  marginTop: "3rem",
+  marginTop: "1rem",
 });
 
 export const marginTop = style({

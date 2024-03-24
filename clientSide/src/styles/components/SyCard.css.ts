@@ -12,15 +12,15 @@ export const container = style({
 
 export const leadCard = style({
   background: vars.colors.white,
-  width: "80%",
+  width: "100%",
   color: vars.colors.brandDark,
   margin: "0 auto",
   padding: "2rem",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   textAlign: "center",
+  overflow: "scroll",
 });
 
- 
 export const authForm = style({
   maxWidth: "30vw",
   background: vars.colors.white,
@@ -38,8 +38,6 @@ export const authForm = style({
   "@media screen and (min-width: 992px) and (max-width: 1200px)": {
     maxWidth: "50vw",
   },
-
-
 });
 
 export const cardTitle = style({
