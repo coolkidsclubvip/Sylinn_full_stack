@@ -4,6 +4,7 @@
 import Carousel from "react-bootstrap/Carousel";
 import BannerButton from "./BannerButton";
 import { Link } from "react-router-dom";
+import video from "/images/carousel_images/modern_desgin.mp4";
 
 import * as styles from "../../styles/components/HomepageCarousel.css";
 
@@ -11,6 +12,19 @@ function HomepageCarousel() {
   return (
     <div className={styles.carouselContainer}>
       <Carousel fade variant="dark">
+        {/* ////////video */}
+
+        <Carousel.Item>
+          <div className={styles.image1}>
+            <div className={styles.videoContainer}>
+              <video autoPlay muted controls >
+                <source src={video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </Carousel.Item>
+        {/* ///////////////////// */}
         <Carousel.Item>
           <div className={styles.image1}>
             <div className={styles.carouselCaption}>

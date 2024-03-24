@@ -9,6 +9,22 @@ export const carouselContainer = style({
   marginBottom: "10rem",
 });
 
+// Video styles
+export const videoContainer = style({
+  position: "relative",
+  width: " 100%",
+  height: "100%",
+});
+
+// export const carouselVideo = style({
+//   maxWidth: '100%', /* 控制视频最大宽度 */
+//   height: '100vh', /* 自适应高度 */
+//   position: 'absolute',
+//  bottom: 0,
+//   left: 0,
+
+// });
+
 export const image1 = style({
   width: "100vw",
   height: "100vh",
