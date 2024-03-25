@@ -8,7 +8,7 @@ export const imageContainer = style({
   position: "relative",
   height: "200px",
   marginTop: "70px",
-  "@media screen and (max-width: 768px)": { marginTop: "150px" },
+  "@media screen and (max-width: 768px)": { marginTop: "150px",  },
 });
 
 export const titleText = style({
@@ -30,6 +30,8 @@ export const contentImage = style({
   width: "30vw",
   height: "auto",
   overflow: "hidden",
+   "@media screen and (max-width: 768px)": { marginTop: "50px",
+  width:"90%",padding:"5px"  },
 });
 
 export const contentText = style({
