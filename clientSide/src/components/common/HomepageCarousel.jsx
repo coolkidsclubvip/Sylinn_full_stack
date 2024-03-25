@@ -1,6 +1,4 @@
-// import s001 from "/images/carousel_images/s001.jpeg";
-// import s002 from "/images/carousel_images/s002.jpeg";
-// import s003 from "/images/carousel_images/s003.jpeg";
+
 import Carousel from "react-bootstrap/Carousel";
 import BannerButton from "./BannerButton";
 import { Link } from "react-router-dom";

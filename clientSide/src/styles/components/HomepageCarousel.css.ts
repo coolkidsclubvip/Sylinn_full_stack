@@ -17,12 +17,11 @@ export const videoContainer = style({
 });
 
 export const carouselVideo = style({
-  width: "auto" /* 控制视频最大宽度 */,
+
+  "@media screen and (max-width: 768px)": {
+      width: "auto" /* 控制视频最大宽度 */,
   height: "100%" /* 自适应高度 */,
   position: "absolute",
-  // bottom: 0,
-  // left: 0,
-  "@media screen and (max-width: 768px)": {
     // bottom: "-10%",
     left: "-50%",
     transform: "scale(0.8)",
