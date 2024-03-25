@@ -15,9 +15,9 @@ function HomepageCarousel() {
         {/* ////////video */}
 
         <Carousel.Item>
-          <div className={styles.image1}>
+          <div className={styles.image0}>
             <div className={styles.videoContainer}>
-              <video autoPlay muted controls >
+              <video autoPlay muted className={styles.carouselVideo}>
                 <source src={video} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
