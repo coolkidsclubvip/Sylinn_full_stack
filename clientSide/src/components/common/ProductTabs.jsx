@@ -52,6 +52,9 @@ const downloadFileName = readUtils.deleteTimestampFromName(
 );
 return downloadFileName;
 }
+
+
+console.log("titleinfo:",titleInfo);
   return (
     <>
       <div className={styles.tabsContainer}>
@@ -73,7 +76,7 @@ return downloadFileName;
                 }`}
                 onClick={() => handleTabClick("downloads")}
               >
-                <span className={fonts.futuraTabText}>Downloads</span>
+                <span className={fonts.futuraTabText}>Downloads ({titleInfo.downloadUrls.length })</span> 
               </td>
               <td className={styles.restTab}>
                  
