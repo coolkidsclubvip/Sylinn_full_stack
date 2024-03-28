@@ -23,7 +23,7 @@ export const OSList = style({
 });
 
 export const OSItem = style({
-  height: "420px",
+  height: "450px",
   overflow: "hidden",
   boxShadow: "1px 2px 8px 2px rgba(0, 0, 0, 0.3)",
   margin: "20px 4px",
@@ -40,8 +40,8 @@ export const OSItem = style({
 
 export const OSItemImage = style({
   opacity: 1,
-  width: "100%",
-  height: "230px",
+  // width: "100%",
+  // height: "230px",
   overflow: "hidden",
   padding: 0,
   transition: "all 0.5s ease",

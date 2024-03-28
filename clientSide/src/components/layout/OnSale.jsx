@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import writeUtils from "../../utils/writeUtils";
 import imagePlaceHolder from "../../assets/images/no_image_available.jpeg";
 import LoaderSpinner from "./LoaderSpinner";
+import sortImages from "../../utils/sortImages";
 
 function OnSale() {
   const [titleInfos, setTitleInfos] = useState([]);
@@ -67,8 +68,9 @@ function OnSale() {
   ];
   // Put all unique categories in order alphabetically
   uniqueCategories.sort();
-  // console.log("titleInfos are:", titleInfos);
+  
 
+  
   return (
     <Container>
       <div className={styles.OsContainer}>
@@ -124,7 +126,7 @@ function OnSale() {
                        {loading? <Spinner/>:   <img
                             src={
                               data.titleInfo.urls
-                                ? data.titleInfo.urls[0]
+                                ? sortImages(data.titleInfo.urls)[0]
                                 : imagePlaceHolder
                             }
                             alt={data.titleInfo.title}
