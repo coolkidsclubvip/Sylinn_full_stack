@@ -5,12 +5,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import readUtils from "../../utils/readUtils";
 
 function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
-  // const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
-  // 根据 initialProductId 设置初始大图 URL
-  const isBigImageUrl =
-    titleInfo.urls.find((url) =>
-      readUtils.getFileFromUrl(url).includes(initialProductId)
-    ) || imagePlaceHolder;
+  // Initialize big model image with first image in URLs
+  const isBigImageUrl = titleInfo.urls ? titleInfo.urls[0] : imagePlaceHolder;
+
+
 
   const [slideIndex, setSlideIndex] = useState(0);
   const [bigImageUrl, setBigImageUrl] = useState(isBigImageUrl); // Initialize with the first image URL
@@ -105,7 +103,7 @@ function ProductImageModal({ titleInfo, selectedOption, initialProductId }) {
   // Set the big image URL according to selected option
   //1. Get image names from urls
   const imageNames = [];
-  console.log("titleInfo.urls in modal:", titleInfo.urls);
+ 
 
   titleInfo.urls.map((url) => {
     const imageName = readUtils.getFileFromUrl(url);
