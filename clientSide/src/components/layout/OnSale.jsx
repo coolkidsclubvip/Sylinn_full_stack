@@ -22,7 +22,7 @@ function OnSale() {
       // console.log("response.data is: ", response.data);
       setTitleInfos(response.data);
       // Store data in localStorage
-      localStorage.setItem(`onSaleTitleInfos`, JSON.stringify(response.data));
+      // localStorage.setItem(`onSaleTitleInfos`, JSON.stringify(response.data));
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -41,16 +41,17 @@ function OnSale() {
   }
 
   useEffect(() => {
-    // Check if data exists in localStorage
-    const cachedData = localStorage.getItem(`onSaleTitleInfos`);
+    // Check if data exists in localStorage----->disabled fuction,cuasing too much caching problems
+    // const cachedData = localStorage.getItem(`onSaleTitleInfos`);
 
-    if (cachedData) {
-      // Use cached data if available
-      setTitleInfos(JSON.parse(cachedData));
-      setLoading(false);
-    } else {
-      FetchOnSaleTitleInfos();
-    }
+    // if (cachedData) {
+    //   // Use cached data if available
+    //   setTitleInfos(JSON.parse(cachedData));
+    //   setLoading(false);
+    // } else {
+    //   FetchOnSaleTitleInfos();
+    // }
+    FetchOnSaleTitleInfos();
 
     // call function to set default category
 
@@ -120,14 +121,14 @@ function OnSale() {
                         to={`/products/${data.category}/${data.collection}`}
                       >
                         <div className={styles.OSItemImage}>
-                          <img
+                       {loading? <Spinner/>:   <img
                             src={
                               data.titleInfo.urls
                                 ? data.titleInfo.urls[0]
                                 : imagePlaceHolder
                             }
                             alt={data.titleInfo.title}
-                          />
+                          />}
                         </div>
 
                         <div className={styles.OSItemText}>
