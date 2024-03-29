@@ -1,4 +1,3 @@
-
 import Carousel from "react-bootstrap/Carousel";
 import BannerButton from "./BannerButton";
 import { Link } from "react-router-dom";
@@ -9,7 +8,7 @@ import * as styles from "../../styles/components/HomepageCarousel.css";
 function HomepageCarousel() {
   return (
     <div className={styles.carouselContainer}>
-      <Carousel fade variant="dark">
+      <Carousel fade variant="dark" interval={7000}>
         {/* ////////video */}
 
         <Carousel.Item>
