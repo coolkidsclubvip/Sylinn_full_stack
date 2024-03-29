@@ -76,7 +76,7 @@ console.log("titleinfo:",titleInfo);
                 }`}
                 onClick={() => handleTabClick("downloads")}
               >
-                <span className={fonts.futuraTabText}>Downloads ({titleInfo.downloadUrls.length })</span> 
+                <span className={fonts.futuraTabText}>Downloads ({titleInfo.downloadUrls.length})</span> 
               </td>
               <td className={styles.restTab}>
                  
