@@ -7,7 +7,7 @@ function AboutPage() {
   return (
     <>
       <Helmet>
-        <title>about us</title>
+        <title>About Us</title>
       </Helmet>
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>SYLINN STORY</div>

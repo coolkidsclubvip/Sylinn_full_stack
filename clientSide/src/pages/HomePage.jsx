@@ -10,7 +10,10 @@ function HomePage() {
   return (
     <div className={styles.homeContainer}>
       <Helmet>
-        <title>Homepage</title>
+        <title>
+          Sylinn Australia: Bathtub, sinks, LED mirrors, heated towel racks and
+          more
+        </title>
       </Helmet>
       <HomepageCarousel />
       <ProductsGrid />

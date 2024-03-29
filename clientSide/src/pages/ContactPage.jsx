@@ -11,7 +11,7 @@ function ContactPage() {
   return (
     <>
       <Helmet>
-        <title>contact us</title>
+        <title>Contact Us</title>
       </Helmet>
       <div className={styles.imageContainer}>
         <div className={styles.titleText}>CONTACT US</div>
