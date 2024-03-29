@@ -35,7 +35,7 @@ export const contentImage = style({
 });
 
 export const contentText = style({
-  width: "30vw",
+  width: "90%",
   paddingTop: "4rem",
   textAlign: "justify",
 });
