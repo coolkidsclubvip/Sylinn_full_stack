@@ -21,25 +21,23 @@ function OffCanvas_Nav({ showOffcanvas, setShowOffcanvas }) {
         >
           <div className="offcanvas-body d-flex flex-column mt-5 py-5 px-5">
             <Nav.Link className={styles.navbtn}>
-              <Link to={"/"}>
+              <Link to={"/"} className={styles.navLink}>
                 <span className={fonts.futuraNav}>Home</span>
               </Link>
             </Nav.Link>
             <Nav.Link className={styles.navbtn}>
-              <Link to={"/products"}>
+              <Link to={"/products"} className={styles.navLink}>
                 <span className={fonts.futuraNav}>Products</span>
               </Link>
             </Nav.Link>
             <Nav.Link className={styles.navbtn}>
-              <Link to={"/about"}>
+              <Link to={"/about"} className={styles.navLink}>
                 <span className={fonts.futuraNav}>About</span>
               </Link>
             </Nav.Link>
-            {/* <Nav.Link className={styles.navbtn} href="/gallery">
-              <span className={fonts.futuraNav}>Gallery&nbsp;&nbsp;</span>
-            </Nav.Link> */}
+
             <Nav.Link className={styles.navbtn}>
-              <Link to={"/contact"}>
+              <Link to={"/contact"} className={styles.navLink}>
                 <span className={fonts.futuraNav}>Contact</span>
               </Link>
             </Nav.Link>
