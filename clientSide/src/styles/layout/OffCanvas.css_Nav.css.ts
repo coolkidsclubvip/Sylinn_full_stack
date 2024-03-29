@@ -16,6 +16,7 @@ export const navbtn = style({
 
 export const navLink = style({
   padding: "1em", // 调整内边距以增大可点击区域
+  lineHeight:"3em",
   borderRadius: "0.25rem", // 添加边框半径以使背景色更加明显
   
   ":hover": {
